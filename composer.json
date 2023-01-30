@@ -1,6 +1,6 @@
 {
   "name": "wertyzp/telegram-bot-client",
-  "description": "Json Http Client",
+  "description": "Telegram Bot Client",
   "minimum-stability": "dev",
   "license": ["MIT"],
   "config": {
