@@ -27,6 +27,7 @@
     "php-cs-fixer": "vendor/bin/php-cs-fixer"
   },
   "require": {
+    "wertyzp/json-http-client": "dev-main",
     "wertyzp/mapped-object": "dev-main"
   }
 }

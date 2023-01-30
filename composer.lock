@@ -4,8 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ee1325d7b5d0e44f5073b03877f5450",
+    "content-hash": "d74eec4498acb2a6f230cd8136818c63",
     "packages": [
+        {
+            "name": "wertyzp/json-http-client",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wertyzp/json-http-client.git",
+                "reference": "472f4c35dbc14e3e099dd41d7c073d69c504153b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wertyzp/json-http-client/zipball/472f4c35dbc14e3e099dd41d7c073d69c504153b",
+                "reference": "472f4c35dbc14e3e099dd41d7c073d69c504153b",
+                "shasum": ""
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": ">=v2.19.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Werty\\Http\\Json\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Json Http Client",
+            "support": {
+                "issues": "https://github.com/wertyzp/json-http-client/issues",
+                "source": "https://github.com/wertyzp/json-http-client/tree/main"
+            },
+            "time": "2022-07-16T14:31:07+00:00"
+        },
         {
             "name": "wertyzp/mapped-object",
             "version": "dev-main",
@@ -2217,6 +2249,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "wertyzp/json-http-client": 20,
         "wertyzp/mapped-object": 20
     },
     "prefer-stable": false,
