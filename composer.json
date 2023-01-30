@@ -1,5 +1,5 @@
 {
-  "name": "wertyzp/telegra-bot-client",
+  "name": "wertyzp/telegram-bot-client",
   "description": "Json Http Client",
   "minimum-stability": "dev",
   "license": ["MIT"],
