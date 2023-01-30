@@ -2,6 +2,7 @@
   "name": "wertyzp/telegra-bot-client",
   "description": "Json Http Client",
   "minimum-stability": "dev",
+  "license": ["MIT"],
   "config": {
     "preferred-install": "dist",
     "sort-packages": true,
