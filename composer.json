@@ -1,0 +1,32 @@
+{
+  "name": "wertyzp/telegra-bot-client",
+  "description": "Json Http Client",
+  "minimum-stability": "dev",
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "7.4.4"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Werty\\Http\\Clients\\TelegramBot\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": ">=v2.19.3"
+  },
+  "scripts": {
+    "php-cs-fixer": "vendor/bin/php-cs-fixer"
+  },
+  "require": {
+    "wertyzp/mapped-object": "dev-main"
+  }
+}
