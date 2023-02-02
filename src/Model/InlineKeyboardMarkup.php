@@ -25,7 +25,7 @@ class InlineKeyboardMarkup extends EmptyObject
                 ];
                 $buttons[] = $item;
             }
-            $row[] = $buttons;
+            $data[] = $buttons;
         }
         return json_encode(['inline_keyboard' => $data]);
     }
