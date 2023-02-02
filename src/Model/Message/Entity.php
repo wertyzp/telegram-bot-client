@@ -8,6 +8,9 @@ use Werty\Mapping\EmptyObject;
 
 class Entity extends EmptyObject
 {
+    public const TYPE_TEXT_LINK = 'text_link';
+    public const TYPE_URL = 'url';
+
     protected $offset;
     protected $length;
     protected $type;
@@ -28,4 +31,15 @@ class Entity extends EmptyObject
         return in_array($this->type, ['text_link', 'url']);
     }
 
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    public function getLength()
+    {
+        return $this->length;
+    }
+
 }
+
