@@ -13,7 +13,7 @@ class InlineKeyboardMarkup extends EmptyObject
     ];
     protected $inline_keyboard;
 
-    public static function makeSimple(array ...$rows): string
+    public static function makeSimple(array $rows): string
     {
         $data = [];
         foreach ($rows as $row) {
