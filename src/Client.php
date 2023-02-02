@@ -270,4 +270,15 @@ class Client extends \Werty\Http\Json\Client
         }
         throw new TelegramBotException($response);
     }
+
+    public function answerCallbackQuery($callbackQueryId, $text = null)
+    {
+        $data = [
+            'callback_query_id' => $callbackQueryId,
+        ];
+        if ($text) {
+            $data['text'] = $text;
+        }
+        return $this->post("$this->url/answerCallbackQuery", $data);
+    }
 }
