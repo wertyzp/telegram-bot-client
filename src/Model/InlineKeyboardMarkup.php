@@ -13,16 +13,20 @@ class InlineKeyboardMarkup extends EmptyObject
     ];
     protected $inline_keyboard;
 
-    public static function makeSimple(array $buttons): string
+    public static function makeSimple(array ...$rows): string
     {
         $data = [];
-        foreach ($buttons as $text => $callbackData) {
-            $item = [
-                'text' => $text,
-                'callback_data' => $callbackData,
-            ];
-            $data[] = $item;
+        foreach ($rows as $row) {
+            $buttons = [];
+            foreach ($row as $text => $callbackData) {
+                $item = [
+                    'text' => $text,
+                    'callback_data' => $callbackData,
+                ];
+                $buttons[] = $item;
+            }
+            $row[] = $buttons;
         }
-        return json_encode($data);
+        return json_encode(['inline_keyboard' => $data]);
     }
 }
