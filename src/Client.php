@@ -216,7 +216,7 @@ class Client extends \Werty\Http\Json\Client
         }
     }
 
-    public function sendPhoto($chatId, $file, $caption = null, $replyTo = null)
+    public function sendPhoto($chatId, $file, $caption = null, $replyTo = null, $replyMarkup = null)
     {
         $url = "$this->url/sendPhoto";
 
@@ -230,6 +230,9 @@ class Client extends \Werty\Http\Json\Client
         }
         if ($caption) {
             $data['caption'] = $caption;
+        }
+        if ($replyMarkup) {
+            $data['reply_markup'] = $replyMarkup;
         }
         $ch = curl_init();
         $opts = [
