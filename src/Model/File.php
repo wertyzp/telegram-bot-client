@@ -17,4 +17,20 @@ class File extends EmptyObject
     {
         return $this->file_path;
     }
+
+    public function getFileId()
+    {
+        return $this->file_id;
+    }
+
+    public function getFileUniqueId()
+    {
+        return $this->file_unique_id;
+    }
+
+    public function getFileSize()
+    {
+        return $this->file_size;
+    }
+
 }
