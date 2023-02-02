@@ -98,28 +98,7 @@ class Client extends \Werty\Http\Json\Client
         }
 
         $url = "$this->url/sendAnimation";
-        $ch = curl_init();
-        $opts = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $data,
-        ];
-        curl_setopt_array($ch, $opts);
-        $result = curl_exec($ch);
-        $errno = curl_errno($ch);
-
-        if ($errno) {
-            $message = curl_error($ch);
-            throw new Exception($message, $errno, var_export($opts, true), $result);
-        }
-
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($code >= 300) {
-            $message = "Server responded with unexpected code: {$code}";
-            throw new Exception($message, $code, var_export($opts, true), $result);
-        }
+        return $this->directPost($url, $data);
     }
 
     public function sendAnimation($chatId, $file, $caption = null, $replyTo = null, $mimeType = 'image/gif', $width = null, $height = null)
@@ -148,28 +127,7 @@ class Client extends \Werty\Http\Json\Client
         }
 
         $url = "$this->url/sendAnimation";
-        $ch = curl_init();
-        $opts = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $data,
-        ];
-        curl_setopt_array($ch, $opts);
-        $result = curl_exec($ch);
-        $errno = curl_errno($ch);
-
-        if ($errno) {
-            $message = curl_error($ch);
-            throw new Exception($message, $errno, var_export($opts, true), $result);
-        }
-
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($code >= 300) {
-            $message = "Server responded with unexpected code: {$code}";
-            throw new Exception($message, $code, var_export($opts, true), $result);
-        }
+        return $this->directPost($url, $data);
     }
 
 
@@ -192,28 +150,7 @@ class Client extends \Werty\Http\Json\Client
         }
 
         $url = "$this->url/sendVoice";
-        $ch = curl_init();
-        $opts = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $data,
-        ];
-        curl_setopt_array($ch, $opts);
-        $result = curl_exec($ch);
-        $errno = curl_errno($ch);
-
-        if ($errno) {
-            $message = curl_error($ch);
-            throw new Exception($message, $errno, var_export($opts, true), $result);
-        }
-
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($code >= 300) {
-            $message = "Server responded with unexpected code: {$code}";
-            throw new Exception($message, $code, var_export($opts, true), $result);
-        }
+        return $this->directPost($url, $data);
     }
 
     public function sendPhoto($chatId, $file, $caption = null, $replyTo = null, $replyMarkup = null)
@@ -234,6 +171,11 @@ class Client extends \Werty\Http\Json\Client
         if ($replyMarkup) {
             $data['reply_markup'] = $replyMarkup;
         }
+        return $this->directPost($url, $data);
+    }
+
+    protected function directPost(string $url, array $data)
+    {
         $ch = curl_init();
         $opts = [
             CURLOPT_URL => $url,
@@ -256,6 +198,7 @@ class Client extends \Werty\Http\Json\Client
             $message = "Server responded with unexpected code: {$code}";
             throw new Exception($message, $code, var_export($opts, true), $result);
         }
+        return $result;
     }
 
     public function getChatMember($chatId, $userId): ChatMember
@@ -280,5 +223,22 @@ class Client extends \Werty\Http\Json\Client
             $data['text'] = $text;
         }
         return $this->post("$this->url/answerCallbackQuery", $data);
+    }
+
+    public function editMessagePhoto($chatId, $messageId, $file)
+    {
+        $file = new \CURLFile($file, "image/png", 'photo.png');
+        $media = [
+            'type' => 'photo',
+            'media' => 'attach://photo.png',
+        ];
+        $data = [
+            'chat_id' => $chatId,
+            'messageId' => $messageId,
+            'media' => json_encode($media),
+            'file' => $file,
+        ];
+        $url = "$this->url/editMessageMedia";
+        return $this->directPost($url, $data);
     }
 }
