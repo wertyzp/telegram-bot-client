@@ -17,13 +17,14 @@ class InlineKeyboardMarkup extends EmptyObject
     {
         $data = [];
         foreach ($rows as $row) {
+            $chunks = array_chunk($row, 2);
             $buttons = [];
-            foreach ($row as $text => $callbackData) {
-                $item = [
+            foreach ($chunks as $chunk) {
+                list ($text, $callbackData) = $chunk;
+                $buttons[] = [
                     'text' => $text,
                     'callback_data' => $callbackData,
                 ];
-                $buttons[] = $item;
             }
             $data[] = $buttons;
         }
