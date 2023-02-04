@@ -227,16 +227,16 @@ class Client extends \Werty\Http\Json\Client
 
     public function editMessagePhoto($chatId, $messageId, $file)
     {
-        $file = new \CURLFile($file, "image/png", 'photo.png');
+        $file = new \CURLFile($file, "image/png", basename($file));
         $media = [
             'type' => 'photo',
-            'media' => 'attach://photo.png',
+            'media' => 'attach://photo',
         ];
         $data = [
             'chat_id' => $chatId,
-            'messageId' => $messageId,
+            'message_id' => $messageId,
             'media' => json_encode($media),
-            'file' => $file,
+            'photo' => $file,
         ];
         $url = "$this->url/editMessageMedia";
         return $this->directPost($url, $data);
