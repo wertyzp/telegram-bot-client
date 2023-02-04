@@ -198,7 +198,7 @@ class Client extends \Werty\Http\Json\Client
             $message = "Server responded with unexpected code: {$code}";
             throw new Exception($message, $code, var_export($opts, true), $result);
         }
-        return $result;
+        return $this->decode($result);
     }
 
     public function getChatMember($chatId, $userId): ChatMember
