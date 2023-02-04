@@ -225,7 +225,7 @@ class Client extends \Werty\Http\Json\Client
         return $this->post("$this->url/answerCallbackQuery", $data);
     }
 
-    public function editMessagePhoto($chatId, $messageId, $file)
+    public function editMessagePhoto($chatId, $messageId, $file, $replyMarkup = null)
     {
         $file = new \CURLFile($file, "image/png", basename($file));
         $media = [
@@ -238,6 +238,9 @@ class Client extends \Werty\Http\Json\Client
             'media' => json_encode($media),
             'photo' => $file,
         ];
+        if ($replyMarkup) {
+            $data['reply_markup'] = $replyMarkup;
+        }
         $url = "$this->url/editMessageMedia";
         return $this->directPost($url, $data);
     }
