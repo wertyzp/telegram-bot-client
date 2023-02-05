@@ -97,7 +97,7 @@ class Client extends \Werty\Http\Json\Client
             $data['caption'] = $caption;
         }
 
-        $url = "$this->url/sendAnimation";
+        $url = "$this->url/sendVideo";
         return $this->directPost($url, $data);
     }
 
