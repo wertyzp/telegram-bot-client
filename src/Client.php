@@ -153,13 +153,20 @@ class Client extends \Werty\Http\Json\Client
         return $this->directPost($url, $data);
     }
 
-    public function sendPhoto($chatId, $file, $caption = null, $replyTo = null, $replyMarkup = null)
+    public function sendPhoto($chatId, $photo, $caption = null, $replyTo = null, $replyMarkup = null)
     {
         $url = "$this->url/sendPhoto";
 
-        $file = new \CURLFile($file, "image/png", basename($file));
+        $scheme = parse_url($photo, PHP_URL_SCHEME);
+        if (!in_array($scheme, ['http', 'https', 'ftp'])) {
+            if (!file_exists($photo)) {
+                throw new \Exception("File $photo doesn't exist");
+            }
+            $photo = new \CURLFile($photo, "image/png", basename($file));
+        }
+
         $data = [
-            'photo' => $file,
+            'photo' => $photo,
             'chat_id' => $chatId,
         ];
         if ($replyTo) {
