@@ -9,6 +9,7 @@ use Werty\Http\Clients\TelegramBot\Model\File;
 use Werty\Http\Clients\TelegramBot\Model\ChatMember;
 use Werty\Http\Clients\TelegramBot\Model\InputMedia;
 use Werty\Http\Json\Exception;
+use Werty\Mapping\EmptyObject;
 
 class Client extends \Werty\Http\Json\Client
 {
@@ -195,7 +196,13 @@ class Client extends \Werty\Http\Json\Client
             $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
         }
 
-        $data['media'] = json_encode($media);
+        $mediaArray = [];
+
+        foreach ($media as $medium) {
+            $mediaArray[] = $medium->toArray();
+        }
+
+        $data['media'] = json_encode($mediaArray);
         if ($replyTo) {
             $data['reply_to_message_id'] = $replyTo;
         }
