@@ -7,6 +7,7 @@ namespace Werty\Http\Clients\TelegramBot;
 use Werty\Http\Clients\TelegramBot\Exception as TelegramBotException;
 use Werty\Http\Clients\TelegramBot\Model\File;
 use Werty\Http\Clients\TelegramBot\Model\ChatMember;
+use Werty\Http\Clients\TelegramBot\Model\InputMedia;
 use Werty\Http\Json\Exception;
 
 class Client extends \Werty\Http\Json\Client
@@ -153,16 +154,63 @@ class Client extends \Werty\Http\Json\Client
         return $this->directPost($url, $data);
     }
 
+
+    private function isUrl($uri): bool
+    {
+        $scheme = parse_url($uri, PHP_URL_SCHEME);
+        if (!in_array($scheme, ['http', 'https', 'ftp'])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param $chatId
+     * @param InputMedia[] $media
+     * @param $replyTo
+     * @return void
+     * @throws Exception
+     */
+
+    public function sendMediaGroup($chatId, array $media, $replyTo = null) {
+        $url = 'sendMediaGroup';
+        $data = [
+            'chat_id' => $chatId,
+        ];
+
+        // replace local filesystem links with curl files
+        foreach ($media as $k => $medium)
+        {
+            $file = $medium->media;
+            if ($this->isUrl($file)) {
+                continue;
+            }
+            if (!file_exists($file)) {
+                throw new \Exception("File $medium->media doesn't exist");
+            }
+
+            $fileKey = "item$k";
+            $medium->media = "attach://$fileKey";
+            $mimeType = mime_content_type($file);
+            $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
+        }
+
+        $data['media'] = json_encode($media);
+        if ($replyTo) {
+            $data['reply_to_message_id'] = $replyTo;
+        }
+        return $this->directPost($url, $data);
+    }
+
     public function sendPhoto($chatId, $photo, $caption = null, $replyTo = null, $replyMarkup = null)
     {
         $url = "$this->url/sendPhoto";
 
-        $scheme = parse_url($photo, PHP_URL_SCHEME);
-        if (!in_array($scheme, ['http', 'https', 'ftp'])) {
+        if (!$this->isUrl($photo)) {
             if (!file_exists($photo)) {
                 throw new \Exception("File $photo doesn't exist");
             }
-            $photo = new \CURLFile($photo, "image/png", basename($file));
+            $photo = new \CURLFile($photo, "image/png", basename($photo));
         }
 
         $data = [

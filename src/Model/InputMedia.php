@@ -8,12 +8,10 @@ use Werty\Mapping\EmptyObject;
 
 class InputMedia extends EmptyObject
 {
-    protected $type;
-    protected $media;
-    protected $caption;
-    protected $parse_mode;
-    protected $caption_entities;
-    protected $has_spoiler;
-
-
+    public $type;
+    public $media;
+    public $caption;
+    public $parse_mode;
+    public $caption_entities;
+    public $has_spoiler;
 }
