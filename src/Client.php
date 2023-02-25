@@ -173,7 +173,7 @@ class Client extends \Werty\Http\Json\Client
      */
 
     public function sendMediaGroup($chatId, array $media, $replyTo = null) {
-        $url = 'sendMediaGroup';
+        $url = "$this->url/sendMediaGroup";
         $data = [
             'chat_id' => $chatId,
         ];
