@@ -14,4 +14,9 @@ class InputMedia extends EmptyObject
     public $parse_mode;
     public $caption_entities;
     public $has_spoiler;
+
+    public function toCleanArray(): array
+    {
+        return array_filter($this->toArray());
+    }
 }

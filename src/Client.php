@@ -199,7 +199,7 @@ class Client extends \Werty\Http\Json\Client
         $mediaArray = [];
 
         foreach ($media as $medium) {
-            $mediaArray[] = $medium->toArray();
+            $mediaArray[] = $medium->toCleanArray();
         }
 
         $data['media'] = json_encode($mediaArray);
