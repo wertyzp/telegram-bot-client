@@ -25,6 +25,12 @@ class Message extends EmptyObject
     protected $message_id;
     protected $voice;
     protected $text;
+    protected $mentioned;
+
+    public function isMentioned(): bool
+    {
+        return $this->mentioned ?? false;
+    }
 
     public function getVoice(): ?File
     {
