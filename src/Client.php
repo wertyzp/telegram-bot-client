@@ -37,7 +37,7 @@ class Client extends \Werty\Http\Json\Client
         return file_get_contents("$this->fileUrl/{$path}");
     }
 
-    public function sendMessage($chatId, $text, $replyTo = null)
+    public function sendMessage($chatId, $text, $replyTo = null, $replyMarkup = null)
     {
         $data = [
             'text' => $text,
@@ -46,6 +46,9 @@ class Client extends \Werty\Http\Json\Client
         ];
         if ($replyTo) {
             $data['reply_to_message_id'] = $replyTo;
+        }
+        if ($replyMarkup) {
+            $data['reply_markup'] = $replyMarkup;
         }
         return $this->post("$this->url/sendMessage", [], $data);
     }
