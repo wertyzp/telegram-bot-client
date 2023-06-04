@@ -39,7 +39,7 @@ class MarkdownV2
         return $this;
     }
 
-    public function appendMardownV2(string $markdownV2String): self
+    public function appendMarkdownV2(string $markdownV2String): self
     {
         $this->text .= $markdownV2String;
         return $this;
@@ -54,6 +54,4 @@ class MarkdownV2
     {
         return $this->text;
     }
-}
-
 }
