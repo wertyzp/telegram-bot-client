@@ -301,7 +301,7 @@ class Client extends \Werty\Http\Json\Client
         if ($replyMarkup) {
             $data['reply_markup'] = $replyMarkup;
         }
-        return $this->post("$this->url/editMessage", [], $data);
+        return $this->post("$this->url/editMessageText", [], $data);
     }
 
     public function editMessagePhoto($chatId, $messageId, $file, $replyMarkup = null)
