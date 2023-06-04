@@ -290,6 +290,20 @@ class Client extends \Werty\Http\Json\Client
         return $this->post("$this->url/answerCallbackQuery", $data);
     }
 
+    public function editMessage($chatId, $messageId, $text, $replyMarkup = null)
+    {
+        $data = [
+            'text' => $text,
+            'chat_id' => $chatId,
+            'parse_mode' => 'MarkdownV2',
+            'message_id' => $messageId,
+        ];
+        if ($replyMarkup) {
+            $data['reply_markup'] = $replyMarkup;
+        }
+        return $this->post("$this->url/editMessage", [], $data);
+    }
+
     public function editMessagePhoto($chatId, $messageId, $file, $replyMarkup = null)
     {
         $file = new \CURLFile($file, "image/png", basename($file));
