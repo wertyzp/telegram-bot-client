@@ -13,6 +13,7 @@ class Message extends EmptyObject
         'from' => Contact::class,
         'voice' => File::class,
         'entities' => [Message\Entity::class],
+        'reply_to_message' => Message::class,
     ];
 
     /**
@@ -26,6 +27,15 @@ class Message extends EmptyObject
     protected $voice;
     protected $text;
     protected $mentioned;
+    protected $reply_to_message;
+
+    /**
+     * @return mixed
+     */
+    public function getReplyToMessage(): ?Message
+    {
+        return $this->reply_to_message;
+    }
 
     public function isMentioned(): bool
     {
