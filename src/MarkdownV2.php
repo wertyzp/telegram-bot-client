@@ -27,15 +27,27 @@ class MarkdownV2
         $this->appendLine($format, ...$arguments);
     }
 
-    public function appendLine(string $format, ...$arguments): self
+    public function appendLine(?string $format = null, ...$arguments): self
     {
         if (empty($format)) {
+            $this->text .= PHP_EOL;
             return $this;
         }
         $escapedFormat = MarkdownV2::escape($format);
         $escapedArguments = array_map([self::class, 'escape'], $arguments);
         $markdownFormat = str_replace(array_keys(self::MAP), array_values(self::MAP), $escapedFormat);
         $this->text .= vsprintf($markdownFormat, $escapedArguments) . PHP_EOL;
+        return $this;
+    }
+
+    public function line(?string $format = null, ...$arguments): self
+    {
+        return $this->appendLine($format, ...$arguments);
+    }
+
+    public function raw(string $markdownV2String): self
+    {
+        $this->text .= $markdownV2String;
         return $this;
     }
 
