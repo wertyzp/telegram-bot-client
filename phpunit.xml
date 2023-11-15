@@ -1,0 +1,23 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="Telegram Bot Client">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+            <exclude>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="junit" target="phpunit-report.xml"/>
+    </logging>
+</phpunit>

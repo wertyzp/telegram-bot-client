@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot;
 
-use Werty\Http\Clients\TelegramBot\Exception as TelegramBotException;
-use Werty\Http\Clients\TelegramBot\Model\File;
-use Werty\Http\Clients\TelegramBot\Model\ChatMember;
-use Werty\Http\Clients\TelegramBot\Model\InputMedia;
+use http\Env\Request;
+use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
+use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
+use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
+use Werty\Http\Clients\TelegramBot\Requests\Chat;
+use Werty\Http\Clients\TelegramBot\Requests\ChatMember;
+use Werty\Http\Clients\TelegramBot\Requests\File;
+use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
+use Werty\Http\Clients\TelegramBot\Requests\InputMedia;
+use Werty\Http\Clients\TelegramBot\Requests\Response;
+use Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup;
+use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
+use Werty\Http\Clients\TelegramBot\Requests\SendVideo;
+use Werty\Http\Clients\TelegramBot\Requests\TelegramObject;
+use Werty\Http\Clients\TelegramBot\Types\Message;
+use Werty\Http\Clients\TelegramBot\Types\User;
+use Werty\Http\Clients\TelegramBot\Types\UserProfilePhotos;
 use Werty\Http\Json\Exception;
-use Werty\Mapping\EmptyObject;
 
-class Client extends \Werty\Http\Json\Client
+class Client
 {
     private string $url;
     private string $fileUrl;
@@ -22,35 +34,17 @@ class Client extends \Werty\Http\Json\Client
         $this->baseUrl = "https://api.telegram.org";
         $this->url = "$this->baseUrl/bot$token";
         $this->fileUrl = "$this->baseUrl/file/bot$token";
-        parent::__construct();
     }
 
-    public function getFile($fileId): File
+    public function getMe(): Types\User
     {
-        $response = $this->get("$this->url/getFile", ['file_id' => $fileId]);
-        return new File($response->result);
+        return $this->send("getMe", [], Types\User::class);
     }
 
     public function downloadFile(File $file)
     {
         $path = $file->getFilePath();
         return file_get_contents("$this->fileUrl/{$path}");
-    }
-
-    public function sendMessage($chatId, $text, $replyTo = null, $replyMarkup = null)
-    {
-        $data = [
-            'text' => $text,
-            'chat_id' => $chatId,
-            'parse_mode' => 'MarkdownV2',
-        ];
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
-        if ($replyMarkup) {
-            $data['reply_markup'] = $replyMarkup;
-        }
-        return $this->post("$this->url/sendMessage", [], $data);
     }
 
     public function deleteMessage($chatId, $messageId)
@@ -85,84 +79,110 @@ class Client extends \Werty\Http\Json\Client
         return $this->post("$this->url/deleteWebhook", ['drop_pending_updates' => $dropPendingUpdates]);
     }
 
-    public function sendVideo($chatId, $file, $caption = null, $replyTo = null, $mimeType = 'image/gif')
+    /**
+     *
+     * Use this method to send audio files, if you want Telegram clients to display them
+     * in the music player. Your audio must be in the .MP3 or .M4A format.
+     * On success, the sent Message is returned.
+     * Bots can currently send audio files of up to 50 MB in size, this limit may be changed in
+     * the future.
+     * @param SendAudio $audio
+     * @return Message
+     * @throws Exception
+     * @throws HttpException
+     */
+
+    public function sendAudio(Requests\SendAudio $audio): Message
     {
-        $file = new \CURLFile($file, $mimeType, basename($file));
-
-        $data = [
-            'video' => $file,
-            'chat_id' => $chatId,
-        ];
-
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
-
-        if ($caption) {
-            $data['caption'] = $caption;
-        }
-
-        $url = "$this->url/sendVideo";
-        return $this->directPost($url, $data);
+        return $this->send('sendAudio', $audio->toArray(), Message::class);
     }
 
-    public function sendAnimation($chatId, $file, $caption = null, $replyTo = null, $mimeType = 'image/gif', $width = null, $height = null)
+    public function sendVideo(SendVideo $video): Message
     {
-        $file = new \CURLFile($file, $mimeType, basename($file));
-
-        $data = [
-            'animation' => $file,
-            'chat_id' => $chatId,
-        ];
-
-        if ($width) {
-            $data['width'] = $width;
-        }
-
-        if ($height) {
-            $data['height'] = $height;
-        }
-
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
-
-        if ($caption) {
-            $data['caption'] = $caption;
-        }
-
-        $url = "$this->url/sendAnimation";
-        return $this->directPost($url, $data);
+        return $this->send('sendVideo', $video->toArray(), Message::class);
     }
 
-
-    public function sendVoice($chatId, $file, $caption = null, $replyTo = null)
+    public function sendVideoNote(Requests\SendVideoNote $videoNote): Message
     {
-        $file = new \CURLFile($file, "audio/ogg", basename($file));
+        return $this->send('sendVideoNote', $videoNote->toArray(), Message::class);
+    }
 
-        $data = [
-            'voice' => $file,
-            'chat_id' => $chatId,
-            'disable_notification' => true,
-        ];
+    public function sendDice(Requests\SendDice $dice): Message
+    {
+        return $this->send('sendDice', $dice->toArray(), Message::class);
+    }
 
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
+    public function sendChatAction(Requests\SendChatAction $chatAction): bool
+    {
+        return $this->send('sendChatAction', $chatAction->toArray(), ModelBase::T_BOOLEAN);
+    }
 
-        if ($caption) {
-            $data['caption'] = $caption;
-        }
+    /**
+     * @param Requests\GetUserProfilePhotos $userProfilePhotos
+     * @return UserProfilePhotos
+     * @throws Exception
+     * @throws HttpException
+     */
+    public function getUserProfilePhotos(Requests\GetUserProfilePhotos $userProfilePhotos): UserProfilePhotos
+    {
+        return $this->send('getUserProfilePhotos', $userProfilePhotos->toArray(), UserProfilePhotos::class);
+    }
 
-        $url = "$this->url/sendVoice";
-        return $this->directPost($url, $data);
+    public function getFile(Requests\GetFile $file): File
+    {
+        return $this->send('getFile', $file->toArray(), File::class);
+    }
+
+    public function banChatMember(Requests\BanChatMember $banChatMember): bool
+    {
+        return $this->send('banChatMember', $banChatMember->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unbanChatMember(Requests\UnbanChatMember $unbanChatMember): bool
+    {
+        return $this->send('unbanChatMember', $unbanChatMember->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function restrictChatMember(Requests\RestrictChatMember $restrictChatMember): bool
+    {
+        return $this->send('restrictChatMember', $restrictChatMember->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function promoteChatMember(Requests\PromoteChatMember $promoteChatMember): bool
+    {
+        return $this->send('promoteChatMember', $promoteChatMember->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function banChatSenderChat(Requests\BanChatSenderChat $banChatSenderChat): bool
+    {
+        return $this->send('banChatSenderChat', $banChatSenderChat->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setChatAdministratorCustomTitle(Requests\SetChatAdministratorCustomTitle $setChatAdministratorCustomTitle): bool
+    {
+        return $this->send('setChatAdministratorCustomTitle', $setChatAdministratorCustomTitle->toArray(), ModelBase::T_BOOLEAN);
+    }
+
+    public function sendDocument(Requests\SendDocument $document): Message
+    {
+        return $this->send('sendDocument', $document->toArray(), Message::class);
+    }
+
+    public function sendAnimation(Requests\SendAnimation $animation): Message
+    {
+        return $this->send('sendAnimation', $animation->toArray(), Message::class);
+    }
+
+    public function sendVoice(Requests\SendVoice $voice): Message
+    {
+        return $this->send('sendVoice', $voice->toArray(), Message::class);
     }
 
 
     private function isUrl($uri): bool
     {
         $scheme = parse_url($uri, PHP_URL_SCHEME);
-        if (!in_array($scheme, ['http', 'https', 'ftp'])) {
+        if (!in_array($scheme, ['http', 'https', 'ftp', 'attach'])) {
             return false;
         }
         return true;
@@ -172,74 +192,61 @@ class Client extends \Werty\Http\Json\Client
      * @param $chatId
      * @param InputMedia[] $media
      * @param $replyTo
-     * @return void
-     * @throws Exception
+     * @return Message[]
+     * @throws HttpException|Exception
      */
 
-    public function sendMediaGroup($chatId, array $media, $replyTo = null) {
-        $url = "$this->url/sendMediaGroup";
-        $data = [
-            'chat_id' => $chatId,
-        ];
+    public function sendMediaGroup(SendMediaGroup $mediaGroup): array
+    {
+        $data = [];
 
-        // replace local filesystem links with curl files
-        foreach ($media as $k => $medium)
+
+        print_r($mediaGroup);
+        foreach ($mediaGroup->getMedia() as $k => $medium)
         {
-            $file = $medium->media;
+            print_r($medium);
+            $file = $medium->getMedia();
+
             if ($this->isUrl($file)) {
                 continue;
             }
+
             if (!file_exists($file)) {
-                throw new \Exception("File $medium->media doesn't exist");
+                throw new \Exception("File {$medium->getMedia()} doesn't exist");
             }
 
             $fileKey = "item$k";
-            $medium->media = "attach://$fileKey";
+            $medium->setMedia("attach://$fileKey");
             $mimeType = mime_content_type($file);
             $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
         }
 
-        $mediaArray = [];
-
-        foreach ($media as $medium) {
-            $mediaArray[] = $medium->toCleanArray();
-        }
-
-        $data['media'] = json_encode($mediaArray);
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
-        return $this->directPost($url, $data);
+        $data = array_merge($data, $mediaGroup->toArray());
+        $data['media'] = json_encode($data['media']);
+        return $this->send('sendMediaGroup', $data, [Message::class]);
     }
 
-    public function sendPhoto($chatId, $photo, $caption = null, $replyTo = null, $replyMarkup = null)
+    public function sendVenue(Requests\SendVenue $venue): Message
     {
-        $url = "$this->url/sendPhoto";
-
-        if (!$this->isUrl($photo)) {
-            if (!file_exists($photo)) {
-                throw new \Exception("File $photo doesn't exist");
-            }
-            $photo = new \CURLFile($photo, "image/png", basename($photo));
-        }
-
-        $data = [
-            'photo' => $photo,
-            'chat_id' => $chatId,
-        ];
-        if ($replyTo) {
-            $data['reply_to_message_id'] = $replyTo;
-        }
-        if ($caption) {
-            $data['caption'] = $caption;
-        }
-        if ($replyMarkup) {
-            $data['reply_markup'] = $replyMarkup;
-        }
-        return $this->directPost($url, $data);
+        return $this->send('sendVenue', $venue->toArray(), Message::class);
     }
 
-    protected function directPost(string $url, array $data)
+    public function sendContact(Requests\SendContact $contact): Message
+    {
+        return $this->send('sendContact', $contact->toArray(), Message::class);
+    }
+
+    public function sendPoll(Requests\SendPoll $poll): Message
+    {
+        return $this->send('sendPoll', $poll->toArray(), Message::class);
+    }
+    /**
+     * @param string $url
+     * @param array $data
+     * @return Response
+     * @throws Exception
+     */
+    protected function post(string $url, array $data): Response
     {
         $ch = curl_init();
         $opts = [
@@ -259,11 +266,13 @@ class Client extends \Werty\Http\Json\Client
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if ($code >= 300) {
+        try {
+            $decoded = json_decode($result, false, 512, JSON_THROW_ON_ERROR);
+            return new Response($decoded);
+        } catch (\JsonException $e) {
             $message = "Server responded with unexpected code: {$code}";
-            throw new Exception($message, $code, var_export($opts, true), $result);
+            throw new HttpException($message, $code, $data, $result ?: '');
         }
-        return $this->decode($result);
     }
 
     public function getChatMember($chatId, $userId): ChatMember
@@ -279,50 +288,55 @@ class Client extends \Werty\Http\Json\Client
         throw new TelegramBotException($response);
     }
 
-    public function answerCallbackQuery($callbackQueryId, $text = null)
+    public function getChat(int|string $chatId): Chat
     {
-        $data = [
-            'callback_query_id' => $callbackQueryId,
-        ];
-        if ($text) {
-            $data['text'] = $text;
-        }
-        return $this->post("$this->url/answerCallbackQuery", $data);
+        return $this->send('getChat', ['chat_id' => $chatId], Requests\Chat::class);
     }
 
-    public function editMessage($chatId, $messageId, $text, $replyMarkup = null)
+    public function answerCallbackQuery(AnswerCallbackQuery $query): bool
     {
-        $data = [
-            'text' => $text,
-            'chat_id' => $chatId,
-            'parse_mode' => 'MarkdownV2',
-            'message_id' => $messageId,
-        ];
-        if ($replyMarkup) {
-            $data['reply_markup'] = $replyMarkup;
-        }
-        return $this->post("$this->url/editMessageText", [], $data);
+        $data = $query->toArray();
+        $this->send("answerCallbackQuery", $data);
     }
 
-
-
-    public function editMessagePhoto($chatId, $messageId, $file, $replyMarkup = null)
+    public function editMessageText(Requests\EditMessageText $message): Message
     {
-        $file = new \CURLFile($file, "image/png", basename($file));
-        $media = [
-            'type' => 'photo',
-            'media' => 'attach://photo',
-        ];
-        $data = [
-            'chat_id' => $chatId,
-            'message_id' => $messageId,
-            'media' => json_encode($media),
-            'photo' => $file,
-        ];
-        if ($replyMarkup) {
-            $data['reply_markup'] = $replyMarkup;
+        return $this->send('editMessageText', $message->toArray(), Message::class);
+    }
+
+    public function sendMessage(Requests\SendMessage $message): Types\Message {
+        return $this->send('sendMessage', $message->toArray(), Types\Message::class);
+    }
+
+    public function forwardMessage(ForwardMessage $forwardMessage): Types\Message {
+        return $this->send('forwardMessage', $forwardMessage->toArray(), Types\Message::class);
+    }
+
+    public function copyMessage(CopyMessage $copyMessage): Types\Message {
+        return $this->send('copyMessage', $copyMessage->toArray(), Types\Message::class);
+    }
+
+    public function sendPhoto(SendPhoto $message): Types\Message {
+        return $this->send('sendPhoto', $message->toArray(), Types\Message::class);
+    }
+
+    /**
+     * @param string $path
+     * @param array $data
+     * @param mixed $responseType
+     * @return mixed
+     * @throws Exception
+     * @throws HttpException
+     */
+    protected function send(string $path, array $data, mixed $responseType): mixed
+    {
+        $url = "$this->url/$path";
+        $response = $this->post($url, $data);
+
+       if ($response->isOk() === true) {
+            return ModelBase::mapType($responseType, $response->getResult());
+        } else {
+            throw new HttpException($response->getDescription(), $response->getErrorCode(), $data, $response);
         }
-        $url = "$this->url/editMessageMedia";
-        return $this->directPost($url, $data);
     }
 }

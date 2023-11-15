@@ -8,7 +8,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "7.4.4"
+      "php": "8.1.0"
     }
   },
   "autoload": {
@@ -22,13 +22,16 @@
     }
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": ">=v2.19.3"
+    "friendsofphp/php-cs-fixer": ">=v2.19.3",
+    "phpunit/phpunit": "^9.5"
   },
   "scripts": {
     "php-cs-fixer": "vendor/bin/php-cs-fixer"
   },
   "require": {
     "wertyzp/json-http-client": "dev-main",
-    "wertyzp/mapped-object": "dev-main"
+    "wertyzp/mapped-object": "dev-main",
+    "ext-curl": "*",
+    "ext-fileinfo": "*"
   }
 }
