@@ -3,16 +3,18 @@
 declare(strict_types=1);
 
 use Werty\Http\Clients\TelegramBot\Client;
+use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
+use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
 use Werty\Http\Clients\TelegramBot\Requests\SendContact;
-use Werty\Http\Clients\TelegramBot\Requests\SendVenue;
 
 chdir(dirname(dirname(__DIR__)));
 
 require_once 'vendor/autoload.php';
 
-$token = '6963417705:AAH4jCenBy1i8u_Wynu6w4l9qD3qVvMjHgY';
+$config = parse_ini_file('.env', true, INI_SCANNER_TYPED);
+$token = $config['BOT_TOKEN'];
+$chatId = $config['CHAT_ID'];
 $client = new Client($token);
-$chatId = 410378695;
 $message = SendContact::create($chatId, '123123', 'dmitry');
 $client->sendContact($message);
 

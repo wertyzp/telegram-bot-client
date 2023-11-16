@@ -169,16 +169,4 @@ class SendMessage extends Request
         return $this;
     }
 
-    public function toArray($only = []): array
-    {
-        $data = parent::toArray($only);
-        if (isset($data['reply_markup'])) {
-            $data['reply_markup'] = json_encode($data['reply_markup']);
-        }
-        if (isset($data['entities'])) {
-            $data['entities'] = json_encode($data['entities']);
-        }
-        return $data;
-    }
-
 }

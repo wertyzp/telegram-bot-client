@@ -57,6 +57,11 @@ class Client
         return $this->send("getWebhookInfo", [], Types\WebhookInfo::class);
     }
 
+    public function deleteMessage(Requests\DeleteMessage $deleteMessage): bool
+    {
+        return $this->send('deleteMessage', $deleteMessage->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
     public function setWebhook(SetWebhook $request): bool
     {
         return $this->send("setWebhook", $request->toPostData(), ModelBase::T_BOOLEAN);

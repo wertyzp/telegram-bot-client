@@ -2,28 +2,27 @@
 
 declare(strict_types=1);
 
+use Werty\Http\Clients\TelegramBot\Client;
+use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
-use Werty\Http\Clients\TelegramBot\Requests\GetUserProfilePhotos;
-use Werty\Http\Clients\TelegramBot\Requests\SendMessage;
-use Werty\Http\Clients\TelegramBot\Types\ParseMode;
 
 chdir(dirname(dirname(__DIR__)));
 
 require_once 'vendor/autoload.php';
 
-$token = '6963417705:AAH4jCenBy1i8u_Wynu6w4l9qD3qVvMjHgY';
-$client = new \Werty\Http\Clients\TelegramBot\Client($token);
-$chatId = 410378695;
+$config = parse_ini_file('.env', true, INI_SCANNER_TYPED);
+$token = $config['BOT_TOKEN'];
+$chatId = $config['CHAT_ID'];
+$client = new Client($token);
 $text = '\\\test';
-echo $text.PHP_EOL;
-$request = GetUserProfilePhotos::create($chatId);
+
+$request = \Werty\Http\Clients\TelegramBot\Requests\GetUserProfilePhotos::create($chatId);
 try {
     $response = $client->getUserProfilePhotos($request);
     print_r($response);
-} catch (\Werty\Http\Clients\TelegramBot\Exceptions\HttpException $e) {
-    var_dump($e->getResponse());
-
+} catch (HttpException $e) {
+    echo "$e";
 } catch (TelegramBotException $e) {
-
+    echo "$e";
 }
 
