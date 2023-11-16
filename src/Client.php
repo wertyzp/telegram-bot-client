@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot;
 
-use http\Env\Request;
 use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
-use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
 use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
 use Werty\Http\Clients\TelegramBot\Requests\Chat;
 use Werty\Http\Clients\TelegramBot\Requests\ChatMember;
@@ -14,16 +12,14 @@ use Werty\Http\Clients\TelegramBot\Requests\File;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
 use Werty\Http\Clients\TelegramBot\Requests\InputMedia;
 use Werty\Http\Clients\TelegramBot\Requests\LeaveChat;
-use Werty\Http\Clients\TelegramBot\Requests\Response;
+use Werty\Http\Clients\TelegramBot\Requests\Request;
+use Werty\Http\Clients\TelegramBot\Requests\SendAudio;
 use Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup;
 use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
 use Werty\Http\Clients\TelegramBot\Requests\SendVideo;
-use Werty\Http\Clients\TelegramBot\Requests\TelegramObject;
+use Werty\Http\Clients\TelegramBot\Requests\SetWebhook;
 use Werty\Http\Clients\TelegramBot\Types\BotDescription;
-use Werty\Http\Clients\TelegramBot\Types\BotName;
-use Werty\Http\Clients\TelegramBot\Types\BotShortDescription;
 use Werty\Http\Clients\TelegramBot\Types\Message;
-use Werty\Http\Clients\TelegramBot\Types\User;
 use Werty\Http\Clients\TelegramBot\Types\UserProfilePhotos;
 use Werty\Http\Json\Exception;
 
@@ -45,26 +41,25 @@ class Client
         return $this->send("getMe", [], Types\User::class);
     }
 
-    public function downloadFile(File $file)
+    public function downloadFile(Types\File $file): string|false
     {
         $path = $file->getFilePath();
         return file_get_contents("$this->fileUrl/{$path}");
     }
 
-
-    public function leaveChat(LeaveChat $leaveChat)
+    public function leaveChat(LeaveChat $leaveChat): bool
     {
         return $this->send('leaveChat', $leaveChat->toPostData(), ModelBase::T_BOOLEAN);
     }
 
-    public function getWebhookInfo()
+    public function getWebhookInfo(): Types\WebhookInfo
     {
-        return $this->send("getWebhookInfo");
+        return $this->send("getWebhookInfo", [], Types\WebhookInfo::class);
     }
 
-    public function setWebhook(string $url)
+    public function setWebhook(SetWebhook $request): bool
     {
-        return $this->post("setWebhook", ['url' => $url]);
+        return $this->send("setWebhook", $request->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function deleteWebhook($dropPendingUpdates = true)
@@ -90,7 +85,7 @@ class Client
         return $this->send('sendAudio', $audio->toPostData(), Message::class);
     }
 
-    public function sendVideo(SendVideo $video): Message
+    public function sendVideo(Requests\SendVideo $video): Message
     {
         return $this->send('sendVideo', $video->toPostData(), Message::class);
     }
@@ -181,25 +176,7 @@ class Client
         return $this->send('sendVoice', $voice->toPostData(), Message::class);
     }
 
-
-    private function isUrl($uri): bool
-    {
-        $scheme = parse_url($uri, PHP_URL_SCHEME);
-        if (!in_array($scheme, ['http', 'https', 'ftp', 'attach'])) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @param $chatId
-     * @param Types\InputMedia[] $media
-     * @param $replyTo
-     * @return Message[]
-     * @throws HttpException|Exception
-     */
-
-    public function sendMediaGroup(SendMediaGroup $mediaGroup): array
+    public function sendMediaGroup(Requests\SendMediaGroup $mediaGroup): array
     {
         return $this->send('sendMediaGroup', $mediaGroup->toPostData(), [Message::class]);
     }

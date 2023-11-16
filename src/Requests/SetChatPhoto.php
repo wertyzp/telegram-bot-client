@@ -2,6 +2,8 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\InputFile;
+
 /**
  * Use this method to set a new profile photo for the chat. Photos can't
  * be changed for private chats. The bot must be an administrator in the
@@ -22,10 +24,11 @@ class SetChatPhoto extends Request
 
     public static function create(int|string $chatId, InputFile $photo): self
     {
-        return new self([
+        $instance = new self([
             'chat_id' => $chatId,
-            'photo' => $photo,
         ]);
+        $instance->setPhoto($photo);
+        return $instance;
     }
 
     /**

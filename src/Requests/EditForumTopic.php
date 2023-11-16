@@ -23,14 +23,14 @@ class EditForumTopic extends Request
      * New topic name, 0-128 characters. If not specified or empty, the curre
      * nt name of the topic will be kept
      */
-    protected ?string $name;
+    protected ?string $name = null;
     /**
      * New unique identifier of the custom emoji shown as the topic icon. Use
      *  getForumTopicIconStickers to get all allowed custom emoji identifiers
      * . Pass an empty string to remove the icon. If not specified, the curre
      * nt icon will be kept
      */
-    protected ?string $icon_custom_emoji_id;
+    protected ?string $icon_custom_emoji_id = null;
 
     public static function create(int|string $chatId, int $messageThreadId): self
     {

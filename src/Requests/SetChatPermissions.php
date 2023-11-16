@@ -2,6 +2,8 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\ChatPermissions;
+
 /**
  * Use this method to set default chat permissions for all members. The b
  * ot must be an administrator in the group or a supergroup for this to w
@@ -10,6 +12,10 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
  */
 class SetChatPermissions extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'permissions'
+    ];
+
     /**
      * Unique identifier for the target chat or username of the target superg
      * roup (in the format @supergroupusername)
@@ -27,7 +33,7 @@ class SetChatPermissions extends Request
      * notes permissions; the can_send_polls permission will imply the can_se
      * nd_messages permission.
      */
-    protected ?bool $use_independent_chat_permissions;
+    protected ?bool $use_independent_chat_permissions = null;
 
     public static function create(int|string $chatId, ChatPermissions $permissions): self
     {
@@ -38,13 +44,29 @@ class SetChatPermissions extends Request
     }
 
     /**
-     * @param int|string $chatId
+     * @return int|string
+     */
+    public function getChatId(): int|string
+    {
+        return $this->chat_id;
+    }
+
+    /**
+     * @param int|string $chat_id
      * @return SetChatPermissions
      */
-    public function setChatId(int|string $chatId): SetChatPermissions
+    public function setChatId(int|string $chat_id): SetChatPermissions
     {
-        $this->chat_id = $chatId;
+        $this->chat_id = $chat_id;
         return $this;
+    }
+
+    /**
+     * @return ChatPermissions
+     */
+    public function getPermissions(): ChatPermissions
+    {
+        return $this->permissions;
     }
 
     /**
@@ -58,35 +80,21 @@ class SetChatPermissions extends Request
     }
 
     /**
-     * @param bool $useIndependentChatPermissions
-     * @return SetChatPermissions
+     * @return bool|null
      */
-    public function setUseIndependentChatPermissions(bool $useIndependentChatPermissions): SetChatPermissions
-    {
-        $this->use_independent_chat_permissions = $useIndependentChatPermissions;
-        return $this;
-    }
-    /**
-     * @return int|string
-     */
-    public function getChatId(): int|string
-    {
-        return $this->chat_id;
-    }
-
-    /**
-     * @return ChatPermissions
-     */
-    public function getPermissions(): ChatPermissions
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getUseIndependentChatPermissions(): bool
+    public function getUseIndependentChatPermissions(): ?bool
     {
         return $this->use_independent_chat_permissions;
     }
+
+    /**
+     * @param bool|null $use_independent_chat_permissions
+     * @return SetChatPermissions
+     */
+    public function setUseIndependentChatPermissions(?bool $use_independent_chat_permissions): SetChatPermissions
+    {
+        $this->use_independent_chat_permissions = $use_independent_chat_permissions;
+        return $this;
+    }
+
 }

@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Werty\Http\Clients\TelegramBot\Requests;
+namespace Werty\Http\Clients\TelegramBot;
 
-use Werty\Mapping\EmptyObject;
-
-class Response extends EmptyObject
+class Response extends ModelBase
 {
     protected bool $ok;
-    protected mixed $result;
-    protected string $description;
-    protected int $error_code;
+    protected mixed $result = null;
+    protected ?string $description = null;
+    protected ?int $error_code = null;
 
     protected const TYPE_MAP = [
         'ok' => self::T_BOOLEAN,
@@ -25,7 +23,7 @@ class Response extends EmptyObject
     }
 
     /**
-     * @return mixed
+     * @return mixed|null
      */
     public function getResult(): mixed
     {
@@ -33,17 +31,17 @@ class Response extends EmptyObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getErrorCode(): int
+    public function getErrorCode(): ?int
     {
         return $this->error_code;
     }

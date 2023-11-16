@@ -2,20 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Werty\Http\Clients\TelegramBot\Requests;
-
-use Werty\Http\Clients\TelegramBot\Types\CallbackQuery;
-use Werty\Http\Clients\TelegramBot\Types\ChatJoinRequest;
-use Werty\Http\Clients\TelegramBot\Types\ChatMemberUpdated;
-use Werty\Http\Clients\TelegramBot\Types\ChosenInlineResult;
-use Werty\Http\Clients\TelegramBot\Types\InlineQuery;
-use Werty\Http\Clients\TelegramBot\Types\Message;
-use Werty\Http\Clients\TelegramBot\Types\Poll;
-use Werty\Http\Clients\TelegramBot\Types\PollAnswer;
-use Werty\Http\Clients\TelegramBot\Types\PreCheckoutQuery;
-use Werty\Http\Clients\TelegramBot\Types\ShippingQuery;
-use Werty\Http\Clients\TelegramBot\Types\Type;
-use Werty\Mapping\EmptyObject;
+namespace Werty\Http\Clients\TelegramBot\Types;
 
 /**
 Field	Type	Description
@@ -40,7 +27,19 @@ class Update extends Type
 {
     protected const TYPE_MAP = [
         'message' => Message::class,
+        'edited_message' => Message::class,
+        'channel_post' => Message::class,
+        'edited_channel_post' => Message::class,
+        'inline_query' => InlineQuery::class,
+        'chosen_inline_result' => ChosenInlineResult::class,
         'callback_query' => CallbackQuery::class,
+        'shipping_query' => ShippingQuery::class,
+        'pre_checkout_query' => PreCheckoutQuery::class,
+        'poll' => Poll::class,
+        'poll_answer' => PollAnswer::class,
+        'my_chat_member' => ChatMemberUpdated::class,
+        'chat_member' => ChatMemberUpdated::class,
+        'chat_join_request' => ChatJoinRequest::class,
     ];
 
     protected int $update_id;

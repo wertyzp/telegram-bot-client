@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\ForceReply;
 use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\InputFile;
+use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
 use Werty\Mapping\EmptyObject;
@@ -29,8 +31,14 @@ use Werty\Mapping\EmptyObject;
 
 class SendDocument extends EmptyObject
 {
+    protected const SERIALIZE_JSON = [
+        'caption_entities',
+        'reply_markup'
+    ];
+
+
     protected const TYPE_MAP = [
-        'caption_entities' => [Message\MessageEntity::class],
+        'caption_entities' => [MessageEntity::class],
     ];
 
     protected string|int $chat_id;

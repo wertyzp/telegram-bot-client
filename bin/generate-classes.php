@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once 'vendor/autoload.php';
+
 $url = "https://core.telegram.org/bots/api";
 
 $dom = new \DOMDocument();
@@ -76,7 +78,6 @@ foreach ($items as $item) {
         }
 
         if ($item->tagName === 'h4' && count($methodData) === 3) {
-
             $method = new Method();
             $method->name = $methodData[0];
             $method->description = $methodData[1];
@@ -94,8 +95,10 @@ foreach ($items as $item) {
 
             $methodData = [];
 
-            $methodData[] = $item->textContent;
-            echo "  Method: $item->textContent" . PHP_EOL;
+            if (!str_contains($item->textContent, ' ')) {
+                $methodData[] = $item->textContent;
+                echo "  Method: $item->textContent" . PHP_EOL;
+            }
         }
 
         if ($item->tagName === 'p' && count($methodData) === 1) {
@@ -211,16 +214,21 @@ foreach ($methods as $method) {
         $opt = ($parameter->required === 'Optional');
 
         $prefix = '';
+        $suffix = '';
 
         if ($opt) {
             if (count($mappedTypes) > 1) {
                 array_unshift($mappedTypes, 'null');
+                $suffix = ' = null';
             } else {
                 $prefix = '?';
             }
         }
 
         $mappedTypesStr = implode('|', $mappedTypes);
+        if (count($mappedTypes) < 2) {
+            $mappedTypesStr = $prefix.$mappedTypesStr;
+        }
 
         foreach ($commentArray as $key => $comment) {
             $commentArray[$key] = "    $comment";
@@ -233,7 +241,7 @@ foreach ($methods as $method) {
         $allParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
 
         $params[] = implode(PHP_EOL, $commentArray).PHP_EOL;
-        $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name;".PHP_EOL;
+        $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name$suffix;".PHP_EOL;
     }
 
     if (!empty($createMethodParams)) {
@@ -381,30 +389,35 @@ EOT;
 file_put_contents($file, $head.PHP_EOL.implode(PHP_EOL.PHP_EOL, $bodyParts).PHP_EOL.$foot);
 
 foreach($methods as $method) {
+    $expectedSerialize = [];
     foreach ($method->parameters as $param) {
-        $expectedSerialize = [];
-
         if (str_contains($param->description, 'JSON-serialized')) {
             $expectedSerialize[] = $param->name;
         }
     }
 
     $className = ucfirst($method->name);
-    $file = 'src/Requests/'.$className.'.php';
-    if (file_exists($file)) {
-        include_once $file;
-        $requestClass = 'Werty\Http\Clients\TelegramBot\Requests\\'.$className;
+    $requestClass = 'Werty\Http\Clients\TelegramBot\Requests\\'.$className;
+
+    if (class_exists($requestClass)) {
         $rc = new \ReflectionClass($requestClass);
 
         $serialize = [];
-        if ($rc->hasConstant('JSON_SERIALIZE')) {
-            $serialize = $rc->getConstant('JSON_SERIALIZE');
+        if ($rc->hasConstant('SERIALIZE_JSON')) {
+            $serialize = $rc->getConstant('SERIALIZE_JSON');
         }
 
-        $diff = array_diff($serialize, $expectedSerialize);
+        $diff = array_diff($expectedSerialize, $serialize);
         if (!empty($diff)) {
             echo "Missing $className".PHP_EOL;
-            print_r($diff);
+            $items = '    \''.implode("',\n    '", $expectedSerialize).'\'';
+            echo <<<EOT
+            protected const SERIALIZE_JSON = [
+            $items
+            ];
+
+            EOT;
+
         }
 
     }

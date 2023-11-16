@@ -2,12 +2,18 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\MenuButton;
+
 /**
  * Use this method to change the bot's menu button in a private chat, or
  * the default menu button. Returns True on success.
  */
 class SetChatMenuButton extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'menu_button'
+    ];
+
     /**
      * Unique identifier for the target private chat. If not specified, defau
      * lt bot's menu button will be changed
@@ -17,41 +23,42 @@ class SetChatMenuButton extends Request
      * A JSON-serialized object for the bot's new menu button. Defaults to Me
      * nuButtonDefault
      */
-    protected ?MenuButton $menu_button;
-
-
-    /**
-     * @param int $chatId
-     * @return SetChatMenuButton
-     */
-    public function setChatId(int $chatId): SetChatMenuButton
-    {
-        $this->chat_id = $chatId;
-        return $this;
-    }
+    protected ?MenuButton $menu_button = null;
 
     /**
-     * @param MenuButton $menuButton
-     * @return SetChatMenuButton
+     * @return int|null
      */
-    public function setMenuButton(MenuButton $menuButton): SetChatMenuButton
-    {
-        $this->menu_button = $menuButton;
-        return $this;
-    }
-    /**
-     * @return int
-     */
-    public function getChatId(): int
+    public function getChatId(): ?int
     {
         return $this->chat_id;
     }
 
     /**
-     * @return MenuButton
+     * @param int|null $chat_id
+     * @return SetChatMenuButton
      */
-    public function getMenuButton(): MenuButton
+    public function setChatId(?int $chat_id): SetChatMenuButton
+    {
+        $this->chat_id = $chat_id;
+        return $this;
+    }
+
+    /**
+     * @return MenuButton|null
+     */
+    public function getMenuButton(): ?MenuButton
     {
         return $this->menu_button;
     }
+
+    /**
+     * @param MenuButton|null $menu_button
+     * @return SetChatMenuButton
+     */
+    public function setMenuButton(?MenuButton $menu_button): SetChatMenuButton
+    {
+        $this->menu_button = $menu_button;
+        return $this;
+    }
+
 }

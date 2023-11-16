@@ -13,47 +13,49 @@ class SetMyShortDescription extends Request
      * New short description for the bot; 0-120 characters. Pass an empty str
      * ing to remove the dedicated short description for the given language.
      */
-    protected ?string $short_description;
+    protected ?string $short_description = null;
     /**
      * A two-letter ISO 639-1 language code. If empty, the short description
      * will be applied to all users for whose language there is no dedicated
      * short description.
      */
-    protected ?string $language_code;
-
-
-    /**
-     * @param string $shortDescription
-     * @return SetMyShortDescription
-     */
-    public function setShortDescription(string $shortDescription): SetMyShortDescription
-    {
-        $this->short_description = $shortDescription;
-        return $this;
-    }
+    protected ?string $language_code = null;
 
     /**
-     * @param string $languageCode
-     * @return SetMyShortDescription
+     * @return string|null
      */
-    public function setLanguageCode(string $languageCode): SetMyShortDescription
-    {
-        $this->language_code = $languageCode;
-        return $this;
-    }
-    /**
-     * @return string
-     */
-    public function getShortDescription(): string
+    public function getShortDescription(): ?string
     {
         return $this->short_description;
     }
 
     /**
-     * @return string
+     * @param string|null $short_description
+     * @return SetMyShortDescription
      */
-    public function getLanguageCode(): string
+    public function setShortDescription(?string $short_description): SetMyShortDescription
+    {
+        $this->short_description = $short_description;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLanguageCode(): ?string
     {
         return $this->language_code;
     }
+
+    /**
+     * @param string|null $language_code
+     * @return SetMyShortDescription
+     */
+    public function setLanguageCode(?string $language_code): SetMyShortDescription
+    {
+        $this->language_code = $language_code;
+        return $this;
+    }
+
+
 }

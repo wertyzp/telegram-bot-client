@@ -13,23 +13,24 @@ class GetMyDefaultAdministratorRights extends Request
      * Otherwise, default administrator rights of the bot for groups and supe
      * rgroups will be returned.
      */
-    protected ?bool $for_channels;
-
+    protected ?bool $for_channels = null;
 
     /**
-     * @param bool $forChannels
-     * @return GetMyDefaultAdministratorRights
+     * @return bool|null
      */
-    public function setForChannels(bool $forChannels): GetMyDefaultAdministratorRights
-    {
-        $this->for_channels = $forChannels;
-        return $this;
-    }
-    /**
-     * @return bool
-     */
-    public function getForChannels(): bool
+    public function getForChannels(): ?bool
     {
         return $this->for_channels;
     }
+
+    /**
+     * @param bool|null $for_channels
+     * @return GetMyDefaultAdministratorRights
+     */
+    public function setForChannels(?bool $for_channels): GetMyDefaultAdministratorRights
+    {
+        $this->for_channels = $for_channels;
+        return $this;
+    }
+
 }

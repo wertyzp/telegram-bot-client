@@ -33,6 +33,11 @@ reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove 
 
 class SendAudio extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'caption_entities',
+        'reply_markup'
+    ];
+
     protected const TYPE_MAP = [
         'caption_entities' => [MessageEntity::class],
     ];

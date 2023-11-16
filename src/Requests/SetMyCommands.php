@@ -8,6 +8,11 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
  */
 class SetMyCommands extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'commands',
+        'scope'
+    ];
+
     /**
      * A JSON-serialized list of bot commands to be set as the list of the bo
      * t's commands. At most 100 commands can be specified.
@@ -18,7 +23,7 @@ class SetMyCommands extends Request
      * A JSON-serialized object, describing scope of users for which the comm
      * ands are relevant. Defaults to BotCommandScopeDefault.
      */
-    protected ?BotCommandScope $scope;
+    protected ?BotCommandScope $scope = null;
     /**
      * A two-letter ISO 639-1 language code. If empty, commands will be appli
      * ed to all users from the given scope, for whose language there are no

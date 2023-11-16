@@ -40,4 +40,84 @@ class SendDice extends Request
         return new static(['chat_id' => $chat_id]);
     }
 
+    /**
+     * @param int|string $chat_id
+     * @return SendDice
+     */
+    public function setChatId(int|string $chat_id): SendDice
+    {
+        $this->chat_id = $chat_id;
+        return $this;
+    }
+
+    /**
+     * @param int|null $message_thread_id
+     * @return SendDice
+     */
+    public function setMessageThreadId(?int $message_thread_id): SendDice
+    {
+        $this->message_thread_id = $message_thread_id;
+        return $this;
+    }
+
+    /**
+     * @param string|null $emoji
+     * @return SendDice
+     */
+    public function setEmoji(?string $emoji): SendDice
+    {
+        $this->emoji = $emoji;
+        return $this;
+    }
+
+    /**
+     * @param bool|null $disable_notification
+     * @return SendDice
+     */
+    public function setDisableNotification(?bool $disable_notification): SendDice
+    {
+        $this->disable_notification = $disable_notification;
+        return $this;
+    }
+
+    /**
+     * @param bool|null $protect_content
+     * @return SendDice
+     */
+    public function setProtectContent(?bool $protect_content): SendDice
+    {
+        $this->protect_content = $protect_content;
+        return $this;
+    }
+
+    /**
+     * @param int|null $reply_to_message_id
+     * @return SendDice
+     */
+    public function setReplyToMessageId(?int $reply_to_message_id): SendDice
+    {
+        $this->reply_to_message_id = $reply_to_message_id;
+        return $this;
+    }
+
+    /**
+     * @param bool|null $allow_sending_without_reply
+     * @return SendDice
+     */
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendDice
+    {
+        $this->allow_sending_without_reply = $allow_sending_without_reply;
+        return $this;
+    }
+
+    /**
+     * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
+     * @return SendDice
+     */
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendDice
+    {
+        $this->reply_markup = $reply_markup;
+        return $this;
+    }
+
 }

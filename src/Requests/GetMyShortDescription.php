@@ -11,23 +11,24 @@ class GetMyShortDescription extends Request
     /**
      * A two-letter ISO 639-1 language code or an empty string
      */
-    protected ?string $language_code;
-
+    protected ?string $language_code = null;
 
     /**
-     * @param string $languageCode
-     * @return GetMyShortDescription
+     * @return string|null
      */
-    public function setLanguageCode(string $languageCode): GetMyShortDescription
-    {
-        $this->language_code = $languageCode;
-        return $this;
-    }
-    /**
-     * @return string
-     */
-    public function getLanguageCode(): string
+    public function getLanguageCode(): ?string
     {
         return $this->language_code;
     }
+
+    /**
+     * @param string|null $language_code
+     * @return GetMyShortDescription
+     */
+    public function setLanguageCode(?string $language_code): GetMyShortDescription
+    {
+        $this->language_code = $language_code;
+        return $this;
+    }
+
 }

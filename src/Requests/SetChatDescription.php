@@ -18,7 +18,7 @@ class SetChatDescription extends Request
     /**
      * New chat description, 0-255 characters
      */
-    protected ?string $description;
+    protected ?string $description = null;
 
     public static function create(int|string $chatId): self
     {
@@ -28,25 +28,6 @@ class SetChatDescription extends Request
     }
 
     /**
-     * @param int|string $chatId
-     * @return SetChatDescription
-     */
-    public function setChatId(int|string $chatId): SetChatDescription
-    {
-        $this->chat_id = $chatId;
-        return $this;
-    }
-
-    /**
-     * @param string $description
-     * @return SetChatDescription
-     */
-    public function setDescription(string $description): SetChatDescription
-    {
-        $this->description = $description;
-        return $this;
-    }
-    /**
      * @return int|string
      */
     public function getChatId(): int|string
@@ -55,10 +36,31 @@ class SetChatDescription extends Request
     }
 
     /**
-     * @return string
+     * @param int|string $chat_id
+     * @return SetChatDescription
      */
-    public function getDescription(): string
+    public function setChatId(int|string $chat_id): SetChatDescription
+    {
+        $this->chat_id = $chat_id;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
     {
         return $this->description;
     }
+
+    /**
+     * @param string|null $description
+     * @return SetChatDescription
+     */
+    public function setDescription(?string $description): SetChatDescription
+    {
+        $this->description = $description;
+        return $this;
+    }
+
 }

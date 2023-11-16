@@ -26,17 +26,17 @@ class EditChatInviteLink extends Request
     /**
      * Point in time (Unix timestamp) when the link will expire
      */
-    protected ?int $expire_date;
+    protected ?int $expire_date = null;
     /**
      * The maximum number of users that can be members of the chat simultaneo
      * usly after joining the chat via this invite link; 1-99999
      */
-    protected ?int $member_limit;
+    protected ?int $member_limit = null;
     /**
      * True, if users joining the chat via the link need to be approved by ch
      * at administrators. If True, member_limit can't be specified
      */
-    protected ?bool $creates_join_request;
+    protected ?bool $creates_join_request = null;
 
     public static function create(int|string $chatId, string $inviteLink): self
     {

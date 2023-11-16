@@ -8,6 +8,10 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
  */
 class SendLocation extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'reply_markup'
+    ];
+
     /**
      * Unique identifier for the target chat or username of the target channe
      * l (in the format @channelusername)

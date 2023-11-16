@@ -25,7 +25,7 @@ class PinChatMessage extends Request
      * mbers about the new pinned message. Notifications are always disabled
      * in channels and private chats.
      */
-    protected ?bool $disable_notification;
+    protected ?bool $disable_notification = null;
 
     public static function create(int|string $chatId, int $messageId): self
     {
@@ -36,40 +36,21 @@ class PinChatMessage extends Request
     }
 
     /**
-     * @param int|string $chatId
-     * @return PinChatMessage
-     */
-    public function setChatId(int|string $chatId): PinChatMessage
-    {
-        $this->chat_id = $chatId;
-        return $this;
-    }
-
-    /**
-     * @param int $messageId
-     * @return PinChatMessage
-     */
-    public function setMessageId(int $messageId): PinChatMessage
-    {
-        $this->message_id = $messageId;
-        return $this;
-    }
-
-    /**
-     * @param bool $disableNotification
-     * @return PinChatMessage
-     */
-    public function setDisableNotification(bool $disableNotification): PinChatMessage
-    {
-        $this->disable_notification = $disableNotification;
-        return $this;
-    }
-    /**
      * @return int|string
      */
     public function getChatId(): int|string
     {
         return $this->chat_id;
+    }
+
+    /**
+     * @param int|string $chat_id
+     * @return PinChatMessage
+     */
+    public function setChatId(int|string $chat_id): PinChatMessage
+    {
+        $this->chat_id = $chat_id;
+        return $this;
     }
 
     /**
@@ -81,10 +62,31 @@ class PinChatMessage extends Request
     }
 
     /**
-     * @return bool
+     * @param int $message_id
+     * @return PinChatMessage
      */
-    public function getDisableNotification(): bool
+    public function setMessageId(int $message_id): PinChatMessage
+    {
+        $this->message_id = $message_id;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getDisableNotification(): ?bool
     {
         return $this->disable_notification;
     }
+
+    /**
+     * @param bool|null $disable_notification
+     * @return PinChatMessage
+     */
+    public function setDisableNotification(?bool $disable_notification): PinChatMessage
+    {
+        $this->disable_notification = $disable_notification;
+        return $this;
+    }
+
 }

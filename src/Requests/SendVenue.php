@@ -60,15 +60,6 @@ class SendVenue extends Request
         ]);
     }
 
-    public function toArray($only = []): array
-    {
-        $data = parent::toArray($only);
-        if (isset($data['reply_markup'])) {
-            $data['reply_markup'] = json_encode($data['reply_markup']);
-        }
-        return $data;
-    }
-
     /**
      * @param int|string $chat_id
      * @return SendVenue

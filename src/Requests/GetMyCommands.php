@@ -9,6 +9,10 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
  */
 class GetMyCommands extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'scope'
+    ];
+
     /**
      * A JSON-serialized object, describing scope of users. Defaults to BotCo
      * mmandScopeDefault.

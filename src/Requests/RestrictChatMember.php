@@ -17,6 +17,10 @@ use Werty\Http\Clients\TelegramBot\Types\ChatPermissions;
 
 class RestrictChatMember extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'permissions'
+    ];
+
     protected int|string $chat_id;
     protected int $user_id;
     protected ChatPermissions $permissions;

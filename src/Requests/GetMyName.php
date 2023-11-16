@@ -11,23 +11,24 @@ class GetMyName extends Request
     /**
      * A two-letter ISO 639-1 language code or an empty string
      */
-    protected ?string $language_code;
-
+    protected ?string $language_code = null;
 
     /**
-     * @param string $languageCode
-     * @return GetMyName
+     * @return string|null
      */
-    public function setLanguageCode(string $languageCode): GetMyName
-    {
-        $this->language_code = $languageCode;
-        return $this;
-    }
-    /**
-     * @return string
-     */
-    public function getLanguageCode(): string
+    public function getLanguageCode(): ?string
     {
         return $this->language_code;
     }
+
+    /**
+     * @param string|null $language_code
+     * @return GetMyName
+     */
+    public function setLanguageCode(?string $language_code): GetMyName
+    {
+        $this->language_code = $language_code;
+        return $this;
+    }
+
 }

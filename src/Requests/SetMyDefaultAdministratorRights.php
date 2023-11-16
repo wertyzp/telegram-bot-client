@@ -2,6 +2,8 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\ChatAdministratorRights;
+
 /**
  * Use this method to change the default administrator rights requested b
  * y the bot when it's added as an administrator to groups or channels. T
@@ -10,6 +12,11 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
  */
 class SetMyDefaultAdministratorRights extends Request
 {
+
+    protected const SERIALIZE_JSON = [
+        'rights'
+    ];
+
     /**
      * A JSON-serialized object describing new default administrator rights.
      * If not specified, the default administrator rights will be cleared.

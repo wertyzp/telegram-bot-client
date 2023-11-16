@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Werty\Http\Clients\TelegramBot\Exceptions;
 
 use JetBrains\PhpStorm\Pure;
-use Werty\Http\Clients\TelegramBot\Requests\Response;
+use Werty\Http\Clients\TelegramBot\Response;
 
 class HttpException extends \Exception
 {
