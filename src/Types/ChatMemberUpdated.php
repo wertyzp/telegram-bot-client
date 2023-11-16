@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
+
 /*
 Field	Type	Description
 chat	Chat	Chat the user belongs to

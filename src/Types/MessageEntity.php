@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
 
-
 class MessageEntity extends Type
 {
     public const TYPE_TEXT_LINK = 'text_link';
@@ -29,6 +28,14 @@ class MessageEntity extends Type
     protected ?string $language = null;
     protected ?string $custom_emoji_id = null;
 
+    public static function create(string $type, int $offset, int $length): static
+    {
+        return new static([
+            'type' => $type,
+            'offset' => $offset,
+            'length' => $length,
+        ]);
+    }
     /**
      * @return string
      */
@@ -88,6 +95,76 @@ class MessageEntity extends Type
     public function isLink(): bool
     {
         return in_array($this->type, ['text_link', 'url']);
+    }
+
+    /**
+     * @param string $type
+     * @return MessageEntity
+     */
+    public function setType(string $type): MessageEntity
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @param int $offset
+     * @return MessageEntity
+     */
+    public function setOffset(int $offset): MessageEntity
+    {
+        $this->offset = $offset;
+        return $this;
+    }
+
+    /**
+     * @param int $length
+     * @return MessageEntity
+     */
+    public function setLength(int $length): MessageEntity
+    {
+        $this->length = $length;
+        return $this;
+    }
+
+    /**
+     * @param string|null $url
+     * @return MessageEntity
+     */
+    public function setUrl(?string $url): MessageEntity
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @param User|null $user
+     * @return MessageEntity
+     */
+    public function setUser(?User $user): MessageEntity
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @param string|null $language
+     * @return MessageEntity
+     */
+    public function setLanguage(?string $language): MessageEntity
+    {
+        $this->language = $language;
+        return $this;
+    }
+
+    /**
+     * @param string|null $custom_emoji_id
+     * @return MessageEntity
+     */
+    public function setCustomEmojiId(?string $custom_emoji_id): MessageEntity
+    {
+        $this->custom_emoji_id = $custom_emoji_id;
+        return $this;
     }
 
 }

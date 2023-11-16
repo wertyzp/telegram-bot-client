@@ -6,5 +6,4 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 
 class CallbackGame extends Type
 {
-
 }

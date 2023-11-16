@@ -9,5 +9,4 @@ use Werty\Mapping\EmptyObject;
 
 class Type extends ModelBase
 {
-
 }

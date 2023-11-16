@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Werty\Http\Clients\TelegramBot\Requests\Message\MessageEntity;
+use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
 use Werty\Http\Clients\TelegramBot\Types\InputFile;
 
@@ -25,10 +25,8 @@ $photo = new InputFile('test.png', $mimeType);
 $message = SendPhoto::create($chatId, $photo);
 $message->setCaption('test successful');
 $message->setCaptionEntities([
-    (new MessageEntity())
-        ->setType('bold')
-        ->setOffset(0
-        )->setLength(4),
+    MessageEntity::create('bold', 0, 4)
 ]);
+$data = $message->toPostData();
 $client->sendPhoto($message);
 

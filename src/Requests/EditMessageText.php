@@ -10,7 +10,6 @@ use Werty\Mapping\EmptyObject;
 
 class EditMessageText extends EmptyObject
 {
-
     /**
     Parameter	Type	Required	Description
     chat_id	Integer or String	Optional	Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)

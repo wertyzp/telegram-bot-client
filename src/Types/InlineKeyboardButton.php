@@ -44,6 +44,14 @@ class InlineKeyboardButton extends Type
     protected ?CallbackGame $callback_game = null;
     protected ?bool $pay = null;
 
+    public static function create(string $text, ?string $callbackData = null): self
+    {
+        return new self([
+            'text' => $text,
+            'callback_data' => $callbackData,
+        ]);
+    }
+
     /**
      * @return string
      */
@@ -122,6 +130,106 @@ class InlineKeyboardButton extends Type
     public function getPay(): ?bool
     {
         return $this->pay;
+    }
+
+    /**
+     * @param string $text
+     * @return InlineKeyboardButton
+     */
+    public function setText(string $text): InlineKeyboardButton
+    {
+        $this->text = $text;
+        return $this;
+    }
+
+    /**
+     * @param string|null $url
+     * @return InlineKeyboardButton
+     */
+    public function setUrl(?string $url): InlineKeyboardButton
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @param string|null $callback_data
+     * @return InlineKeyboardButton
+     */
+    public function setCallbackData(?string $callback_data): InlineKeyboardButton
+    {
+        $this->callback_data = $callback_data;
+        return $this;
+    }
+
+    /**
+     * @param WebAppInfo|null $web_app
+     * @return InlineKeyboardButton
+     */
+    public function setWebApp(?WebAppInfo $web_app): InlineKeyboardButton
+    {
+        $this->web_app = $web_app;
+        return $this;
+    }
+
+    /**
+     * @param LoginUrl|null $login_url
+     * @return InlineKeyboardButton
+     */
+    public function setLoginUrl(?LoginUrl $login_url): InlineKeyboardButton
+    {
+        $this->login_url = $login_url;
+        return $this;
+    }
+
+    /**
+     * @param string|null $switch_inline_query
+     * @return InlineKeyboardButton
+     */
+    public function setSwitchInlineQuery(?string $switch_inline_query): InlineKeyboardButton
+    {
+        $this->switch_inline_query = $switch_inline_query;
+        return $this;
+    }
+
+    /**
+     * @param string|null $switch_inline_query_current_chat
+     * @return InlineKeyboardButton
+     */
+    public function setSwitchInlineQueryCurrentChat(?string $switch_inline_query_current_chat): InlineKeyboardButton
+    {
+        $this->switch_inline_query_current_chat = $switch_inline_query_current_chat;
+        return $this;
+    }
+
+    /**
+     * @param SwitchInlineQueryChosenChat|null $switch_inline_query_chosen_chat
+     * @return InlineKeyboardButton
+     */
+    public function setSwitchInlineQueryChosenChat(?SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat): InlineKeyboardButton
+    {
+        $this->switch_inline_query_chosen_chat = $switch_inline_query_chosen_chat;
+        return $this;
+    }
+
+    /**
+     * @param CallbackGame|null $callback_game
+     * @return InlineKeyboardButton
+     */
+    public function setCallbackGame(?CallbackGame $callback_game): InlineKeyboardButton
+    {
+        $this->callback_game = $callback_game;
+        return $this;
+    }
+
+    /**
+     * @param bool|null $pay
+     * @return InlineKeyboardButton
+     */
+    public function setPay(?bool $pay): InlineKeyboardButton
+    {
+        $this->pay = $pay;
+        return $this;
     }
 
 }

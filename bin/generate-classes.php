@@ -39,6 +39,7 @@ class Method {
 
 $method = null;
 
+$returns = [];
 $methodData = [];
 
 foreach ($items as $item) {
@@ -50,14 +51,14 @@ foreach ($items as $item) {
     }
 
     if ($item->tagName === 'h3'
-    && $item->textContent === 'Available methods') {
+        && $item->textContent === 'Available methods') {
         $methodsFound = true;
     }
 
     if ($methodsFound) {
         if ($item->tagName === 'h4' && count($methodData) === 0) {
             $methodData[] = $item->textContent;
-            echo "Method: $item->textContent".PHP_EOL;
+            echo "Method: $item->textContent" . PHP_EOL;
         }
 
         if ($item->tagName === 'h4' && count($methodData) === 2) {
@@ -71,7 +72,7 @@ foreach ($items as $item) {
             $methodData = [];
 
             $methodData[] = $item->textContent;
-            echo "Method: $item->textContent".PHP_EOL;
+            echo "Method: $item->textContent" . PHP_EOL;
         }
 
         if ($item->tagName === 'h4' && count($methodData) === 3) {
@@ -94,12 +95,17 @@ foreach ($items as $item) {
             $methodData = [];
 
             $methodData[] = $item->textContent;
-            echo "  Method: $item->textContent".PHP_EOL;
+            echo "  Method: $item->textContent" . PHP_EOL;
         }
 
         if ($item->tagName === 'p' && count($methodData) === 1) {
             $methodData[] = $item->textContent;
-            echo "  Description: $item->textContent".PHP_EOL;
+            $returnsAnchor = $xpath->query("a", $item);
+            if ($returnsAnchor->length > 0) {
+                $returns[reset($methodData)] = $returnsAnchor->item(0)->textContent;
+                echo "  Returns: {$returnsAnchor->item(0)->textContent}" . PHP_EOL;
+            }
+            echo "  Description: $item->textContent" . PHP_EOL;
         }
 
         if ($item->tagName === 'table' && count($methodData) === 2) {
@@ -112,187 +118,294 @@ foreach ($items as $item) {
                 $parameter[] = $xpath->query("td[2]", $tr)->item(0)->textContent;
                 $parameter[] = $xpath->query("td[3]", $tr)->item(0)->textContent;
                 $parameter[] = $xpath->query("td[4]", $tr)->item(0)->textContent;
-                echo "  Parameter: {$parameter[0]} type: {$parameter[1]} required: {$parameter[2]}".PHP_EOL;
+                echo "  Parameter: {$parameter[0]} type: {$parameter[1]} required: {$parameter[2]}" . PHP_EOL;
                 $parameters[] = $parameter;
             }
 
             $methodData[] = $parameters;
         }
     }
+}
 
     $typeMap = [
         'String' => 'string',
         'Integer' => 'int',
         'Float' => 'float',
+        'Float number' => 'float',
         'Boolean' => 'bool',
         'True' => 'bool',
         'Array' => 'array',
     ];
 
-    foreach ($methods as $method) {
-        $className = ucfirst($method->name);
-        $params = [];
-        $createMethodStr = "    public static function create(";
-        $createMethodParams = [];
-        $allParams = [];
-        foreach ($method->parameters as $parameter) {
-            $type = $parameter->type;
-            $descArray = str_split($parameter->description, 70);
-            $commentArray = [];
-            $commentArray[] = "/**";
-            foreach ($descArray as $desc) {
-                $commentArray[] = " * $desc";
+foreach ($methods as $method) {
+    $className = ucfirst($method->name);
+    $params = [];
+    $createMethodStr = "    public static function create(";
+    $createMethodParams = [];
+    $allParams = [];
+    $uses = [];
+    foreach ($method->parameters as $parameter) {
+        $type = $parameter->type;
+        $descArray = str_split($parameter->description, 70);
+        $commentArray = [];
+        $commentArray[] = "/**";
+        foreach ($descArray as $desc) {
+            $commentArray[] = " * $desc";
+        }
+
+
+        $types = [];
+        if (str_contains($type, ' or ')) {
+            $types = explode(' or ', $type);
+        } elseif (str_starts_with($type, 'Array of ')) {
+            $types = explode('Array of ', $type);
+            $arrCount = count($types) - 1;
+            $unknownType = end($types);
+
+            $noAndTypes = [$unknownType];
+            if (str_contains($unknownType, ' and ')) {
+                $noAndTypes = explode(' and ', $unknownType);
             }
 
 
-            $types = [];
-            if (str_contains($type, ' or ')) {
-                $types = explode(' or ', $type);
-            } elseif (str_starts_with($type, 'Array of ')) {
-                $types = explode('Array of ', $type);
-                $arrCount = count($types) - 1;
-                $unknownType = end($types);
-
-                $noAndTypes = [$unknownType];
-                if (str_contains($unknownType, ' and ')) {
-                    $noAndTypes = explode(' and ', $unknownType);
+            $noAndCommaTypes = [];
+            foreach ($noAndTypes as $noAndType) {
+                if (str_contains($noAndType, ', ')) {
+                    $noCommaType = explode(', ', $noAndType);
+                    $noAndCommaTypes = array_merge($noAndCommaTypes, $noCommaType);
+                } else {
+                    $noAndCommaTypes[] = $noAndType;
                 }
+            }
 
+            $types = $noAndCommaTypes;
 
-                $noAndCommaTypes = [];
-                foreach ($noAndTypes as $noAndType) {
-                    if (str_contains($noAndType, ', ')) {
-                        $noCommaType = explode(', ', $noAndType);
-                        $noAndCommaTypes = array_merge($noAndCommaTypes, $noCommaType);
-                    } else {
-                        $noAndCommaTypes[] = $noAndType;
-                    }
-                }
+            $mappedType = $typeMap[$type] ?? $type;
+            $commentArray[] = " * @var $mappedType".str_repeat('[]', $arrCount);
+            $types = ['Array'];
+        } else {
+            $types = [$type];
+        }
 
-                $types = $noAndCommaTypes;
+        $commentArray[] = ' */';
+        $mappedTypes = [];
 
-                $mappedType = $typeMap[$type] ?? $type;
-                $commentArray[] = " * @var $mappedType".str_repeat('[]', $arrCount);
-                $types = ['Array'];
+        foreach ($types as $type) {
+            if (isset($typeMap[$type])) {
+                $mappedTypes[] = $typeMap[$type];
             } else {
-                $types = [$type];
+                $mappedTypes[] = $type;
             }
-
-            $commentArray[] = ' */';
-            $mappedTypes = [];
-
-            foreach ($types as $type) {
-                if (isset($typeMap[$type])) {
-                    $mappedTypes[] = $typeMap[$type];
-                } else {
-                    $mappedTypes[] = $type;
-                }
-            }
-
-            // check mapped types for complex strings
-
-            $opt = ($parameter->required === 'Optional');
-
-            $prefix = '';
-
-            if ($opt) {
-                if (count($mappedTypes) > 1) {
-                    array_unshift($mappedTypes, 'null');
-                } else {
-                    $prefix = '?';
-                }
-            }
-
-            $mappedTypesStr = implode('|', $mappedTypes);
-
-            foreach ($commentArray as $key => $comment) {
-                $commentArray[$key] = "    $comment";
-            }
-
-            $camelCaseParamName = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $parameter->name))));
-            if (!$opt) {
-                $createMethodParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
-            }
-            $allParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
-
-            $params[] = implode(PHP_EOL, $commentArray).PHP_EOL;
-            $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name;".PHP_EOL;
         }
 
-        if (!empty($createMethodParams)) {
-            $createMethodParamsWithTypes = [];
-            foreach ($createMethodParams as $paramName => [$type, $camelCaseParamName]) {
-                $createMethodParamsWithTypes[] = "$type \$$camelCaseParamName";
-            }
-            $createMethodStr .= implode(', ', $createMethodParamsWithTypes) . ') {' . PHP_EOL;
-
-            $createMethodStr .= "        return new self([" . PHP_EOL;
-            foreach ($createMethodParams as $paramName => [, $camelCaseParamName]) {
-                $createMethodStr .= "            '$paramName' => \$$camelCaseParamName," . PHP_EOL;
-            }
-            $createMethodStr .= "        ]);" . PHP_EOL;
-        } else {
-            $createMethodStr = '';
-        }
-        $paramsStr = implode('', $params);
-
-
-        $setters = [];
-        $getters = [];
-        foreach ($allParams as $propName => [$mappedType, $camelCaseParamName]) {
-            $setterName = 'set'.ucfirst($camelCaseParamName);
-            $getterName = 'get'.ucfirst($camelCaseParamName);
-            $setters[] = <<<EOT
-            /**
-             * @param $mappedType \$$camelCaseParamName
-             */
-            public function $setterName($mappedType \$$camelCaseParamName): $className
-            {
-                \$this->$propName = \$$camelCaseParamName;
-                return \$this;
-            }
-        EOT;
-
-            $getters[] = <<<EOT
-                /**
-                 * @return $mappedType
-                 */
-                public function $getterName(): $mappedType
-                {
-                    return \$this->$propName;
+        foreach ($mappedTypes as $mappedType) {
+            if (!in_array($mappedType, ['string', 'int', 'float', 'bool', 'array'])) {
+                if (file_exists(__DIR__.'/types/'.$mappedType.'.php')) {
+                    $uses[] = "use Werty\\Http\\Clients\\TelegramBot\\$mappedType;";
                 }
-            EOT;
-
+            }
         }
 
-        $settersStr = implode(PHP_EOL.PHP_EOL, $setters);
-        $gettersStr = implode(PHP_EOL.PHP_EOL, $getters);
+        // check mapped types for complex strings
 
-        $descriptionParts = str_split($method->description, 70);
-        $description = implode(PHP_EOL.' * ', $descriptionParts);
-        $class =<<<EOT
-        <?php
+        $opt = ($parameter->required === 'Optional');
+
+        $prefix = '';
+
+        if ($opt) {
+            if (count($mappedTypes) > 1) {
+                array_unshift($mappedTypes, 'null');
+            } else {
+                $prefix = '?';
+            }
+        }
+
+        $mappedTypesStr = implode('|', $mappedTypes);
+
+        foreach ($commentArray as $key => $comment) {
+            $commentArray[$key] = "    $comment";
+        }
+
+        $camelCaseParamName = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $parameter->name))));
+        if (!$opt) {
+            $createMethodParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
+        }
+        $allParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
+
+        $params[] = implode(PHP_EOL, $commentArray).PHP_EOL;
+        $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name;".PHP_EOL;
+    }
+
+    if (!empty($createMethodParams)) {
+        $createMethodParamsWithTypes = [];
+        foreach ($createMethodParams as $paramName => [$type, $camelCaseParamName]) {
+            $createMethodParamsWithTypes[] = "$type \$$camelCaseParamName";
+        }
+        $createMethodStr .= implode(', ', $createMethodParamsWithTypes) . '): self' . PHP_EOL;
+        $createMethodStr .= "    {" . PHP_EOL;
+
+        $createMethodStr .= "        return new self([" . PHP_EOL;
+        foreach ($createMethodParams as $paramName => [, $camelCaseParamName]) {
+            $createMethodStr .= "            '$paramName' => \$$camelCaseParamName," . PHP_EOL;
+        }
+        $createMethodStr .= "        ]);" . PHP_EOL;
+        $createMethodStr .= "    }" . PHP_EOL;
+    } else {
+        $createMethodStr = '';
+    }
+    $paramsStr = implode('', $params);
+
+
+    $setters = [];
+    $getters = [];
+    foreach ($allParams as $propName => [$mappedType, $camelCaseParamName]) {
+        $setterName = 'set'.ucfirst($camelCaseParamName);
+        $getterName = 'get'.ucfirst($camelCaseParamName);
+        $setters[] = <<<EOT
         /**
-         * $description
+         * @param $mappedType \$$camelCaseParamName
+         * @return $className
          */
-        class $className extends Request {
-        $paramsStr
-        $createMethodStr
-        $settersStr
-        $gettersStr
+        public function $setterName($mappedType \$$camelCaseParamName): $className
+        {
+            \$this->$propName = \$$camelCaseParamName;
+            return \$this;
         }
+    EOT;
+
+        $getters[] = <<<EOT
+            /**
+             * @return $mappedType
+             */
+            public function $getterName(): $mappedType
+            {
+                return \$this->$propName;
+            }
         EOT;
 
-        if (!file_exists(__DIR__.'/../src/Requests')) {
-            mkdir(__DIR__.'/../src/Requests');
-        }
+    }
+    $usesStr = implode(PHP_EOL, $uses);
+    $settersStr = implode(PHP_EOL.PHP_EOL, $setters);
+    $gettersStr = implode(PHP_EOL.PHP_EOL, $getters);
 
-        if (!file_exists(__DIR__.'/../src/Requests/'.$className.'.php')) {
-            echo "Creating $className".PHP_EOL;
-            //file_put_contents(__DIR__.'/../src/Requests/'.$className.'.php', $class);
+    $descriptionParts = str_split($method->description, 70);
+    $description = implode(PHP_EOL.' * ', $descriptionParts);
+
+    $class =<<<EOT
+    <?php
+
+    namespace Werty\Http\Clients\TelegramBot\Requests;
+
+    $usesStr
+    /**
+     * $description
+     */
+    class $className extends Request {
+    $paramsStr
+    $createMethodStr
+    $settersStr
+    $gettersStr
+    }
+    EOT;
+
+    if (!file_exists(__DIR__.'/../src/Requests')) {
+        mkdir(__DIR__.'/../src/Requests');
+    }
+
+    if (!file_exists(__DIR__.'/../src/Requests/'.$className.'.php')) {
+        echo "Creating $className".PHP_EOL;
+        file_put_contents(__DIR__.'/../src/Requests/'.$className.'.php', $class);
+    } else {
+        echo "Skipping $className".PHP_EOL;
+    }
+
+
+}
+
+$file = __DIR__.'/../src/NewClient.php';
+
+$head =<<<EOT
+<?php
+
+namespace Werty\Http\Clients\TelegramBot;
+
+class Client {
+EOT;
+
+print_r($returns);
+
+$bodyParts = [];
+
+require_once __DIR__.'/../src/Client.php';
+
+$rc = new ReflectionClass(\Werty\Http\Clients\TelegramBot\Client::class);
+
+
+foreach ($methods as $method) {
+    if ($rc->hasMethod($method->name)) {
+        continue;
+    }
+
+    $className = ucfirst($method->name);
+    if (str_contains($method->description, 'Returns True')) {
+        $returnType = 'bool';
+        $mapType = 'ModelBase::T_BOOLEAN';
+    } elseif (isset($returns[$method->name])) {
+        $returnType = $returns[$method->name];
+        $path = dirname(__DIR__).'/src/Types/'.$returnType.'.php';
+        if (file_exists($path)) {
+            $mapType = "Types\\$returnType::class";
+            $returnType = "Types\\".$returnType;
         } else {
-            echo "Skipping $className".PHP_EOL;
+            $returnType = 'mixed';
+            $mapType = 'CHANGEME::class';
+        }
+    } else {
+        $returnType = 'mixed';
+        $mapType = 'CHANGEME::class';
+    }
+    $part =<<<EOT
+        public function $method->name(Requests\\$className \$request): $returnType
+        {
+            return \$this->send('$method->name', \$request->toArray(), $mapType);
+        }
+    EOT;
+
+    $bodyParts[] = $part;
+}
+
+$foot = <<<EOT
+}
+EOT;
+
+file_put_contents($file, $head.PHP_EOL.implode(PHP_EOL.PHP_EOL, $bodyParts).PHP_EOL.$foot);
+
+foreach($methods as $method) {
+    foreach ($method->parameters as $param) {
+        $expectedSerialize = [];
+
+        if (str_contains($param->description, 'JSON-serialized')) {
+            $expectedSerialize[] = $param->name;
         }
     }
 
+    $className = ucfirst($method->name);
+    $file = 'src/Requests/'.$className.'.php';
+    if (file_exists($file)) {
+        include_once $file;
+        $requestClass = 'Werty\Http\Clients\TelegramBot\Requests\\'.$className;
+        $rc = new \ReflectionClass($requestClass);
+
+        $serialize = [];
+        if ($rc->hasConstant('JSON_SERIALIZE')) {
+            $serialize = $rc->getConstant('JSON_SERIALIZE');
+        }
+
+        $diff = array_diff($serialize, $expectedSerialize);
+        if (!empty($diff)) {
+            echo "Missing $className".PHP_EOL;
+            print_r($diff);
+        }
+
+    }
 }

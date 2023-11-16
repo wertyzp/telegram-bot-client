@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
+
 /*
 Field	Type	Description
 status	String	The member's status in the chat, always “creator”

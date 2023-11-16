@@ -14,7 +14,6 @@ Example: A user votes in a poll, bot returns confirmation message in reply to th
 
 class ReplyKeyboardRemove extends Type
 {
-
     protected bool $remove_keyboard = true;
     protected ?bool $selective = null;
 

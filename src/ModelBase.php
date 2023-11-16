@@ -26,6 +26,9 @@ abstract class ModelBase
     protected const TYPE_MAP = [
     ];
 
+    protected const SERIALIZE_JSON = [
+    ];
+
     protected const RESTRICTIVE = false;
 
     public function __construct($dataObject = [])
@@ -158,4 +161,56 @@ abstract class ModelBase
     {
         return in_array($type, self::T_SCALAR);
     }
+
+    public function toPostData(): array
+    {
+        return $this->filterPostData(get_object_vars($this));
+    }
+
+    protected function filterPostData(array $array): array
+    {
+        $data = array_filter($array, function ($value) {
+            return $value !== null;
+        });
+
+        foreach ($data as &$value) {
+            if ($value instanceof self) {
+                $value = $value->toPostData();
+                continue;
+            }
+
+            if ($value instanceof \stdClass) {
+                settype($value, 'array');
+            }
+
+            if (is_array($value)) {
+                $value = $this->filterPostData($value);
+            }
+        }
+
+        $class = get_class($this);
+        do {
+            $serializeJson[] = $class::SERIALIZE_JSON;
+        } while ($class = get_parent_class($class));
+
+        $serializeJson = array_merge(...array_reverse($serializeJson));
+
+        foreach ($data as $key => &$value) {
+            if (in_array($key, $serializeJson)) {
+                $value = json_encode($value);
+            }
+        }
+
+        return $data;
+    }
+
+    protected function isUrl($uri): bool
+    {
+        $scheme = parse_url($uri, PHP_URL_SCHEME);
+        if (!in_array($scheme, ['http', 'https', 'ftp', 'attach'])) {
+            return false;
+        }
+        return true;
+    }
+
 }

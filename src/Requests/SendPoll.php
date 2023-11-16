@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
-
 use Werty\Http\Clients\TelegramBot\Types\ForceReply;
 use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
+use Werty\Http\Clients\TelegramBot\Types\Type;
 
 /**
 Parameter	Type	Required	Description
@@ -34,8 +34,14 @@ allow_sending_without_reply	Boolean	Optional	Pass True if the message should be 
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
 
-class SendPoll extends TelegramObject
+class SendPoll extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'options',
+        'explanation_entities',
+        'reply_markup',
+    ];
+
     protected const TYPE_MAP = [
         'explanation_entities' => [MessageEntity::class],
         'options' => [self::T_STRING],
@@ -68,21 +74,6 @@ class SendPoll extends TelegramObject
             'question' => $question,
             'options' => $options,
         ]);
-    }
-
-    public function toArray($only = []): array
-    {
-        $data = parent::toArray($only);
-        if (isset($data['reply_markup'])) {
-            $data['reply_markup'] = json_encode($data['reply_markup']);
-        }
-        if (isset($data['options'])) {
-            $data['options'] = json_encode($data['options']);
-        }
-        if (isset($data['explanation_entities'])) {
-            $data['explanation_entities'] = json_encode($data['explanation_entities']);
-        }
-        return $data;
     }
 
     /**

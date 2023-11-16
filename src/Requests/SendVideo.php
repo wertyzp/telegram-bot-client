@@ -33,8 +33,13 @@ allow_sending_without_reply	Boolean	Optional	Pass True if the message should be 
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
 
-class SendVideo extends EmptyObject
+class SendVideo extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'reply_markup',
+        'caption_entities',
+    ];
+
     protected const TYPE_MAP = [
         'caption_entities' => MessageEntity::class,
     ];

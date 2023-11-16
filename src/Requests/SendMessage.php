@@ -30,20 +30,26 @@ class SendMessage extends Request
     protected const TYPE_MAP = [
         'entities' => [MessageEntity::class],
     ];
+
+    protected const SERIALIZE_JSON = [
+        'entities',
+        'reply_markup',
+    ];
+
     protected int|string $chat_id;
     /**
      * @var MessageEntity[]
      */
-    protected ?array $entities;
-    protected ?int $message_thread_id;
+    protected ?array $entities = null;
+    protected ?int $message_thread_id = null;
     protected string $text;
-    protected ?string $parse_mode;
-    protected ?bool $disable_web_page_preview;
-    protected ?bool $disable_notification;
-    protected ?bool $protect_content;
-    protected ?bool $allow_sending_without_reply;
-    protected ?int $reply_to_message_id;
-    protected InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup;
+    protected ?string $parse_mode = null;
+    protected ?bool $disable_web_page_preview = null;
+    protected ?bool $disable_notification = null;
+    protected ?bool $protect_content = null;
+    protected ?bool $allow_sending_without_reply = null;
+    protected ?int $reply_to_message_id = null;
+    protected InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null;
 
     public static function create(int|string $chatId, string $text): static
     {

@@ -27,8 +27,9 @@ reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove 
  */
 class SendPhoto extends Request
 {
-    protected const TYPE_MAP = [
-        'reply_markup' => [InlineKeyboardMarkup::class, ReplyKeyboardMarkup::class, ReplyKeyboardRemove::class, ForceReply::class],
+    protected const SERIALIZE_JSON = [
+        'reply_markup',
+        'caption_entities'
     ];
 
     protected int|string $chat_id;
@@ -170,19 +171,6 @@ class SendPhoto extends Request
     {
         $this->reply_markup = $reply_markup;
         return $this;
-    }
-
-    public function toArray($only = []): array
-    {
-        $data = parent::toArray($only);
-        if ($data['photo'] instanceof InputFile) {
-            $data['photo'] = $data['photo']->getFile();
-        }
-
-        if (!empty($data['caption_entities'])) {
-            $data['caption_entities'] = json_encode($data['caption_entities']);
-        }
-        return $data;
     }
 
 }

@@ -15,6 +15,43 @@ class InlineKeyboardMarkup extends Type
         'inline_keyboard' => [[InlineKeyboardButton::class]],
     ];
 
+    /**
+     * @param InlineKeyboardButton[] $row
+     */
+    public function addRow(array $row): self
+    {
+        $this->inline_keyboard[] = $row;
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @return InlineKeyboardButton[]
+     */
+
+    public function getRow(int $index): array
+    {
+        return $this->inline_keyboard[$index];
+    }
+
+    /**
+     * @return array
+     */
+    public function getInlineKeyboard(): array
+    {
+        return $this->inline_keyboard;
+    }
+
+    /**
+     * @param InlineKeyboardButton[][] $inline_keyboard
+     * @return InlineKeyboardMarkup
+     */
+    public function setInlineKeyboard(array $inline_keyboard): InlineKeyboardMarkup
+    {
+        $this->inline_keyboard = $inline_keyboard;
+        return $this;
+    }
+
     protected array $inline_keyboard;
 
     public static function makeSimple(array $rows): string
@@ -24,7 +61,7 @@ class InlineKeyboardMarkup extends Type
             $chunks = array_chunk($row, 2);
             $buttons = [];
             foreach ($chunks as $chunk) {
-                list ($text, $callbackData) = $chunk;
+                list($text, $callbackData) = $chunk;
                 $buttons[] = [
                     'text' => $text,
                     'callback_data' => $callbackData,

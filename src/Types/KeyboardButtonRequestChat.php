@@ -21,7 +21,6 @@ bot_is_member	Boolean	Optional. Pass True to request a chat with the bot as a me
 
 class KeyboardButtonRequestChat extends EmptyObject
 {
-
     protected const TYPE_MAP = [
         'user_administrator_rights' => ChatAdministratorRights::class,
         'bot_administrator_rights' => ChatAdministratorRights::class,

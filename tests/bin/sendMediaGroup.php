@@ -17,8 +17,10 @@ register_shutdown_function(function () {
     unlink('test.png');
 });
 $mimeType = mime_content_type('test.png');
-$photo = new \Werty\Http\Clients\TelegramBot\Requests\InputMediaPhoto('test.png');
-$message = new \Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup($chatId, [$photo, $photo]);
-$result = $client->sendMediaGroup($message);
+$photo = \Werty\Http\Clients\TelegramBot\Types\InputMediaPhoto::create('test.png');
+$sendMediaGroup = \Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup::create($chatId, [$photo, $photo]);
+$data = $sendMediaGroup->toPostData();
+
+$result = $client->sendMediaGroup($sendMediaGroup);
 print_r($result);
 

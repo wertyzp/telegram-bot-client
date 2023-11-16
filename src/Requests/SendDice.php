@@ -22,6 +22,10 @@ use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
  */
 class SendDice extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'reply_markup',
+    ];
+
     protected int|string $chat_id;
     protected ?int $message_thread_id = null;
     protected ?string $emoji = null;

@@ -11,6 +11,7 @@ use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
 use Werty\Mapping\EmptyObject;
+
 /**
 Parameter	Type	Required	Description
 chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -26,8 +27,13 @@ reply_to_message_id	Integer	Optional	If the message is a reply, ID of the origin
 allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-class SendVoice extends EmptyObject
+class SendVoice extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'caption_entities',
+        'reply_markup',
+    ];
+
     protected const TYPE_MAP = [
         'caption_entities' => [MessageEntity::class],
     ];

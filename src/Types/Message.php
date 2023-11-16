@@ -150,7 +150,7 @@ class Message extends Type
     protected ?Document $document = null;
     protected ?Animation $animation = null;
     protected ?Game $game = null;
-    protected ?PhotoSize $photo = null;
+    protected ?array $photo = null;
     protected ?Sticker $sticker = null;
     protected ?Video $video = null;
     protected ?Voice $voice = null;
@@ -371,9 +371,9 @@ class Message extends Type
     }
 
     /**
-     * @return PhotoSize|null
+     * @return PhotoSize[]|null
      */
-    public function getPhoto(): ?PhotoSize
+    public function getPhoto(): ?array
     {
         return $this->photo;
     }
@@ -720,8 +720,7 @@ class Message extends Type
         if (empty($this->entities)) {
             return false;
         }
-        foreach ($this->entities as $entity)
-        {
+        foreach ($this->entities as $entity) {
             if ($entity->isLink()) {
                 return true;
             }

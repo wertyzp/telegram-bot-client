@@ -13,7 +13,6 @@ type	String	Optional. If quiz is passed, the user will be allowed to create only
 
 class KeyboardButtonPollType extends EmptyObject
 {
-
     protected ?string $type = null;
 
     public function getType(): ?string

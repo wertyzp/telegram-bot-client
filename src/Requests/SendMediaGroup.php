@@ -6,6 +6,7 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 
 use Werty\Http\Clients\TelegramBot\Types\InputMedia;
 use Werty\Mapping\EmptyObject;
+
 /**
 Parameter	Type	Required	Description
 chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -25,6 +26,10 @@ class SendMediaGroup extends Request
     protected ?bool $protect_content = null;
     protected ?int $reply_to_message_id = null;
     protected ?bool $allow_sending_without_reply = null;
+
+    protected const SERIALIZE_JSON = [
+        'media',
+    ];
 
     /**
      * @param int $chatId
@@ -96,6 +101,62 @@ class SendMediaGroup extends Request
     }
 
     /**
+     * @return int
+     */
+    public function getChatId(): int
+    {
+        return $this->chat_id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMessageThreadId(): ?int
+    {
+        return $this->message_thread_id;
+    }
+
+    /**
+     * @return InputMedia[]
+     */
+    public function getMedia(): array
+    {
+        return $this->media;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getDisableNotification(): ?bool
+    {
+        return $this->disable_notification;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getProtectContent(): ?bool
+    {
+        return $this->protect_content;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getReplyToMessageId(): ?int
+    {
+        return $this->reply_to_message_id;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAllowSendingWithoutReply(): ?bool
+    {
+        return $this->allow_sending_without_reply;
+    }
+
+    /**
      * @param int|null $reply_to_message_id
      * @return SendMediaGroup
      */
@@ -115,5 +176,21 @@ class SendMediaGroup extends Request
         return $this;
     }
 
+    public function toPostData(): array
+    {
+        $data = parent::toPostData();
+        foreach ($this->getMedia() as $medium) {
+            $file = $medium->getMedia();
+
+            if ($this->isUrl($file)) {
+                continue;
+            }
+
+            $fileKey = 'item'.crc32($file);
+            $mimeType = mime_content_type($file);
+            $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
+        }
+        return $data;
+    }
 
 }

@@ -4,24 +4,34 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\ForceReply;
+use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
+use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
+use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
+
 /**
-Parameter	Type	Required	Description
-chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-message_thread_id	Integer	Optional	Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-from_chat_id	Integer or String	Yes	Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
-message_id	Integer	Yes	Message identifier in the chat specified in from_chat_id
-caption	String	Optional	New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
-parse_mode	String	Optional	Mode for parsing entities in the new caption. See formatting options for more details.
-caption_entities	Array of MessageEntity	Optional	A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
-disable_notification	Boolean	Optional	Sends the message silently. Users will receive a notification with no sound.
-protect_content	Boolean	Optional	Protects the contents of the sent message from forwarding and saving
-reply_to_message_id	Integer	Optional	If the message is a reply, ID of the original message
-allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
-reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+ * Parameter    Type    Required	Description
+* chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+* message_thread_id	Integer	Optional	Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+* from_chat_id	Integer or String	Yes	Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+* message_id	Integer	Yes	Message identifier in the chat specified in from_chat_id
+* caption	String	Optional	New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
+* parse_mode	String	Optional	Mode for parsing entities in the new caption. See formatting options for more details.
+* caption_entities	Array of MessageEntity	Optional	A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
+* disable_notification	Boolean	Optional	Sends the message silently. Users will receive a notification with no sound.
+* protect_content	Boolean	Optional	Protects the contents of the sent message from forwarding and saving
+* reply_to_message_id	Integer	Optional	If the message is a reply, ID of the original message
+* allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
+* reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
 
 class CopyMessage extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'caption_entities',
+        'reply_markup',
+    ];
+
     protected int|string $chat_id;
     protected ?int $message_thread_id = null;
     protected int|string $from_chat_id;
@@ -33,7 +43,7 @@ class CopyMessage extends Request
     protected ?bool $protect_content = null;
     protected ?int $reply_to_message_id = null;
     protected ?bool $allow_sending_without_reply = null;
-    protected ?object $reply_markup = null;
+    protected InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null;
 
     public static function create(int|string $chatId, int|string $fromChatId, int $messageId): self
     {
@@ -155,10 +165,10 @@ class CopyMessage extends Request
     }
 
     /**
-     * @param object|null $reply_markup
+     * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return CopyMessage
      */
-    public function setReplyMarkup(?object $reply_markup): CopyMessage
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): CopyMessage
     {
         $this->reply_markup = $reply_markup;
         return $this;

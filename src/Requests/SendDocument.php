@@ -29,7 +29,6 @@ use Werty\Mapping\EmptyObject;
 
 class SendDocument extends EmptyObject
 {
-
     protected const TYPE_MAP = [
         'caption_entities' => [Message\MessageEntity::class],
     ];

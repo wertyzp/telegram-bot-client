@@ -29,6 +29,11 @@ reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove 
 
 class SendVideoNote extends Request
 {
+    protected const SERIALIZE_JSON = [
+        'reply_markup',
+        'caption_entities',
+    ];
+
     protected const TYPE_MAP = [
         'thumbnail' => [InputFile::class],
         'caption_entities' => [MessageEntity::class],

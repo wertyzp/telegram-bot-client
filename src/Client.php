@@ -13,11 +13,15 @@ use Werty\Http\Clients\TelegramBot\Requests\ChatMember;
 use Werty\Http\Clients\TelegramBot\Requests\File;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
 use Werty\Http\Clients\TelegramBot\Requests\InputMedia;
+use Werty\Http\Clients\TelegramBot\Requests\LeaveChat;
 use Werty\Http\Clients\TelegramBot\Requests\Response;
 use Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup;
 use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
 use Werty\Http\Clients\TelegramBot\Requests\SendVideo;
 use Werty\Http\Clients\TelegramBot\Requests\TelegramObject;
+use Werty\Http\Clients\TelegramBot\Types\BotDescription;
+use Werty\Http\Clients\TelegramBot\Types\BotName;
+use Werty\Http\Clients\TelegramBot\Types\BotShortDescription;
 use Werty\Http\Clients\TelegramBot\Types\Message;
 use Werty\Http\Clients\TelegramBot\Types\User;
 use Werty\Http\Clients\TelegramBot\Types\UserProfilePhotos;
@@ -47,31 +51,20 @@ class Client
         return file_get_contents("$this->fileUrl/{$path}");
     }
 
-    public function deleteMessage($chatId, $messageId)
-    {
-        $data = [
-            'message_id' => $messageId,
-            'chat_id' => $chatId
-        ];
-        return $this->post("$this->url/deleteMessage", [], $data);
-    }
 
-    public function leaveChat($chatId)
+    public function leaveChat(LeaveChat $leaveChat)
     {
-        $data = [
-            'chat_id' => $chatId
-        ];
-        return $this->post("$this->url/leaveChat", [], $data);
+        return $this->send('leaveChat', $leaveChat->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function getWebhookInfo()
     {
-        return $this->get("$this->url/getWebhookInfo");
+        return $this->send("getWebhookInfo");
     }
 
     public function setWebhook(string $url)
     {
-        return $this->post("$this->url/setWebhook", ['url' => $url]);
+        return $this->post("setWebhook", ['url' => $url]);
     }
 
     public function deleteWebhook($dropPendingUpdates = true)
@@ -94,27 +87,37 @@ class Client
 
     public function sendAudio(Requests\SendAudio $audio): Message
     {
-        return $this->send('sendAudio', $audio->toArray(), Message::class);
+        return $this->send('sendAudio', $audio->toPostData(), Message::class);
     }
 
     public function sendVideo(SendVideo $video): Message
     {
-        return $this->send('sendVideo', $video->toArray(), Message::class);
+        return $this->send('sendVideo', $video->toPostData(), Message::class);
+    }
+
+    public function getChat(Requests\GetChat $request): Types\Chat
+    {
+        return $this->send('getChat', $request->toPostData(), Types\Chat::class);
+    }
+
+    public function getChatMember(Requests\GetChatMember $request): Types\ChatMember
+    {
+        return $this->send('getChatMember', $request->toPostData(), Types\ChatMember::class);
     }
 
     public function sendVideoNote(Requests\SendVideoNote $videoNote): Message
     {
-        return $this->send('sendVideoNote', $videoNote->toArray(), Message::class);
+        return $this->send('sendVideoNote', $videoNote->toPostData(), Message::class);
     }
 
     public function sendDice(Requests\SendDice $dice): Message
     {
-        return $this->send('sendDice', $dice->toArray(), Message::class);
+        return $this->send('sendDice', $dice->toPostData(), Message::class);
     }
 
     public function sendChatAction(Requests\SendChatAction $chatAction): bool
     {
-        return $this->send('sendChatAction', $chatAction->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('sendChatAction', $chatAction->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     /**
@@ -125,57 +128,57 @@ class Client
      */
     public function getUserProfilePhotos(Requests\GetUserProfilePhotos $userProfilePhotos): UserProfilePhotos
     {
-        return $this->send('getUserProfilePhotos', $userProfilePhotos->toArray(), UserProfilePhotos::class);
+        return $this->send('getUserProfilePhotos', $userProfilePhotos->toPostData(), UserProfilePhotos::class);
     }
 
     public function getFile(Requests\GetFile $file): File
     {
-        return $this->send('getFile', $file->toArray(), File::class);
+        return $this->send('getFile', $file->toPostData(), File::class);
     }
 
     public function banChatMember(Requests\BanChatMember $banChatMember): bool
     {
-        return $this->send('banChatMember', $banChatMember->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('banChatMember', $banChatMember->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function unbanChatMember(Requests\UnbanChatMember $unbanChatMember): bool
     {
-        return $this->send('unbanChatMember', $unbanChatMember->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('unbanChatMember', $unbanChatMember->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function restrictChatMember(Requests\RestrictChatMember $restrictChatMember): bool
     {
-        return $this->send('restrictChatMember', $restrictChatMember->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('restrictChatMember', $restrictChatMember->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function promoteChatMember(Requests\PromoteChatMember $promoteChatMember): bool
     {
-        return $this->send('promoteChatMember', $promoteChatMember->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('promoteChatMember', $promoteChatMember->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function banChatSenderChat(Requests\BanChatSenderChat $banChatSenderChat): bool
     {
-        return $this->send('banChatSenderChat', $banChatSenderChat->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('banChatSenderChat', $banChatSenderChat->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function setChatAdministratorCustomTitle(Requests\SetChatAdministratorCustomTitle $setChatAdministratorCustomTitle): bool
     {
-        return $this->send('setChatAdministratorCustomTitle', $setChatAdministratorCustomTitle->toArray(), ModelBase::T_BOOLEAN);
+        return $this->send('setChatAdministratorCustomTitle', $setChatAdministratorCustomTitle->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function sendDocument(Requests\SendDocument $document): Message
     {
-        return $this->send('sendDocument', $document->toArray(), Message::class);
+        return $this->send('sendDocument', $document->toPostData(), Message::class);
     }
 
     public function sendAnimation(Requests\SendAnimation $animation): Message
     {
-        return $this->send('sendAnimation', $animation->toArray(), Message::class);
+        return $this->send('sendAnimation', $animation->toPostData(), Message::class);
     }
 
     public function sendVoice(Requests\SendVoice $voice): Message
     {
-        return $this->send('sendVoice', $voice->toArray(), Message::class);
+        return $this->send('sendVoice', $voice->toPostData(), Message::class);
     }
 
 
@@ -190,7 +193,7 @@ class Client
 
     /**
      * @param $chatId
-     * @param InputMedia[] $media
+     * @param Types\InputMedia[] $media
      * @param $replyTo
      * @return Message[]
      * @throws HttpException|Exception
@@ -198,47 +201,22 @@ class Client
 
     public function sendMediaGroup(SendMediaGroup $mediaGroup): array
     {
-        $data = [];
-
-
-        print_r($mediaGroup);
-        foreach ($mediaGroup->getMedia() as $k => $medium)
-        {
-            print_r($medium);
-            $file = $medium->getMedia();
-
-            if ($this->isUrl($file)) {
-                continue;
-            }
-
-            if (!file_exists($file)) {
-                throw new \Exception("File {$medium->getMedia()} doesn't exist");
-            }
-
-            $fileKey = "item$k";
-            $medium->setMedia("attach://$fileKey");
-            $mimeType = mime_content_type($file);
-            $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
-        }
-
-        $data = array_merge($data, $mediaGroup->toArray());
-        $data['media'] = json_encode($data['media']);
-        return $this->send('sendMediaGroup', $data, [Message::class]);
+        return $this->send('sendMediaGroup', $mediaGroup->toPostData(), [Message::class]);
     }
 
     public function sendVenue(Requests\SendVenue $venue): Message
     {
-        return $this->send('sendVenue', $venue->toArray(), Message::class);
+        return $this->send('sendVenue', $venue->toPostData(), Message::class);
     }
 
     public function sendContact(Requests\SendContact $contact): Message
     {
-        return $this->send('sendContact', $contact->toArray(), Message::class);
+        return $this->send('sendContact', $contact->toPostData(), Message::class);
     }
 
     public function sendPoll(Requests\SendPoll $poll): Message
     {
-        return $this->send('sendPoll', $poll->toArray(), Message::class);
+        return $this->send('sendPoll', $poll->toPostData(), Message::class);
     }
     /**
      * @param string $url
@@ -275,51 +253,275 @@ class Client
         }
     }
 
-    public function getChatMember($chatId, $userId): ChatMember
+    public function answerCallbackQuery(AnswerCallbackQuery $request): bool
     {
-        $data = [
-            'user_id' => $userId,
-            'chat_id' => $chatId
-        ];
-        $response = $this->get("$this->url/getChatMember", $data);
-        if ($response->ok === true) {
-            return new ChatMember($response->result);
-        }
-        throw new TelegramBotException($response);
-    }
-
-    public function getChat(int|string $chatId): Chat
-    {
-        return $this->send('getChat', ['chat_id' => $chatId], Requests\Chat::class);
-    }
-
-    public function answerCallbackQuery(AnswerCallbackQuery $query): bool
-    {
-        $data = $query->toArray();
-        $this->send("answerCallbackQuery", $data);
+        return $this->send("answerCallbackQuery", $request->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function editMessageText(Requests\EditMessageText $message): Message
     {
-        return $this->send('editMessageText', $message->toArray(), Message::class);
+        return $this->send('editMessageText', $message->toPostData(), Message::class);
     }
 
-    public function sendMessage(Requests\SendMessage $message): Types\Message {
-        return $this->send('sendMessage', $message->toArray(), Types\Message::class);
+    public function sendMessage(Requests\SendMessage $message): Types\Message
+    {
+        return $this->send('sendMessage', $message->toPostData(), Types\Message::class);
     }
 
-    public function forwardMessage(ForwardMessage $forwardMessage): Types\Message {
-        return $this->send('forwardMessage', $forwardMessage->toArray(), Types\Message::class);
+    public function forwardMessage(ForwardMessage $forwardMessage): Types\Message
+    {
+        return $this->send('forwardMessage', $forwardMessage->toPostData(), Types\Message::class);
     }
 
-    public function copyMessage(CopyMessage $copyMessage): Types\Message {
-        return $this->send('copyMessage', $copyMessage->toArray(), Types\Message::class);
+    public function copyMessage(Requests\CopyMessage $copyMessage): Types\Message
+    {
+        return $this->send('copyMessage', $copyMessage->toPostData(), Types\Message::class);
     }
 
-    public function sendPhoto(SendPhoto $message): Types\Message {
-        return $this->send('sendPhoto', $message->toArray(), Types\Message::class);
+    public function sendPhoto(SendPhoto $message): Types\Message
+    {
+        return $this->send('sendPhoto', $message->toPostData(), Types\Message::class);
     }
 
+    public function logOut(Requests\LogOut $request): bool
+    {
+        return $this->send('logOut', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function close(Requests\Close $request): bool
+    {
+        return $this->send('close', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function sendLocation(Requests\SendLocation $request): Message
+    {
+        return $this->send('sendLocation', $request->toPostData(), Types\Message::class);
+    }
+
+    public function unbanChatSenderChat(Requests\UnbanChatSenderChat $request): bool
+    {
+        return $this->send('unbanChatSenderChat', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setChatPermissions(Requests\SetChatPermissions $request): bool
+    {
+        return $this->send('setChatPermissions', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function exportChatInviteLink(Requests\ExportChatInviteLink $request): string
+    {
+        return $this->send('exportChatInviteLink', $request->toPostData(), ModelBase::T_STRING);
+    }
+
+    public function createChatInviteLink(Requests\CreateChatInviteLink $request): Types\ChatInviteLink
+    {
+        return $this->send('createChatInviteLink', $request->toPostData(), Types\ChatInviteLink::class);
+    }
+
+    public function editChatInviteLink(Requests\EditChatInviteLink $request): Types\ChatInviteLink
+    {
+        return $this->send('editChatInviteLink', $request->toPostData(), Types\ChatInviteLink::class);
+    }
+
+    public function revokeChatInviteLink(Requests\RevokeChatInviteLink $request): Types\ChatInviteLink
+    {
+        return $this->send('revokeChatInviteLink', $request->toPostData(), Types\ChatInviteLink::class);
+    }
+
+    public function approveChatJoinRequest(Requests\ApproveChatJoinRequest $request): bool
+    {
+        return $this->send('approveChatJoinRequest', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function declineChatJoinRequest(Requests\DeclineChatJoinRequest $request): bool
+    {
+        return $this->send('declineChatJoinRequest', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setChatPhoto(Requests\SetChatPhoto $request): bool
+    {
+        return $this->send('setChatPhoto', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function deleteChatPhoto(Requests\DeleteChatPhoto $request): bool
+    {
+        return $this->send('deleteChatPhoto', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setChatTitle(Requests\SetChatTitle $request): bool
+    {
+        return $this->send('setChatTitle', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setChatDescription(Requests\SetChatDescription $request): bool
+    {
+        return $this->send('setChatDescription', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function pinChatMessage(Requests\PinChatMessage $request): bool
+    {
+        return $this->send('pinChatMessage', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unpinChatMessage(Requests\UnpinChatMessage $request): bool
+    {
+        return $this->send('unpinChatMessage', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unpinAllChatMessages(Requests\UnpinAllChatMessages $request): bool
+    {
+        return $this->send('unpinAllChatMessages', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getChatAdministrators(Requests\GetChatAdministrators $request): Types\ChatMember
+    {
+        return $this->send('getChatAdministrators', $request->toPostData(), Types\ChatMember::class);
+    }
+
+    public function getChatMemberCount(Requests\GetChatMemberCount $request): int
+    {
+        return $this->send('getChatMemberCount', $request->toPostData(), ModelBase::T_INTEGER);
+    }
+
+    public function setChatStickerSet(Requests\SetChatStickerSet $request): bool
+    {
+        return $this->send('setChatStickerSet', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function deleteChatStickerSet(Requests\DeleteChatStickerSet $request): bool
+    {
+        return $this->send('deleteChatStickerSet', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getForumTopicIconStickers(Requests\GetForumTopicIconStickers $request): Types\Sticker
+    {
+        return $this->send('getForumTopicIconStickers', $request->toPostData(), Types\Sticker::class);
+    }
+
+    public function createForumTopic(Requests\CreateForumTopic $request): Types\ForumTopic
+    {
+        return $this->send('createForumTopic', $request->toPostData(), Types\ForumTopic::class);
+    }
+
+    public function editForumTopic(Requests\EditForumTopic $request): bool
+    {
+        return $this->send('editForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function closeForumTopic(Requests\CloseForumTopic $request): bool
+    {
+        return $this->send('closeForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function reopenForumTopic(Requests\ReopenForumTopic $request): bool
+    {
+        return $this->send('reopenForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function deleteForumTopic(Requests\DeleteForumTopic $request): bool
+    {
+        return $this->send('deleteForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unpinAllForumTopicMessages(Requests\UnpinAllForumTopicMessages $request): bool
+    {
+        return $this->send('unpinAllForumTopicMessages', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function editGeneralForumTopic(Requests\EditGeneralForumTopic $request): bool
+    {
+        return $this->send('editGeneralForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function closeGeneralForumTopic(Requests\CloseGeneralForumTopic $request): bool
+    {
+        return $this->send('closeGeneralForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function reopenGeneralForumTopic(Requests\ReopenGeneralForumTopic $request): bool
+    {
+        return $this->send('reopenGeneralForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function hideGeneralForumTopic(Requests\HideGeneralForumTopic $request): bool
+    {
+        return $this->send('hideGeneralForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unhideGeneralForumTopic(Requests\UnhideGeneralForumTopic $request): bool
+    {
+        return $this->send('unhideGeneralForumTopic', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function unpinAllGeneralForumTopicMessages(Requests\UnpinAllGeneralForumTopicMessages $request): bool
+    {
+        return $this->send('unpinAllGeneralForumTopicMessages', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function setMyCommands(Requests\SetMyCommands $request): bool
+    {
+        return $this->send('setMyCommands', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function deleteMyCommands(Requests\DeleteMyCommands $request): bool
+    {
+        return $this->send('deleteMyCommands', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getMyCommands(Requests\GetMyCommands $request): array
+    {
+        return $this->send('getMyCommands', $request->toPostData(), [Types\BotCommand::class]);
+    }
+
+    public function setMyName(Requests\SetMyName $request): bool
+    {
+        return $this->send('setMyName', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getMyName(Requests\GetMyName $request): Types\BotName
+    {
+        return $this->send('getMyName', $request->toPostData(), Types\BotName::class);
+    }
+
+    public function setMyDescription(Requests\SetMyDescription $request): bool
+    {
+        return $this->send('setMyDescription', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getMyDescription(Requests\GetMyDescription $request): BotDescription
+    {
+        return $this->send('getMyDescription', $request->toPostData(), BotDescription::class);
+    }
+
+    public function setMyShortDescription(Requests\SetMyShortDescription $request): bool
+    {
+        return $this->send('setMyShortDescription', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getMyShortDescription(Requests\GetMyShortDescription $request): Types\BotShortDescription
+    {
+        return $this->send('getMyShortDescription', $request->toPostData(), Types\BotShortDescription::class);
+    }
+
+    public function setChatMenuButton(Requests\SetChatMenuButton $request): bool
+    {
+        return $this->send('setChatMenuButton', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getChatMenuButton(Requests\GetChatMenuButton $request): Types\MenuButton
+    {
+        return $this->send('getChatMenuButton', $request->toPostData(), Types\MenuButton::class);
+    }
+
+    public function setMyDefaultAdministratorRights(Requests\SetMyDefaultAdministratorRights $request): bool
+    {
+        return $this->send('setMyDefaultAdministratorRights', $request->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function getMyDefaultAdministratorRights(Requests\GetMyDefaultAdministratorRights $request): Types\ChatAdministratorRights
+    {
+        return $this->send('getMyDefaultAdministratorRights', $request->toPostData(), Types\ChatAdministratorRights::class);
+    }
     /**
      * @param string $path
      * @param array $data
@@ -328,12 +530,12 @@ class Client
      * @throws Exception
      * @throws HttpException
      */
-    protected function send(string $path, array $data, mixed $responseType): mixed
+    protected function send(string $path, array $data = [], mixed $responseType = null): mixed
     {
         $url = "$this->url/$path";
         $response = $this->post($url, $data);
 
-       if ($response->isOk() === true) {
+        if ($response->isOk() === true) {
             return ModelBase::mapType($responseType, $response->getResult());
         } else {
             throw new HttpException($response->getDescription(), $response->getErrorCode(), $data, $response);

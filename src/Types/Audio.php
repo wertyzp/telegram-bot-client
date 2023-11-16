@@ -6,7 +6,6 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 
 class Audio extends Type
 {
-
     /**
     Field	Type	Description
     file_id	String	Identifier for this file, which can be used to download or reuse the file
