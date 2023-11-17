@@ -19,16 +19,67 @@ class AnswerCallbackQuery extends Request
     cache_time	Integer	Optional	The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
      */
     protected string $callback_query_id;
-    protected string $text;
-    protected bool $show_alert;
-    protected string $url;
-    protected int $cache_time;
+    protected ?string $text = null;
+    protected ?bool $show_alert = null;
+    protected ?string $url = null;
+    protected ?int $cache_time = null;
 
-    public function __construct(string $callbackQueryId)
+    public static function create(string $callbackQueryId, ?string $text = null): self
     {
-        parent::__construct([
+        return new self([
             'callback_query_id' => $callbackQueryId,
+            'text' => $text,
         ]);
+    }
+
+    /**
+     * @param string $callback_query_id
+     * @return AnswerCallbackQuery
+     */
+    public function setCallbackQueryId(string $callback_query_id): AnswerCallbackQuery
+    {
+        $this->callback_query_id = $callback_query_id;
+        return $this;
+    }
+
+    /**
+     * @param string $text
+     * @return AnswerCallbackQuery
+     */
+    public function setText(string $text): AnswerCallbackQuery
+    {
+        $this->text = $text;
+        return $this;
+    }
+
+    /**
+     * @param bool $show_alert
+     * @return AnswerCallbackQuery
+     */
+    public function setShowAlert(bool $show_alert): AnswerCallbackQuery
+    {
+        $this->show_alert = $show_alert;
+        return $this;
+    }
+
+    /**
+     * @param string $url
+     * @return AnswerCallbackQuery
+     */
+    public function setUrl(string $url): AnswerCallbackQuery
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @param int $cache_time
+     * @return AnswerCallbackQuery
+     */
+    public function setCacheTime(int $cache_time): AnswerCallbackQuery
+    {
+        $this->cache_time = $cache_time;
+        return $this;
     }
 
 }
