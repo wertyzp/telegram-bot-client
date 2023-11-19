@@ -16,7 +16,6 @@ last_synchronization_error_date	Integer	Optional. Unix time of the most recent e
 max_connections	Integer	Optional. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
 allowed_updates	Array of String	Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member
  */
-
 class WebhookInfo extends Type
 {
     protected string $url;
@@ -100,5 +99,4 @@ class WebhookInfo extends Type
     {
         return $this->allowed_updates;
     }
-
 }

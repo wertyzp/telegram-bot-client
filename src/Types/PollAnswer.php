@@ -11,7 +11,6 @@ voter_chat	Chat	Optional. The chat that changed the answer to the poll, if the v
 user	User	Optional. The user that changed the answer to the poll, if the voter isn't anonymous
 option_ids	Array of Integer	0-based identifiers of chosen answer options. May be empty if the vote was retracted.
  */
-
 class PollAnswer extends Type
 {
     protected const TYPE_MAP = [

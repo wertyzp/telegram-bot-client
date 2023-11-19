@@ -12,11 +12,11 @@ class ReopenForumTopic extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
     /**
-     * Unique identifier for the target message thread of the forum topic
+     * Unique identifier for the target message thread of the forum topic.
      */
     protected int $message_thread_id;
 
@@ -32,9 +32,10 @@ class ReopenForumTopic extends Request
      * @param int|string $chatId
      * @return ReopenForumTopic
      */
-    public function setChatId(int|string $chatId): ReopenForumTopic
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -42,11 +43,13 @@ class ReopenForumTopic extends Request
      * @param int $messageThreadId
      * @return ReopenForumTopic
      */
-    public function setMessageThreadId(int $messageThreadId): ReopenForumTopic
+    public function setMessageThreadId(int $messageThreadId): self
     {
         $this->message_thread_id = $messageThreadId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

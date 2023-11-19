@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Werty\Http\Clients\TelegramBot\Types;
 
 /**
- * Field	Type	Description
+ * Field	Type	Description.
 phone_number	String	Contact's phone number
 first_name	String	Contact's first name
 last_name	String	Optional. Contact's last name
@@ -59,5 +59,4 @@ class Contact extends Type
     {
         return $this->vcard;
     }
-
 }

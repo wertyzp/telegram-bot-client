@@ -16,7 +16,6 @@ expire_date	Integer	Optional. Point in time (Unix timestamp) when the link will 
 member_limit	Integer	Optional. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
 pending_join_request_count	Integer	Optional. Number of pending join requests created using this link
  */
-
 class ChatInviteLink extends Type
 {
     protected const TYPE_MAP = [
@@ -104,5 +103,4 @@ class ChatInviteLink extends Type
     {
         return $this->pending_join_request_count;
     }
-
 }

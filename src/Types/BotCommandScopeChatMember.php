@@ -22,9 +22,10 @@ class BotCommandScopeChatMember extends BotCommandScope
      * @param int|string $chat_id
      * @return BotCommandScopeChat
      */
-    public function setChatId(int|string $chat_id): BotCommandScopeChatMember
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -40,9 +41,10 @@ class BotCommandScopeChatMember extends BotCommandScope
      * @param string $type
      * @return BotCommandScopeChatMember
      */
-    public function setType(string $type): BotCommandScopeChatMember
+    public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -58,10 +60,10 @@ class BotCommandScopeChatMember extends BotCommandScope
      * @param int $user_id
      * @return BotCommandScopeChatMember
      */
-    public function setUserId(int $user_id): BotCommandScopeChatMember
+    public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
         return $this;
     }
-
 }

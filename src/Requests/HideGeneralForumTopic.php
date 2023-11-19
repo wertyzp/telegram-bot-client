@@ -12,7 +12,7 @@ class HideGeneralForumTopic extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
 
@@ -27,11 +27,13 @@ class HideGeneralForumTopic extends Request
      * @param int|string $chatId
      * @return HideGeneralForumTopic
      */
-    public function setChatId(int|string $chatId): HideGeneralForumTopic
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

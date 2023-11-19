@@ -12,11 +12,11 @@ class UnbanChatSenderChat extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * Unique identifier of the target sender chat
+     * Unique identifier of the target sender chat.
      */
     protected int $sender_chat_id;
 
@@ -32,9 +32,10 @@ class UnbanChatSenderChat extends Request
      * @param int|string $chatId
      * @return UnbanChatSenderChat
      */
-    public function setChatId(int|string $chatId): UnbanChatSenderChat
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -42,11 +43,13 @@ class UnbanChatSenderChat extends Request
      * @param int $senderChatId
      * @return UnbanChatSenderChat
      */
-    public function setSenderChatId(int $senderChatId): UnbanChatSenderChat
+    public function setSenderChatId(int $senderChatId): self
     {
         $this->sender_chat_id = $senderChatId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

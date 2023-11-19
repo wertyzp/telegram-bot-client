@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
 use Werty\Http\Clients\TelegramBot\Types\InputMedia;
-use Werty\Mapping\EmptyObject;
 
 /**
 Parameter	Type	Required	Description
@@ -47,6 +46,7 @@ class SendMediaGroup extends Request
     public function addMedia(InputMedia $media): self
     {
         $this->media[] = $media;
+
         return $this;
     }
 
@@ -54,9 +54,10 @@ class SendMediaGroup extends Request
      * @param int $chat_id
      * @return SendMediaGroup
      */
-    public function setChatId(int $chat_id): SendMediaGroup
+    public function setChatId(int $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -64,9 +65,10 @@ class SendMediaGroup extends Request
      * @param int|null $message_thread_id
      * @return SendMediaGroup
      */
-    public function setMessageThreadId(?int $message_thread_id): SendMediaGroup
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -74,9 +76,10 @@ class SendMediaGroup extends Request
      * @param array $media
      * @return SendMediaGroup
      */
-    public function setMedia(array $media): SendMediaGroup
+    public function setMedia(array $media): self
     {
         $this->media = $media;
+
         return $this;
     }
 
@@ -84,9 +87,10 @@ class SendMediaGroup extends Request
      * @param bool|null $disable_notification
      * @return SendMediaGroup
      */
-    public function setDisableNotification(?bool $disable_notification): SendMediaGroup
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -94,9 +98,10 @@ class SendMediaGroup extends Request
      * @param bool|null $protect_content
      * @return SendMediaGroup
      */
-    public function setProtectContent(?bool $protect_content): SendMediaGroup
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -160,9 +165,10 @@ class SendMediaGroup extends Request
      * @param int|null $reply_to_message_id
      * @return SendMediaGroup
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendMediaGroup
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -170,9 +176,10 @@ class SendMediaGroup extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendMediaGroup
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendMediaGroup
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -186,11 +193,11 @@ class SendMediaGroup extends Request
                 continue;
             }
 
-            $fileKey = 'item'.crc32($file);
+            $fileKey = 'item' . crc32($file);
             $mimeType = mime_content_type($file);
             $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
         }
+
         return $data;
     }
-
 }

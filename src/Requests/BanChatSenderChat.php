@@ -9,7 +9,6 @@ Parameter	Type	Required	Description
 chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 sender_chat_id	Integer	Yes	Unique identifier of the target sender chat
  */
-
 class BanChatSenderChat extends Request
 {
     protected int|string $chat_id;
@@ -27,6 +26,7 @@ class BanChatSenderChat extends Request
     public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -37,6 +37,7 @@ class BanChatSenderChat extends Request
     public function setSenderChatId(int $sender_chat_id): self
     {
         $this->sender_chat_id = $sender_chat_id;
+
         return $this;
     }
 }

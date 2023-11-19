@@ -20,7 +20,6 @@ explanation_entities	Array of MessageEntity	Optional. Special entities like user
 open_period	Integer	Optional. Amount of time in seconds the poll will be active after creation
 close_date	Integer	Optional. Point in time (Unix timestamp) when the poll will be automatically closed
  */
-
 class Poll extends Type
 {
     protected const TYPE_MAP = [
@@ -51,7 +50,7 @@ class Poll extends Type
     }
 
     /**
-     * Poll question, 1-300 characters
+     * Poll question, 1-300 characters.
      * @return string
      */
     public function getQuestion(): string
@@ -60,7 +59,7 @@ class Poll extends Type
     }
 
     /**
-     * List of poll options
+     * List of poll options.
      * @return array
      */
     public function getOptions(): array
@@ -69,7 +68,7 @@ class Poll extends Type
     }
 
     /**
-     * Total number of users that voted in the poll
+     * Total number of users that voted in the poll.
      * @return int
      */
     public function getTotalVoterCount(): int
@@ -94,7 +93,7 @@ class Poll extends Type
     }
 
     /**
-     * Poll type, currently can be “regular” or “quiz”
+     * Poll type, currently can be “regular” or “quiz”.
      * @return string
      */
     public function getType(): string
@@ -173,6 +172,4 @@ class Poll extends Type
     {
         return $this->close_date;
     }
-
-
 }

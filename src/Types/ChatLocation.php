@@ -9,7 +9,6 @@ Field	Type	Description
 location	Location	The location to which the supergroup is connected. Can't be a live location.
 address	String	Location address; 1-64 characters, as defined by the chat owner
  */
-
 class ChatLocation extends Type
 {
     protected const TYPE_MAP = [

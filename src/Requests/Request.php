@@ -8,5 +8,4 @@ use Werty\Http\Clients\TelegramBot\ModelBase;
 
 class Request extends ModelBase
 {
-
 }

@@ -20,7 +20,7 @@ abstract class ModelBase
         self::T_STRING => true,
         self::T_BOOLEAN => true,
         self::T_DOUBLE => true,
-        self::T_INTEGER => true
+        self::T_INTEGER => true,
     ];
 
     protected const TYPE_MAP = [
@@ -38,7 +38,7 @@ abstract class ModelBase
 
     protected function fill($dataObject = [])
     {
-        $data = (array)$dataObject;
+        $data = (array) $dataObject;
 
         $typeMaps = [];
         $class = get_class($this);
@@ -77,6 +77,7 @@ abstract class ModelBase
                     return self::map($type, $value);
                 }
             }
+
             return $value;
         }
 
@@ -92,6 +93,7 @@ abstract class ModelBase
         $result = [];
         $src = &$value;
         self::subarrayMap($src, $result, $type, $typeKey, $level);
+
         return $result;
     }
 
@@ -111,7 +113,6 @@ abstract class ModelBase
         }
     }
 
-
     private static function map($type, $value)
     {
         if (isset(self::T_SCALAR[$type])) {
@@ -119,6 +120,7 @@ abstract class ModelBase
         } elseif (is_string($type) && class_exists($type)) {
             $value = new $type($value);
         }
+
         return $value;
     }
 
@@ -210,7 +212,7 @@ abstract class ModelBase
         if (!in_array($scheme, ['http', 'https', 'ftp', 'attach'])) {
             return false;
         }
+
         return true;
     }
-
 }

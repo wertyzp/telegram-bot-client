@@ -35,6 +35,7 @@ class EditMessageMedia extends Request
             'message_id' => $messageId,
         ]);
         $editMessage->setMedia($media);
+
         return $editMessage;
     }
 
@@ -44,6 +45,7 @@ class EditMessageMedia extends Request
             'inline_message_id' => $inlineMessageId,
         ]);
         $editMessage->setMedia($media);
+
         return $editMessage;
     }
 
@@ -51,9 +53,10 @@ class EditMessageMedia extends Request
      * @param int|string|null $chat_id
      * @return EditMessageMedia
      */
-    public function setChatId(int|string|null $chat_id): EditMessageMedia
+    public function setChatId(int|string|null $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -61,9 +64,10 @@ class EditMessageMedia extends Request
      * @param int|null $message_id
      * @return EditMessageMedia
      */
-    public function setMessageId(?int $message_id): EditMessageMedia
+    public function setMessageId(?int $message_id): self
     {
         $this->message_id = $message_id;
+
         return $this;
     }
 
@@ -71,9 +75,10 @@ class EditMessageMedia extends Request
      * @param string|null $inline_message_id
      * @return EditMessageMedia
      */
-    public function setInlineMessageId(?string $inline_message_id): EditMessageMedia
+    public function setInlineMessageId(?string $inline_message_id): self
     {
         $this->inline_message_id = $inline_message_id;
+
         return $this;
     }
 
@@ -81,9 +86,10 @@ class EditMessageMedia extends Request
      * @param InputMedia $media
      * @return EditMessageMedia
      */
-    public function setMedia(InputMedia $media): EditMessageMedia
+    public function setMedia(InputMedia $media): self
     {
         $this->media = $media;
+
         return $this;
     }
 
@@ -91,11 +97,10 @@ class EditMessageMedia extends Request
      * @param InlineKeyboardMarkup|null $reply_markup
      * @return EditMessageMedia
      */
-    public function setReplyMarkup(?InlineKeyboardMarkup $reply_markup): EditMessageMedia
+    public function setReplyMarkup(?InlineKeyboardMarkup $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
-
 }

@@ -10,7 +10,7 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 class GetMyCommands extends Request
 {
     protected const SERIALIZE_JSON = [
-        'scope'
+        'scope',
     ];
 
     /**
@@ -19,18 +19,18 @@ class GetMyCommands extends Request
      */
     protected ?BotCommandScope $scope;
     /**
-     * A two-letter ISO 639-1 language code or an empty string
+     * A two-letter ISO 639-1 language code or an empty string.
      */
     protected ?string $language_code;
-
 
     /**
      * @param BotCommandScope $scope
      * @return GetMyCommands
      */
-    public function setScope(BotCommandScope $scope): GetMyCommands
+    public function setScope(BotCommandScope $scope): self
     {
         $this->scope = $scope;
+
         return $this;
     }
 
@@ -38,11 +38,13 @@ class GetMyCommands extends Request
      * @param string $languageCode
      * @return GetMyCommands
      */
-    public function setLanguageCode(string $languageCode): GetMyCommands
+    public function setLanguageCode(string $languageCode): self
     {
         $this->language_code = $languageCode;
+
         return $this;
     }
+
     /**
      * @return BotCommandScope
      */

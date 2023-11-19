@@ -10,7 +10,6 @@ use Werty\Http\Clients\TelegramBot\Types\InputFile;
 use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
-use Werty\Mapping\EmptyObject;
 
 /**
 Parameter	Type	Required	Description
@@ -31,13 +30,11 @@ reply_to_message_id	Integer	Optional	If the message is a reply, ID of the origin
 allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-
-
-class SendAnimation extends EmptyObject
+class SendAnimation extends Request
 {
     protected const SERIALIZE_JSON = [
         'caption_entities',
-        'reply_markup'
+        'reply_markup',
     ];
 
     protected const TYPE_MAP = [
@@ -64,9 +61,10 @@ class SendAnimation extends EmptyObject
      * @param int|string $chat_id
      * @return SendAnimation
      */
-    public function setChatId(int|string $chat_id): SendAnimation
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -74,9 +72,10 @@ class SendAnimation extends EmptyObject
      * @param int|null $message_thread_id
      * @return SendAnimation
      */
-    public function setMessageThreadId(?int $message_thread_id): SendAnimation
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -84,9 +83,10 @@ class SendAnimation extends EmptyObject
      * @param string|InputFile $animation
      * @return SendAnimation
      */
-    public function setAnimation(string|InputFile $animation): SendAnimation
+    public function setAnimation(string|InputFile $animation): self
     {
         $this->animation = $animation;
+
         return $this;
     }
 
@@ -94,9 +94,10 @@ class SendAnimation extends EmptyObject
      * @param int|null $duration
      * @return SendAnimation
      */
-    public function setDuration(?int $duration): SendAnimation
+    public function setDuration(?int $duration): self
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -104,9 +105,10 @@ class SendAnimation extends EmptyObject
      * @param int|null $width
      * @return SendAnimation
      */
-    public function setWidth(?int $width): SendAnimation
+    public function setWidth(?int $width): self
     {
         $this->width = $width;
+
         return $this;
     }
 
@@ -114,9 +116,10 @@ class SendAnimation extends EmptyObject
      * @param int|null $height
      * @return SendAnimation
      */
-    public function setHeight(?int $height): SendAnimation
+    public function setHeight(?int $height): self
     {
         $this->height = $height;
+
         return $this;
     }
 
@@ -124,9 +127,10 @@ class SendAnimation extends EmptyObject
      * @param string|InputFile|null $thumbnail
      * @return SendAnimation
      */
-    public function setThumbnail(string|InputFile|null $thumbnail): SendAnimation
+    public function setThumbnail(string|InputFile|null $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -134,9 +138,10 @@ class SendAnimation extends EmptyObject
      * @param string|null $caption
      * @return SendAnimation
      */
-    public function setCaption(?string $caption): SendAnimation
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -144,9 +149,10 @@ class SendAnimation extends EmptyObject
      * @param string|null $parse_mode
      * @return SendAnimation
      */
-    public function setParseMode(?string $parse_mode): SendAnimation
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -154,9 +160,10 @@ class SendAnimation extends EmptyObject
      * @param array|null $caption_entities
      * @return SendAnimation
      */
-    public function setCaptionEntities(?array $caption_entities): SendAnimation
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -164,9 +171,10 @@ class SendAnimation extends EmptyObject
      * @param bool|null $has_spoiler
      * @return SendAnimation
      */
-    public function setHasSpoiler(?bool $has_spoiler): SendAnimation
+    public function setHasSpoiler(?bool $has_spoiler): self
     {
         $this->has_spoiler = $has_spoiler;
+
         return $this;
     }
 
@@ -174,9 +182,10 @@ class SendAnimation extends EmptyObject
      * @param bool|null $disable_notification
      * @return SendAnimation
      */
-    public function setDisableNotification(?bool $disable_notification): SendAnimation
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -184,9 +193,10 @@ class SendAnimation extends EmptyObject
      * @param bool|null $protect_content
      * @return SendAnimation
      */
-    public function setProtectContent(?bool $protect_content): SendAnimation
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -194,9 +204,10 @@ class SendAnimation extends EmptyObject
      * @param int|null $reply_to_message_id
      * @return SendAnimation
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendAnimation
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -204,9 +215,10 @@ class SendAnimation extends EmptyObject
      * @param bool|null $allow_sending_without_reply
      * @return SendAnimation
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendAnimation
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -214,10 +226,10 @@ class SendAnimation extends EmptyObject
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendAnimation
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendAnimation
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

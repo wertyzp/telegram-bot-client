@@ -22,7 +22,6 @@ can_edit_stories	Boolean	Optional. True, if the administrator can edit stories p
 can_delete_stories	Boolean	Optional. True, if the administrator can delete stories posted by other users; channels only
 can_manage_topics	Boolean	Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
  */
-
 class ChatAdministratorRights extends Type
 {
     protected bool $is_anonymous;
@@ -160,5 +159,4 @@ class ChatAdministratorRights extends Type
     {
         return $this->can_manage_topics;
     }
-
 }

@@ -313,5 +313,4 @@ class Chat extends Type
     {
         return $this->location;
     }
-
 }

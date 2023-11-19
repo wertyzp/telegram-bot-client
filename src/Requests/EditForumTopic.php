@@ -12,23 +12,23 @@ class EditForumTopic extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
     /**
-     * Unique identifier for the target message thread of the forum topic
+     * Unique identifier for the target message thread of the forum topic.
      */
     protected int $message_thread_id;
     /**
      * New topic name, 0-128 characters. If not specified or empty, the curre
-     * nt name of the topic will be kept
+     * nt name of the topic will be kept.
      */
     protected ?string $name = null;
     /**
      * New unique identifier of the custom emoji shown as the topic icon. Use
      *  getForumTopicIconStickers to get all allowed custom emoji identifiers
      * . Pass an empty string to remove the icon. If not specified, the curre
-     * nt icon will be kept
+     * nt icon will be kept.
      */
     protected ?string $icon_custom_emoji_id = null;
 
@@ -44,9 +44,10 @@ class EditForumTopic extends Request
      * @param int|string $chatId
      * @return EditForumTopic
      */
-    public function setChatId(int|string $chatId): EditForumTopic
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -54,9 +55,10 @@ class EditForumTopic extends Request
      * @param int $messageThreadId
      * @return EditForumTopic
      */
-    public function setMessageThreadId(int $messageThreadId): EditForumTopic
+    public function setMessageThreadId(int $messageThreadId): self
     {
         $this->message_thread_id = $messageThreadId;
+
         return $this;
     }
 
@@ -64,9 +66,10 @@ class EditForumTopic extends Request
      * @param string $name
      * @return EditForumTopic
      */
-    public function setName(string $name): EditForumTopic
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -74,11 +77,13 @@ class EditForumTopic extends Request
      * @param string $iconCustomEmojiId
      * @return EditForumTopic
      */
-    public function setIconCustomEmojiId(string $iconCustomEmojiId): EditForumTopic
+    public function setIconCustomEmojiId(string $iconCustomEmojiId): self
     {
         $this->icon_custom_emoji_id = $iconCustomEmojiId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

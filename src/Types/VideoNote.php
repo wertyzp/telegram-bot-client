@@ -13,7 +13,6 @@ duration	Integer	Duration of the video in seconds as defined by sender
 thumbnail	PhotoSize	Optional. Video thumbnail
 file_size	Integer	Optional. File size in bytes
  */
-
 class VideoNote extends Type
 {
     protected const TYPE_MAP = [

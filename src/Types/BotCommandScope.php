@@ -20,10 +20,10 @@ class BotCommandScope extends Type
      * @param string $type
      * @return BotCommandScope
      */
-    public function setType(string $type): BotCommandScope
+    public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
-
 }

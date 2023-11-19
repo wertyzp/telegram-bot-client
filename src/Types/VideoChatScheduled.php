@@ -8,7 +8,6 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 Field	Type	Description
 start_date	Integer	Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator
  */
-
 class VideoChatScheduled extends Type
 {
     /**
@@ -23,5 +22,4 @@ class VideoChatScheduled extends Type
     {
         return $this->start_date;
     }
-
 }

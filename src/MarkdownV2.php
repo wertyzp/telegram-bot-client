@@ -12,17 +12,18 @@ class MarkdownV2
         '%is' => '_%s_',
     ];
 
-    private $text = "";
+    private $text = '';
 
     public static function escape($text)
     {
         settype($text, 'string');
         $search = [chr(92), '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
-        $replace = [chr(92).chr(92), '\_', '\*', '\[', '\]', '\(', '\)', '\~', '\`', '\>', '\#', '\+', '\-', '\=', '\|', '\{', '\}', '\.', '\!'];
+        $replace = [chr(92) . chr(92), '\_', '\*', '\[', '\]', '\(', '\)', '\~', '\`', '\>', '\#', '\+', '\-', '\=', '\|', '\{', '\}', '\.', '\!'];
+
         return str_replace($search, $replace, $text);
     }
 
-    public function __construct(string $format = "", ...$arguments)
+    public function __construct(string $format = '', ...$arguments)
     {
         $this->appendLine($format, ...$arguments);
     }
@@ -31,12 +32,14 @@ class MarkdownV2
     {
         if (empty($format)) {
             $this->text .= PHP_EOL;
+
             return $this;
         }
-        $escapedFormat = MarkdownV2::escape($format);
+        $escapedFormat = self::escape($format);
         $escapedArguments = array_map([self::class, 'escape'], $arguments);
         $markdownFormat = str_replace(array_keys(self::MAP), array_values(self::MAP), $escapedFormat);
         $this->text .= vsprintf($markdownFormat, $escapedArguments) . PHP_EOL;
+
         return $this;
     }
 
@@ -48,12 +51,14 @@ class MarkdownV2
     public function raw(string $markdownV2String): self
     {
         $this->text .= $markdownV2String;
+
         return $this;
     }
 
     public function appendMarkdownV2(string $markdownV2String): self
     {
         $this->text .= $markdownV2String;
+
         return $this;
     }
 

@@ -103,5 +103,4 @@ class Audio extends Type
     {
         return $this->thumbnail;
     }
-
 }

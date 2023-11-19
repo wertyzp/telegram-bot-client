@@ -15,5 +15,4 @@ class MenuButton extends Type
     {
         return $this->type;
     }
-
 }

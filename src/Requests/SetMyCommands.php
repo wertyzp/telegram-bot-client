@@ -10,13 +10,13 @@ class SetMyCommands extends Request
 {
     protected const SERIALIZE_JSON = [
         'commands',
-        'scope'
+        'scope',
     ];
 
     /**
      * A JSON-serialized list of bot commands to be set as the list of the bo
      * t's commands. At most 100 commands can be specified.
-     * @var Array of BotCommand[]
+     * @var array of BotCommand[]
      */
     protected array $commands;
     /**
@@ -27,7 +27,7 @@ class SetMyCommands extends Request
     /**
      * A two-letter ISO 639-1 language code. If empty, commands will be appli
      * ed to all users from the given scope, for whose language there are no
-     * dedicated commands
+     * dedicated commands.
      */
     protected ?string $language_code;
 
@@ -42,9 +42,10 @@ class SetMyCommands extends Request
      * @param array $commands
      * @return SetMyCommands
      */
-    public function setCommands(array $commands): SetMyCommands
+    public function setCommands(array $commands): self
     {
         $this->commands = $commands;
+
         return $this;
     }
 
@@ -52,9 +53,10 @@ class SetMyCommands extends Request
      * @param BotCommandScope $scope
      * @return SetMyCommands
      */
-    public function setScope(BotCommandScope $scope): SetMyCommands
+    public function setScope(BotCommandScope $scope): self
     {
         $this->scope = $scope;
+
         return $this;
     }
 
@@ -62,11 +64,13 @@ class SetMyCommands extends Request
      * @param string $languageCode
      * @return SetMyCommands
      */
-    public function setLanguageCode(string $languageCode): SetMyCommands
+    public function setLanguageCode(string $languageCode): self
     {
         $this->language_code = $languageCode;
+
         return $this;
     }
+
     /**
      * @return array
      */

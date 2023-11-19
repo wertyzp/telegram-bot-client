@@ -10,7 +10,6 @@ use Werty\Http\Clients\TelegramBot\Types\InputFile;
 use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
-use Werty\Mapping\EmptyObject;
 
 /**
  * Parameter    Type    Required    Description
@@ -28,14 +27,12 @@ use Werty\Mapping\EmptyObject;
  * allow_sending_without_reply    Boolean    Optional    Pass True if the message should be sent even if the specified replied-to message is not found
  * reply_markup    InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply    Optional    Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-
-class SendDocument extends EmptyObject
+class SendDocument extends Request
 {
     protected const SERIALIZE_JSON = [
         'caption_entities',
-        'reply_markup'
+        'reply_markup',
     ];
-
 
     protected const TYPE_MAP = [
         'caption_entities' => [MessageEntity::class],
@@ -67,9 +64,10 @@ class SendDocument extends EmptyObject
      * @param int|string $chat_id
      * @return SendDocument
      */
-    public function setChatId(int|string $chat_id): SendDocument
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -77,9 +75,10 @@ class SendDocument extends EmptyObject
      * @param int|null $message_thread_id
      * @return SendDocument
      */
-    public function setMessageThreadId(?int $message_thread_id): SendDocument
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -87,9 +86,10 @@ class SendDocument extends EmptyObject
      * @param string|InputFile $document
      * @return SendDocument
      */
-    public function setDocument(string|InputFile $document): SendDocument
+    public function setDocument(string|InputFile $document): self
     {
         $this->document = $document;
+
         return $this;
     }
 
@@ -97,9 +97,10 @@ class SendDocument extends EmptyObject
      * @param string|InputFile|null $thumbnail
      * @return SendDocument
      */
-    public function setThumbnail(string|InputFile|null $thumbnail): SendDocument
+    public function setThumbnail(string|InputFile|null $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -107,9 +108,10 @@ class SendDocument extends EmptyObject
      * @param string|null $caption
      * @return SendDocument
      */
-    public function setCaption(?string $caption): SendDocument
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -117,9 +119,10 @@ class SendDocument extends EmptyObject
      * @param string|null $parse_mode
      * @return SendDocument
      */
-    public function setParseMode(?string $parse_mode): SendDocument
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -127,9 +130,10 @@ class SendDocument extends EmptyObject
      * @param array|null $caption_entities
      * @return SendDocument
      */
-    public function setCaptionEntities(?array $caption_entities): SendDocument
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -137,9 +141,10 @@ class SendDocument extends EmptyObject
      * @param bool|null $disable_content_type_detection
      * @return SendDocument
      */
-    public function setDisableContentTypeDetection(?bool $disable_content_type_detection): SendDocument
+    public function setDisableContentTypeDetection(?bool $disable_content_type_detection): self
     {
         $this->disable_content_type_detection = $disable_content_type_detection;
+
         return $this;
     }
 
@@ -147,9 +152,10 @@ class SendDocument extends EmptyObject
      * @param bool|null $disable_notification
      * @return SendDocument
      */
-    public function setDisableNotification(?bool $disable_notification): SendDocument
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -157,9 +163,10 @@ class SendDocument extends EmptyObject
      * @param bool|null $protect_content
      * @return SendDocument
      */
-    public function setProtectContent(?bool $protect_content): SendDocument
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -167,9 +174,10 @@ class SendDocument extends EmptyObject
      * @param int|null $reply_to_message_id
      * @return SendDocument
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendDocument
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -177,9 +185,10 @@ class SendDocument extends EmptyObject
      * @param bool|null $allow_sending_without_reply
      * @return SendDocument
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendDocument
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -187,10 +196,10 @@ class SendDocument extends EmptyObject
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendDocument
      */
-    public function setReplyMarkup(ForceReply|ReplyKeyboardMarkup|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendDocument
+    public function setReplyMarkup(ForceReply|ReplyKeyboardMarkup|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

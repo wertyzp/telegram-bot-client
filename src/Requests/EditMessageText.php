@@ -6,7 +6,6 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 
 use Werty\Http\Clients\TelegramBot\MarkdownV2;
 use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
-use Werty\Mapping\EmptyObject;
 
 /**
 Parameter	Type	Required	Description
@@ -19,12 +18,11 @@ entities	Array of MessageEntity	Optional	A JSON-serialized list of special entit
 disable_web_page_preview	Boolean	Optional	Disables link previews for links in this message
 reply_markup	InlineKeyboardMarkup	Optional	A JSON-serialized object for an inline keyboard.
  */
-
 class EditMessageText extends Request
 {
     protected const SERIALIZE_JSON = [
         'entities',
-        'reply_markup'
+        'reply_markup',
     ];
 
     protected int|string $chat_id;
@@ -35,7 +33,6 @@ class EditMessageText extends Request
     protected ?array $entities = null;
     protected ?bool $disable_web_page_preview = null;
     protected ?InlineKeyboardMarkup $reply_markup = null;
-
 
     public static function create(int|string $chatId, int $messageId, string|MarkdownV2 $text): self
     {
@@ -50,9 +47,10 @@ class EditMessageText extends Request
      * @param int|string $chat_id
      * @return EditMessageText
      */
-    public function setChatId(int|string $chat_id): EditMessageText
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -60,9 +58,10 @@ class EditMessageText extends Request
      * @param int|null $message_id
      * @return EditMessageText
      */
-    public function setMessageId(?int $message_id): EditMessageText
+    public function setMessageId(?int $message_id): self
     {
         $this->message_id = $message_id;
+
         return $this;
     }
 
@@ -70,9 +69,10 @@ class EditMessageText extends Request
      * @param string|null $inline_message_id
      * @return EditMessageText
      */
-    public function setInlineMessageId(?string $inline_message_id): EditMessageText
+    public function setInlineMessageId(?string $inline_message_id): self
     {
         $this->inline_message_id = $inline_message_id;
+
         return $this;
     }
 
@@ -80,9 +80,10 @@ class EditMessageText extends Request
      * @param string $text
      * @return EditMessageText
      */
-    public function setText(string $text): EditMessageText
+    public function setText(string $text): self
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -90,9 +91,10 @@ class EditMessageText extends Request
      * @param string|null $parse_mode
      * @return EditMessageText
      */
-    public function setParseMode(?string $parse_mode): EditMessageText
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -100,9 +102,10 @@ class EditMessageText extends Request
      * @param array|null $entities
      * @return EditMessageText
      */
-    public function setEntities(?array $entities): EditMessageText
+    public function setEntities(?array $entities): self
     {
         $this->entities = $entities;
+
         return $this;
     }
 
@@ -110,9 +113,10 @@ class EditMessageText extends Request
      * @param bool|null $disable_web_page_preview
      * @return EditMessageText
      */
-    public function setDisableWebPagePreview(?bool $disable_web_page_preview): EditMessageText
+    public function setDisableWebPagePreview(?bool $disable_web_page_preview): self
     {
         $this->disable_web_page_preview = $disable_web_page_preview;
+
         return $this;
     }
 
@@ -120,10 +124,10 @@ class EditMessageText extends Request
      * @param InlineKeyboardMarkup|null $reply_markup
      * @return EditMessageText
      */
-    public function setReplyMarkup(?InlineKeyboardMarkup $reply_markup): EditMessageText
+    public function setReplyMarkup(?InlineKeyboardMarkup $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

@@ -10,7 +10,6 @@ from_request	Boolean	Optional. True, if the access was granted after the user ac
 web_app_name	String	Optional. Name of the Web App, if the access was granted when the Web App was launched from a link
 from_attachment_menu	Boolean	Optional. True, if the access was granted when the bot was added to the attachment or side menu
  */
-
 class WriteAccessAllowed extends Type
 {
     protected bool $from_request;
@@ -18,7 +17,7 @@ class WriteAccessAllowed extends Type
     protected bool $from_attachment_menu;
 
     /**
-     * Optional. True, if the access was granted after the user accepted an explicit request from a Web App sent by the method requestWriteAccess
+     * Optional. True, if the access was granted after the user accepted an explicit request from a Web App sent by the method requestWriteAccess.
      * @return bool
      */
     public function getFromRequest(): bool
@@ -27,7 +26,7 @@ class WriteAccessAllowed extends Type
     }
 
     /**
-     * Optional. Name of the Web App, if the access was granted when the Web App was launched from a link
+     * Optional. Name of the Web App, if the access was granted when the Web App was launched from a link.
      * @return string
      */
     public function getWebAppName(): string
@@ -36,7 +35,7 @@ class WriteAccessAllowed extends Type
     }
 
     /**
-     * Optional. True, if the access was granted when the bot was added to the attachment or side menu
+     * Optional. True, if the access was granted when the bot was added to the attachment or side menu.
      * @return bool
      */
     public function getFromAttachmentMenu(): bool

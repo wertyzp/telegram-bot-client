@@ -12,11 +12,11 @@ class SetChatTitle extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * New chat title, 1-128 characters
+     * New chat title, 1-128 characters.
      */
     protected string $title;
 
@@ -32,9 +32,10 @@ class SetChatTitle extends Request
      * @param int|string $chatId
      * @return SetChatTitle
      */
-    public function setChatId(int|string $chatId): SetChatTitle
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -42,11 +43,13 @@ class SetChatTitle extends Request
      * @param string $title
      * @return SetChatTitle
      */
-    public function setTitle(string $title): SetChatTitle
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

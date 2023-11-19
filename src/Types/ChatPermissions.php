@@ -21,7 +21,6 @@ can_invite_users	Boolean	Optional. True, if the user is allowed to invite new us
 can_pin_messages	Boolean	Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
 can_manage_topics	Boolean	Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
  */
-
 class ChatPermissions extends Type
 {
     protected ?bool $can_send_messages = null;
@@ -155,9 +154,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_messages
      * @return ChatPermissions
      */
-    public function setCanSendMessages(?bool $can_send_messages): ChatPermissions
+    public function setCanSendMessages(?bool $can_send_messages): self
     {
         $this->can_send_messages = $can_send_messages;
+
         return $this;
     }
 
@@ -165,9 +165,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_audios
      * @return ChatPermissions
      */
-    public function setCanSendAudios(?bool $can_send_audios): ChatPermissions
+    public function setCanSendAudios(?bool $can_send_audios): self
     {
         $this->can_send_audios = $can_send_audios;
+
         return $this;
     }
 
@@ -175,9 +176,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_documents
      * @return ChatPermissions
      */
-    public function setCanSendDocuments(?bool $can_send_documents): ChatPermissions
+    public function setCanSendDocuments(?bool $can_send_documents): self
     {
         $this->can_send_documents = $can_send_documents;
+
         return $this;
     }
 
@@ -185,9 +187,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_photos
      * @return ChatPermissions
      */
-    public function setCanSendPhotos(?bool $can_send_photos): ChatPermissions
+    public function setCanSendPhotos(?bool $can_send_photos): self
     {
         $this->can_send_photos = $can_send_photos;
+
         return $this;
     }
 
@@ -195,9 +198,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_videos
      * @return ChatPermissions
      */
-    public function setCanSendVideos(?bool $can_send_videos): ChatPermissions
+    public function setCanSendVideos(?bool $can_send_videos): self
     {
         $this->can_send_videos = $can_send_videos;
+
         return $this;
     }
 
@@ -205,9 +209,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_video_notes
      * @return ChatPermissions
      */
-    public function setCanSendVideoNotes(?bool $can_send_video_notes): ChatPermissions
+    public function setCanSendVideoNotes(?bool $can_send_video_notes): self
     {
         $this->can_send_video_notes = $can_send_video_notes;
+
         return $this;
     }
 
@@ -215,9 +220,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_voice_notes
      * @return ChatPermissions
      */
-    public function setCanSendVoiceNotes(?bool $can_send_voice_notes): ChatPermissions
+    public function setCanSendVoiceNotes(?bool $can_send_voice_notes): self
     {
         $this->can_send_voice_notes = $can_send_voice_notes;
+
         return $this;
     }
 
@@ -225,9 +231,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_polls
      * @return ChatPermissions
      */
-    public function setCanSendPolls(?bool $can_send_polls): ChatPermissions
+    public function setCanSendPolls(?bool $can_send_polls): self
     {
         $this->can_send_polls = $can_send_polls;
+
         return $this;
     }
 
@@ -235,9 +242,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_send_other_messages
      * @return ChatPermissions
      */
-    public function setCanSendOtherMessages(?bool $can_send_other_messages): ChatPermissions
+    public function setCanSendOtherMessages(?bool $can_send_other_messages): self
     {
         $this->can_send_other_messages = $can_send_other_messages;
+
         return $this;
     }
 
@@ -245,9 +253,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_add_web_page_previews
      * @return ChatPermissions
      */
-    public function setCanAddWebPagePreviews(?bool $can_add_web_page_previews): ChatPermissions
+    public function setCanAddWebPagePreviews(?bool $can_add_web_page_previews): self
     {
         $this->can_add_web_page_previews = $can_add_web_page_previews;
+
         return $this;
     }
 
@@ -255,9 +264,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_change_info
      * @return ChatPermissions
      */
-    public function setCanChangeInfo(?bool $can_change_info): ChatPermissions
+    public function setCanChangeInfo(?bool $can_change_info): self
     {
         $this->can_change_info = $can_change_info;
+
         return $this;
     }
 
@@ -265,9 +275,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_invite_users
      * @return ChatPermissions
      */
-    public function setCanInviteUsers(?bool $can_invite_users): ChatPermissions
+    public function setCanInviteUsers(?bool $can_invite_users): self
     {
         $this->can_invite_users = $can_invite_users;
+
         return $this;
     }
 
@@ -275,9 +286,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_pin_messages
      * @return ChatPermissions
      */
-    public function setCanPinMessages(?bool $can_pin_messages): ChatPermissions
+    public function setCanPinMessages(?bool $can_pin_messages): self
     {
         $this->can_pin_messages = $can_pin_messages;
+
         return $this;
     }
 
@@ -285,10 +297,10 @@ class ChatPermissions extends Type
      * @param bool|null $can_manage_topics
      * @return ChatPermissions
      */
-    public function setCanManageTopics(?bool $can_manage_topics): ChatPermissions
+    public function setCanManageTopics(?bool $can_manage_topics): self
     {
         $this->can_manage_topics = $can_manage_topics;
+
         return $this;
     }
-
 }

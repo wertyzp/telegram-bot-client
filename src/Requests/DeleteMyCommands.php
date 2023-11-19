@@ -12,7 +12,7 @@ use Werty\Http\Clients\TelegramBot\Types\BotCommandScope;
 class DeleteMyCommands extends Request
 {
     protected const SERIALIZE_JSON = [
-        'scope'
+        'scope',
     ];
 
     /**
@@ -23,18 +23,18 @@ class DeleteMyCommands extends Request
     /**
      * A two-letter ISO 639-1 language code. If empty, commands will be appli
      * ed to all users from the given scope, for whose language there are no
-     * dedicated commands
+     * dedicated commands.
      */
     protected ?string $language_code = null;
-
 
     /**
      * @param BotCommandScope $scope
      * @return DeleteMyCommands
      */
-    public function setScope(BotCommandScope $scope): DeleteMyCommands
+    public function setScope(BotCommandScope $scope): self
     {
         $this->scope = $scope;
+
         return $this;
     }
 
@@ -42,11 +42,13 @@ class DeleteMyCommands extends Request
      * @param string $languageCode
      * @return DeleteMyCommands
      */
-    public function setLanguageCode(string $languageCode): DeleteMyCommands
+    public function setLanguageCode(string $languageCode): self
     {
         $this->language_code = $languageCode;
+
         return $this;
     }
+
     /**
      * @return BotCommandScope
      */

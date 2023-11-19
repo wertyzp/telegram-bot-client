@@ -13,7 +13,6 @@ date	Integer	Date the request was sent in Unix time
 bio	String	Optional. Bio of the user.
 invite_link	ChatInviteLink	Optional. Chat invite link that was used by the user to send the join request
  */
-
 class ChatJoinRequest extends Type
 {
     protected const TYPE_MAP = [

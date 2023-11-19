@@ -9,7 +9,6 @@ Field	Type	Description
 total_count	Integer	Total number of profile pictures the target user has
 photos	Array of Array of PhotoSize	Requested profile pictures (in up to 4 sizes each)
  */
-
 class UserProfilePhotos extends Type
 {
     protected const TYPE_MAP = [

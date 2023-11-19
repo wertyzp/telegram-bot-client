@@ -10,7 +10,6 @@ traveler	User	User that triggered the alert
 watcher	User	User that set the alert
 distance	Integer	The distance between the users
  */
-
 class ProximityAlertTriggered extends Type
 {
     protected User $traveler;

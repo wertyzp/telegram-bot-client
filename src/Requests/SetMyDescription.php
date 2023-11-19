@@ -32,9 +32,10 @@ class SetMyDescription extends Request
      * @param string|null $description
      * @return SetMyDescription
      */
-    public function setDescription(?string $description): SetMyDescription
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -50,10 +51,10 @@ class SetMyDescription extends Request
      * @param string|null $language_code
      * @return SetMyDescription
      */
-    public function setLanguageCode(?string $language_code): SetMyDescription
+    public function setLanguageCode(?string $language_code): self
     {
         $this->language_code = $language_code;
+
         return $this;
     }
-
 }

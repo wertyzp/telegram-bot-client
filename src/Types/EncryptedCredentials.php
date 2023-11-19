@@ -10,7 +10,6 @@ data	String	Base64-encoded encrypted JSON-serialized data with unique user's pay
 hash	String	Base64-encoded data hash for data authentication
 secret	String	Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption
  */
-
 class EncryptedCredentials extends Type
 {
     protected string $data;

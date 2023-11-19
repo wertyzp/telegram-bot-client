@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Werty\Http\Clients\TelegramBot\Client;
-use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
-use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
 
 chdir(dirname(dirname(__DIR__)));
 
@@ -26,8 +24,7 @@ $photo = new \Werty\Http\Clients\TelegramBot\Types\InputFile('test.png', $mimeTy
 $message = \Werty\Http\Clients\TelegramBot\Requests\SendPhoto::create($chatId, $photo);
 $message->setCaption('test successful');
 $message->setCaptionEntities([
-    \Werty\Http\Clients\TelegramBot\Types\MessageEntity::create('bold', 0, 4)
+    \Werty\Http\Clients\TelegramBot\Types\MessageEntity::create('bold', 0, 4),
 ]);
 $data = $message->toPostData();
 $client->sendPhoto($message);
-

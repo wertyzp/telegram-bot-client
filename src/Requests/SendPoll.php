@@ -33,7 +33,6 @@ reply_to_message_id	Integer	Optional	If the message is a reply, ID of the origin
 allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-
 class SendPoll extends Request
 {
     protected const SERIALIZE_JSON = [
@@ -80,9 +79,10 @@ class SendPoll extends Request
      * @param int|string $chat_id
      * @return SendPoll
      */
-    public function setChatId(int|string $chat_id): SendPoll
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -90,9 +90,10 @@ class SendPoll extends Request
      * @param int|null $message_thread_id
      * @return SendPoll
      */
-    public function setMessageThreadId(?int $message_thread_id): SendPoll
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -100,9 +101,10 @@ class SendPoll extends Request
      * @param string $question
      * @return SendPoll
      */
-    public function setQuestion(string $question): SendPoll
+    public function setQuestion(string $question): self
     {
         $this->question = $question;
+
         return $this;
     }
 
@@ -110,9 +112,10 @@ class SendPoll extends Request
      * @param array $options
      * @return SendPoll
      */
-    public function setOptions(array $options): SendPoll
+    public function setOptions(array $options): self
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -120,9 +123,10 @@ class SendPoll extends Request
      * @param bool|null $is_anonymous
      * @return SendPoll
      */
-    public function setIsAnonymous(?bool $is_anonymous): SendPoll
+    public function setIsAnonymous(?bool $is_anonymous): self
     {
         $this->is_anonymous = $is_anonymous;
+
         return $this;
     }
 
@@ -130,9 +134,10 @@ class SendPoll extends Request
      * @param string|null $type
      * @return SendPoll
      */
-    public function setType(?string $type): SendPoll
+    public function setType(?string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -140,9 +145,10 @@ class SendPoll extends Request
      * @param bool|null $allows_multiple_answers
      * @return SendPoll
      */
-    public function setAllowsMultipleAnswers(?bool $allows_multiple_answers): SendPoll
+    public function setAllowsMultipleAnswers(?bool $allows_multiple_answers): self
     {
         $this->allows_multiple_answers = $allows_multiple_answers;
+
         return $this;
     }
 
@@ -150,9 +156,10 @@ class SendPoll extends Request
      * @param int|null $correct_option_id
      * @return SendPoll
      */
-    public function setCorrectOptionId(?int $correct_option_id): SendPoll
+    public function setCorrectOptionId(?int $correct_option_id): self
     {
         $this->correct_option_id = $correct_option_id;
+
         return $this;
     }
 
@@ -160,9 +167,10 @@ class SendPoll extends Request
      * @param string|null $explanation
      * @return SendPoll
      */
-    public function setExplanation(?string $explanation): SendPoll
+    public function setExplanation(?string $explanation): self
     {
         $this->explanation = $explanation;
+
         return $this;
     }
 
@@ -170,9 +178,10 @@ class SendPoll extends Request
      * @param string|null $explanation_parse_mode
      * @return SendPoll
      */
-    public function setExplanationParseMode(?string $explanation_parse_mode): SendPoll
+    public function setExplanationParseMode(?string $explanation_parse_mode): self
     {
         $this->explanation_parse_mode = $explanation_parse_mode;
+
         return $this;
     }
 
@@ -180,9 +189,10 @@ class SendPoll extends Request
      * @param array|null $explanation_entities
      * @return SendPoll
      */
-    public function setExplanationEntities(?array $explanation_entities): SendPoll
+    public function setExplanationEntities(?array $explanation_entities): self
     {
         $this->explanation_entities = $explanation_entities;
+
         return $this;
     }
 
@@ -190,9 +200,10 @@ class SendPoll extends Request
      * @param int|null $open_period
      * @return SendPoll
      */
-    public function setOpenPeriod(?int $open_period): SendPoll
+    public function setOpenPeriod(?int $open_period): self
     {
         $this->open_period = $open_period;
+
         return $this;
     }
 
@@ -200,9 +211,10 @@ class SendPoll extends Request
      * @param int|null $close_date
      * @return SendPoll
      */
-    public function setCloseDate(?int $close_date): SendPoll
+    public function setCloseDate(?int $close_date): self
     {
         $this->close_date = $close_date;
+
         return $this;
     }
 
@@ -210,9 +222,10 @@ class SendPoll extends Request
      * @param bool|null $is_closed
      * @return SendPoll
      */
-    public function setIsClosed(?bool $is_closed): SendPoll
+    public function setIsClosed(?bool $is_closed): self
     {
         $this->is_closed = $is_closed;
+
         return $this;
     }
 
@@ -220,9 +233,10 @@ class SendPoll extends Request
      * @param bool|null $disable_notification
      * @return SendPoll
      */
-    public function setDisableNotification(?bool $disable_notification): SendPoll
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -230,9 +244,10 @@ class SendPoll extends Request
      * @param bool|null $protect_content
      * @return SendPoll
      */
-    public function setProtectContent(?bool $protect_content): SendPoll
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -240,9 +255,10 @@ class SendPoll extends Request
      * @param int|null $reply_to_message_id
      * @return SendPoll
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendPoll
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -250,9 +266,10 @@ class SendPoll extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendPoll
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendPoll
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -260,10 +277,10 @@ class SendPoll extends Request
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendPoll
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendPoll
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

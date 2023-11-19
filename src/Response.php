@@ -14,6 +14,7 @@ class Response extends ModelBase
     protected const TYPE_MAP = [
         'ok' => self::T_BOOLEAN,
     ];
+
     /**
      * @return bool
      */
@@ -45,6 +46,4 @@ class Response extends ModelBase
     {
         return $this->error_code;
     }
-
-
 }

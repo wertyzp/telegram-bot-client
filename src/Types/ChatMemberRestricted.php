@@ -23,7 +23,6 @@ can_pin_messages	Boolean	True, if the user is allowed to pin messages
 can_manage_topics	Boolean	True, if the user is allowed to create forum topics
 until_date	Integer	Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
  */
-
 class ChatMemberRestricted extends ChatMember
 {
     protected bool $is_member;
@@ -170,5 +169,4 @@ class ChatMemberRestricted extends ChatMember
     {
         return $this->until_date;
     }
-
 }

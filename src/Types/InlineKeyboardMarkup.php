@@ -8,7 +8,6 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 Field	Type	Description
 inline_keyboard	Array of Array of InlineKeyboardButton	Array of button rows, each represented by an Array of InlineKeyboardButton objects
  */
-
 class InlineKeyboardMarkup extends Type
 {
     protected const TYPE_MAP = [
@@ -21,6 +20,7 @@ class InlineKeyboardMarkup extends Type
     public function addRow(array $row): self
     {
         $this->inline_keyboard[] = $row;
+
         return $this;
     }
 
@@ -28,7 +28,6 @@ class InlineKeyboardMarkup extends Type
      * @param int $index
      * @return InlineKeyboardButton[]
      */
-
     public function getRow(int $index): array
     {
         return $this->inline_keyboard[$index];
@@ -46,9 +45,10 @@ class InlineKeyboardMarkup extends Type
      * @param InlineKeyboardButton[][] $inline_keyboard
      * @return InlineKeyboardMarkup
      */
-    public function setInlineKeyboard(array $inline_keyboard): InlineKeyboardMarkup
+    public function setInlineKeyboard(array $inline_keyboard): self
     {
         $this->inline_keyboard = $inline_keyboard;
+
         return $this;
     }
 
@@ -69,6 +69,7 @@ class InlineKeyboardMarkup extends Type
             }
             $data[] = $buttons;
         }
+
         return json_encode(['inline_keyboard' => $data]);
     }
 }

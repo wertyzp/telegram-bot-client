@@ -11,17 +11,17 @@ use Werty\Http\Clients\TelegramBot\Types\MenuButton;
 class SetChatMenuButton extends Request
 {
     protected const SERIALIZE_JSON = [
-        'menu_button'
+        'menu_button',
     ];
 
     /**
      * Unique identifier for the target private chat. If not specified, defau
-     * lt bot's menu button will be changed
+     * lt bot's menu button will be changed.
      */
     protected ?int $chat_id;
     /**
      * A JSON-serialized object for the bot's new menu button. Defaults to Me
-     * nuButtonDefault
+     * nuButtonDefault.
      */
     protected ?MenuButton $menu_button = null;
 
@@ -37,9 +37,10 @@ class SetChatMenuButton extends Request
      * @param int|null $chat_id
      * @return SetChatMenuButton
      */
-    public function setChatId(?int $chat_id): SetChatMenuButton
+    public function setChatId(?int $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -55,10 +56,10 @@ class SetChatMenuButton extends Request
      * @param MenuButton|null $menu_button
      * @return SetChatMenuButton
      */
-    public function setMenuButton(?MenuButton $menu_button): SetChatMenuButton
+    public function setMenuButton(?MenuButton $menu_button): self
     {
         $this->menu_button = $menu_button;
+
         return $this;
     }
-
 }

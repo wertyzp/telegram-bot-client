@@ -13,7 +13,6 @@ street_line1	String	First line for the address
 street_line2	String	Second line for the address
 post_code	String	Address post code
  */
-
 class ShippingAddress extends Type
 {
     protected string $country_code;
@@ -70,5 +69,4 @@ class ShippingAddress extends Type
     {
         return $this->post_code;
     }
-
 }

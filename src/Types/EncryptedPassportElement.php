@@ -17,7 +17,6 @@ selfie	PassportFile	Optional. Encrypted file with the selfie of the user holding
 translation	Array of PassportFile	Optional. Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
 hash	String	Base64-encoded element hash for using in PassportElementErrorUnspecified
  */
-
 class EncryptedPassportElement extends Type
 {
     protected const TYPE_MAP = [
@@ -118,5 +117,4 @@ class EncryptedPassportElement extends Type
     {
         return $this->hash;
     }
-
 }

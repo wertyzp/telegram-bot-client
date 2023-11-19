@@ -22,7 +22,6 @@ class KeyboardButton extends Type
         'web_app' => WebAppInfo::class,
     ];
 
-
     protected string $text;
     protected ?KeyboardButtonRequestUser $request_user = null;
     protected ?KeyboardButtonRequestChat $request_chat = null;
@@ -86,5 +85,4 @@ class KeyboardButton extends Type
     {
         return $this->web_app;
     }
-
 }

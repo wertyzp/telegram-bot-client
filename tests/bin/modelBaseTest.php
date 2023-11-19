@@ -2,20 +2,16 @@
 
 declare(strict_types=1);
 
-use Werty\Http\Clients\TelegramBot\Client;
-use Werty\Http\Clients\TelegramBot\Requests\SendContact;
-use Werty\Http\Clients\TelegramBot\Requests\SendVenue;
 use Werty\Http\Clients\TelegramBot\ModelBase;
 
 chdir(dirname(dirname(__DIR__)));
 
 require_once 'vendor/autoload.php';
 
-
-class ABC extends ModelBase {
+class ABC extends ModelBase
+{
     protected $b;
 }
-
 
 /**
 for ($level = 0; is_array($type); $level++) {
@@ -52,8 +48,9 @@ $walk($src, $dst, $type, $level);
 print_r($source);
 
 die();
-*/
-class SUT extends ModelBase {
+ */
+class SUT extends ModelBase
+{
     protected const TYPE_MAP = [
         'a' => [[[ABC::class]]],
     ];
@@ -63,7 +60,7 @@ class SUT extends ModelBase {
 $value = [
     'a' => [
         [[['b' => 'a'], ['b' => 'c']]],
-        [[['b' => 'd'], ['b' => 'e']]]
+        [[['b' => 'd'], ['b' => 'e']]],
     ],
 ];
 

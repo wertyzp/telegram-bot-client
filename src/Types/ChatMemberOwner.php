@@ -9,7 +9,6 @@ Field	Type	Description
 is_anonymous	Boolean	True, if the user's presence in the chat is hidden
 custom_title	String	Optional. Custom title for this user
  */
-
 class ChatMemberOwner extends ChatMember
 {
     protected bool $is_anonymous;

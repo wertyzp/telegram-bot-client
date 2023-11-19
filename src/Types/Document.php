@@ -73,5 +73,4 @@ class Document extends Type
     {
         return $this->file_size;
     }
-
 }

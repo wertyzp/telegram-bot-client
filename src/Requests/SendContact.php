@@ -7,7 +7,6 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
-use Werty\Mapping\EmptyObject;
 
 /**
 Parameter	Type	Required	Description
@@ -54,9 +53,10 @@ class SendContact extends Request
      * @param int|string $chat_id
      * @return SendContact
      */
-    public function setChatId(int|string $chat_id): SendContact
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -64,9 +64,10 @@ class SendContact extends Request
      * @param int|null $message_thread_id
      * @return SendContact
      */
-    public function setMessageThreadId(?int $message_thread_id): SendContact
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -74,9 +75,10 @@ class SendContact extends Request
      * @param string $phone_number
      * @return SendContact
      */
-    public function setPhoneNumber(string $phone_number): SendContact
+    public function setPhoneNumber(string $phone_number): self
     {
         $this->phone_number = $phone_number;
+
         return $this;
     }
 
@@ -84,9 +86,10 @@ class SendContact extends Request
      * @param string $first_name
      * @return SendContact
      */
-    public function setFirstName(string $first_name): SendContact
+    public function setFirstName(string $first_name): self
     {
         $this->first_name = $first_name;
+
         return $this;
     }
 
@@ -94,9 +97,10 @@ class SendContact extends Request
      * @param string|null $last_name
      * @return SendContact
      */
-    public function setLastName(?string $last_name): SendContact
+    public function setLastName(?string $last_name): self
     {
         $this->last_name = $last_name;
+
         return $this;
     }
 
@@ -104,9 +108,10 @@ class SendContact extends Request
      * @param string|null $vcard
      * @return SendContact
      */
-    public function setVcard(?string $vcard): SendContact
+    public function setVcard(?string $vcard): self
     {
         $this->vcard = $vcard;
+
         return $this;
     }
 
@@ -114,9 +119,10 @@ class SendContact extends Request
      * @param bool|null $disable_notification
      * @return SendContact
      */
-    public function setDisableNotification(?bool $disable_notification): SendContact
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -124,9 +130,10 @@ class SendContact extends Request
      * @param bool|null $protect_content
      * @return SendContact
      */
-    public function setProtectContent(?bool $protect_content): SendContact
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -134,9 +141,10 @@ class SendContact extends Request
      * @param int|null $reply_to_message_id
      * @return SendContact
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendContact
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -144,9 +152,10 @@ class SendContact extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendContact
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendContact
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -154,10 +163,10 @@ class SendContact extends Request
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendContact
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendContact
+    public function setReplyMarkup(ReplyKeyboardMarkup|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

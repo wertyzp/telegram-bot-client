@@ -8,7 +8,6 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 Field	Type	Description
 name	String	The bot's name
  */
-
 class BotName extends Type
 {
     protected string $name;

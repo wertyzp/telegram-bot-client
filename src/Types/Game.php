@@ -13,7 +13,6 @@ text	String	Optional. Brief description of the game or high scores included in t
 text_entities	Array of MessageEntity	Optional. Special entities that appear in text, such as usernames, URLs, bot commands, etc.
 animation	Animation	Optional. Animation that will be displayed in the game message in chats. Upload via BotFather
  */
-
 class Game extends Type
 {
     protected const TYPE_MAP = [

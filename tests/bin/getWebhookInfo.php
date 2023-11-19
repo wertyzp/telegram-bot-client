@@ -6,7 +6,6 @@ use Werty\Http\Clients\TelegramBot\Client;
 use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
 
-
 chdir(dirname(dirname(__DIR__)));
 
 require_once 'vendor/autoload.php';

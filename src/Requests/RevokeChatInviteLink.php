@@ -13,11 +13,11 @@ class RevokeChatInviteLink extends Request
 {
     /**
      * Unique identifier of the target chat or username of the target channel
-     *  (in the format @channelusername)
+     *  (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * The invite link to revoke
+     * The invite link to revoke.
      */
     protected string $invite_link;
 
@@ -33,9 +33,10 @@ class RevokeChatInviteLink extends Request
      * @param int|string $chatId
      * @return RevokeChatInviteLink
      */
-    public function setChatId(int|string $chatId): RevokeChatInviteLink
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -43,11 +44,13 @@ class RevokeChatInviteLink extends Request
      * @param string $inviteLink
      * @return RevokeChatInviteLink
      */
-    public function setInviteLink(string $inviteLink): RevokeChatInviteLink
+    public function setInviteLink(string $inviteLink): self
     {
         $this->invite_link = $inviteLink;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

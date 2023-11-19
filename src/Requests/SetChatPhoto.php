@@ -14,11 +14,11 @@ class SetChatPhoto extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * New chat photo, uploaded using multipart/form-data
+     * New chat photo, uploaded using multipart/form-data.
      */
     protected InputFile $photo;
 
@@ -28,6 +28,7 @@ class SetChatPhoto extends Request
             'chat_id' => $chatId,
         ]);
         $instance->setPhoto($photo);
+
         return $instance;
     }
 
@@ -35,9 +36,10 @@ class SetChatPhoto extends Request
      * @param int|string $chatId
      * @return SetChatPhoto
      */
-    public function setChatId(int|string $chatId): SetChatPhoto
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -45,11 +47,13 @@ class SetChatPhoto extends Request
      * @param InputFile $photo
      * @return SetChatPhoto
      */
-    public function setPhoto(InputFile $photo): SetChatPhoto
+    public function setPhoto(InputFile $photo): self
     {
         $this->photo = $photo;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

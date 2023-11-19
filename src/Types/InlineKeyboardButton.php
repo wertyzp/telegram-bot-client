@@ -23,7 +23,6 @@ pay	Boolean	Optional. Specify True, to send a Pay button.
 
 NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
  */
-
 class InlineKeyboardButton extends Type
 {
     protected const TYPE_MAP = [
@@ -136,9 +135,10 @@ class InlineKeyboardButton extends Type
      * @param string $text
      * @return InlineKeyboardButton
      */
-    public function setText(string $text): InlineKeyboardButton
+    public function setText(string $text): self
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -146,9 +146,10 @@ class InlineKeyboardButton extends Type
      * @param string|null $url
      * @return InlineKeyboardButton
      */
-    public function setUrl(?string $url): InlineKeyboardButton
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -156,9 +157,10 @@ class InlineKeyboardButton extends Type
      * @param string|null $callback_data
      * @return InlineKeyboardButton
      */
-    public function setCallbackData(?string $callback_data): InlineKeyboardButton
+    public function setCallbackData(?string $callback_data): self
     {
         $this->callback_data = $callback_data;
+
         return $this;
     }
 
@@ -166,9 +168,10 @@ class InlineKeyboardButton extends Type
      * @param WebAppInfo|null $web_app
      * @return InlineKeyboardButton
      */
-    public function setWebApp(?WebAppInfo $web_app): InlineKeyboardButton
+    public function setWebApp(?WebAppInfo $web_app): self
     {
         $this->web_app = $web_app;
+
         return $this;
     }
 
@@ -176,9 +179,10 @@ class InlineKeyboardButton extends Type
      * @param LoginUrl|null $login_url
      * @return InlineKeyboardButton
      */
-    public function setLoginUrl(?LoginUrl $login_url): InlineKeyboardButton
+    public function setLoginUrl(?LoginUrl $login_url): self
     {
         $this->login_url = $login_url;
+
         return $this;
     }
 
@@ -186,9 +190,10 @@ class InlineKeyboardButton extends Type
      * @param string|null $switch_inline_query
      * @return InlineKeyboardButton
      */
-    public function setSwitchInlineQuery(?string $switch_inline_query): InlineKeyboardButton
+    public function setSwitchInlineQuery(?string $switch_inline_query): self
     {
         $this->switch_inline_query = $switch_inline_query;
+
         return $this;
     }
 
@@ -196,9 +201,10 @@ class InlineKeyboardButton extends Type
      * @param string|null $switch_inline_query_current_chat
      * @return InlineKeyboardButton
      */
-    public function setSwitchInlineQueryCurrentChat(?string $switch_inline_query_current_chat): InlineKeyboardButton
+    public function setSwitchInlineQueryCurrentChat(?string $switch_inline_query_current_chat): self
     {
         $this->switch_inline_query_current_chat = $switch_inline_query_current_chat;
+
         return $this;
     }
 
@@ -206,9 +212,10 @@ class InlineKeyboardButton extends Type
      * @param SwitchInlineQueryChosenChat|null $switch_inline_query_chosen_chat
      * @return InlineKeyboardButton
      */
-    public function setSwitchInlineQueryChosenChat(?SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat): InlineKeyboardButton
+    public function setSwitchInlineQueryChosenChat(?SwitchInlineQueryChosenChat $switch_inline_query_chosen_chat): self
     {
         $this->switch_inline_query_chosen_chat = $switch_inline_query_chosen_chat;
+
         return $this;
     }
 
@@ -216,9 +223,10 @@ class InlineKeyboardButton extends Type
      * @param CallbackGame|null $callback_game
      * @return InlineKeyboardButton
      */
-    public function setCallbackGame(?CallbackGame $callback_game): InlineKeyboardButton
+    public function setCallbackGame(?CallbackGame $callback_game): self
     {
         $this->callback_game = $callback_game;
+
         return $this;
     }
 
@@ -226,10 +234,10 @@ class InlineKeyboardButton extends Type
      * @param bool|null $pay
      * @return InlineKeyboardButton
      */
-    public function setPay(?bool $pay): InlineKeyboardButton
+    public function setPay(?bool $pay): self
     {
         $this->pay = $pay;
+
         return $this;
     }
-
 }

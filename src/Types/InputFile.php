@@ -15,5 +15,4 @@ class InputFile extends \CURLFile
     {
         return $this->file;
     }
-
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
 
-use Werty\Http\Clients\TelegramBot\Requests\EmptyObject;
+use Werty\Http\Clients\TelegramBot\Requests\Request;
 
 /**
 Field	Type	Description
@@ -12,8 +12,7 @@ request_id	Integer	Signed 32-bit identifier of the request, which will be receiv
 user_is_bot	Boolean	Optional. Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
 user_is_premium	Boolean	Optional. Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
  */
-
-class KeyboardButtonRequestUser extends EmptyObject
+class KeyboardButtonRequestUser extends Request
 {
     protected int $request_id;
     protected ?bool $user_is_bot = null;
@@ -42,5 +41,4 @@ class KeyboardButtonRequestUser extends EmptyObject
     {
         return $this->user_is_premium;
     }
-
 }

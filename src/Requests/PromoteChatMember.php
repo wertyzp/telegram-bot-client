@@ -24,7 +24,6 @@ can_edit_stories	Boolean	Optional	Pass True if the administrator can edit storie
 can_delete_stories	Boolean	Optional	Pass True if the administrator can delete stories posted by other users; channels only
 can_manage_topics	Boolean	Optional	Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
  */
-
 class PromoteChatMember extends Request
 {
     protected int|string $chat_id;
@@ -54,9 +53,10 @@ class PromoteChatMember extends Request
      * @param int|string $chat_id
      * @return PromoteChatMember
      */
-    public function setChatId(int|string $chat_id): PromoteChatMember
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -64,9 +64,10 @@ class PromoteChatMember extends Request
      * @param int $user_id
      * @return PromoteChatMember
      */
-    public function setUserId(int $user_id): PromoteChatMember
+    public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
         return $this;
     }
 
@@ -74,9 +75,10 @@ class PromoteChatMember extends Request
      * @param bool|null $is_anonymous
      * @return PromoteChatMember
      */
-    public function setIsAnonymous(?bool $is_anonymous): PromoteChatMember
+    public function setIsAnonymous(?bool $is_anonymous): self
     {
         $this->is_anonymous = $is_anonymous;
+
         return $this;
     }
 
@@ -84,9 +86,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_manage_chat
      * @return PromoteChatMember
      */
-    public function setCanManageChat(?bool $can_manage_chat): PromoteChatMember
+    public function setCanManageChat(?bool $can_manage_chat): self
     {
         $this->can_manage_chat = $can_manage_chat;
+
         return $this;
     }
 
@@ -94,9 +97,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_delete_messages
      * @return PromoteChatMember
      */
-    public function setCanDeleteMessages(?bool $can_delete_messages): PromoteChatMember
+    public function setCanDeleteMessages(?bool $can_delete_messages): self
     {
         $this->can_delete_messages = $can_delete_messages;
+
         return $this;
     }
 
@@ -104,9 +108,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_manage_video_chats
      * @return PromoteChatMember
      */
-    public function setCanManageVideoChats(?bool $can_manage_video_chats): PromoteChatMember
+    public function setCanManageVideoChats(?bool $can_manage_video_chats): self
     {
         $this->can_manage_video_chats = $can_manage_video_chats;
+
         return $this;
     }
 
@@ -114,9 +119,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_restrict_members
      * @return PromoteChatMember
      */
-    public function setCanRestrictMembers(?bool $can_restrict_members): PromoteChatMember
+    public function setCanRestrictMembers(?bool $can_restrict_members): self
     {
         $this->can_restrict_members = $can_restrict_members;
+
         return $this;
     }
 
@@ -124,9 +130,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_promote_members
      * @return PromoteChatMember
      */
-    public function setCanPromoteMembers(?bool $can_promote_members): PromoteChatMember
+    public function setCanPromoteMembers(?bool $can_promote_members): self
     {
         $this->can_promote_members = $can_promote_members;
+
         return $this;
     }
 
@@ -134,9 +141,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_change_info
      * @return PromoteChatMember
      */
-    public function setCanChangeInfo(?bool $can_change_info): PromoteChatMember
+    public function setCanChangeInfo(?bool $can_change_info): self
     {
         $this->can_change_info = $can_change_info;
+
         return $this;
     }
 
@@ -144,9 +152,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_invite_users
      * @return PromoteChatMember
      */
-    public function setCanInviteUsers(?bool $can_invite_users): PromoteChatMember
+    public function setCanInviteUsers(?bool $can_invite_users): self
     {
         $this->can_invite_users = $can_invite_users;
+
         return $this;
     }
 
@@ -154,9 +163,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_post_messages
      * @return PromoteChatMember
      */
-    public function setCanPostMessages(?bool $can_post_messages): PromoteChatMember
+    public function setCanPostMessages(?bool $can_post_messages): self
     {
         $this->can_post_messages = $can_post_messages;
+
         return $this;
     }
 
@@ -164,9 +174,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_edit_messages
      * @return PromoteChatMember
      */
-    public function setCanEditMessages(?bool $can_edit_messages): PromoteChatMember
+    public function setCanEditMessages(?bool $can_edit_messages): self
     {
         $this->can_edit_messages = $can_edit_messages;
+
         return $this;
     }
 
@@ -174,9 +185,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_pin_messages
      * @return PromoteChatMember
      */
-    public function setCanPinMessages(?bool $can_pin_messages): PromoteChatMember
+    public function setCanPinMessages(?bool $can_pin_messages): self
     {
         $this->can_pin_messages = $can_pin_messages;
+
         return $this;
     }
 
@@ -184,9 +196,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_post_stories
      * @return PromoteChatMember
      */
-    public function setCanPostStories(?bool $can_post_stories): PromoteChatMember
+    public function setCanPostStories(?bool $can_post_stories): self
     {
         $this->can_post_stories = $can_post_stories;
+
         return $this;
     }
 
@@ -194,9 +207,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_edit_stories
      * @return PromoteChatMember
      */
-    public function setCanEditStories(?bool $can_edit_stories): PromoteChatMember
+    public function setCanEditStories(?bool $can_edit_stories): self
     {
         $this->can_edit_stories = $can_edit_stories;
+
         return $this;
     }
 
@@ -204,9 +218,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_delete_stories
      * @return PromoteChatMember
      */
-    public function setCanDeleteStories(?bool $can_delete_stories): PromoteChatMember
+    public function setCanDeleteStories(?bool $can_delete_stories): self
     {
         $this->can_delete_stories = $can_delete_stories;
+
         return $this;
     }
 
@@ -214,10 +229,10 @@ class PromoteChatMember extends Request
      * @param bool|null $can_manage_topics
      * @return PromoteChatMember
      */
-    public function setCanManageTopics(?bool $can_manage_topics): PromoteChatMember
+    public function setCanManageTopics(?bool $can_manage_topics): self
     {
         $this->can_manage_topics = $can_manage_topics;
+
         return $this;
     }
-
 }

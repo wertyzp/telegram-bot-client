@@ -13,7 +13,6 @@ live_period	Integer	Optional. Time relative to the message sending date, during 
 heading	Integer	Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.
 proximity_alert_radius	Integer	Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
  */
-
 class Location extends Type
 {
     protected float $longitude;
@@ -32,7 +31,7 @@ class Location extends Type
     }
 
     /**
-     * Longitude as defined by sender
+     * Longitude as defined by sender.
      * @return float
      */
     public function getLatitude(): float
@@ -41,7 +40,7 @@ class Location extends Type
     }
 
     /**
-     * The radius of uncertainty for the location, measured in meters; 0-1500
+     * The radius of uncertainty for the location, measured in meters; 0-1500.
      * @return float|null
      */
     public function getHorizontalAccuracy(): ?float
@@ -75,5 +74,4 @@ class Location extends Type
     {
         return $this->proximity_alert_radius;
     }
-
 }

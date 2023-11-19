@@ -9,29 +9,29 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 class SendLocation extends Request
 {
     protected const SERIALIZE_JSON = [
-        'reply_markup'
+        'reply_markup',
     ];
 
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
      * Unique identifier for the target message thread (topic) of the forum;
-     * for forum supergroups only
+     * for forum supergroups only.
      */
     protected ?int $message_thread_id;
     /**
-     * Latitude of the location
+     * Latitude of the location.
      */
     protected float $latitude;
     /**
-     * Longitude of the location
+     * Longitude of the location.
      */
     protected float $longitude;
     /**
-     * The radius of uncertainty for the location, measured in meters; 0-1500
+     * The radius of uncertainty for the location, measured in meters; 0-1500.
      */
     protected ?float $horizontal_accuracy;
     /**
@@ -56,16 +56,16 @@ class SendLocation extends Request
      */
     protected ?bool $disable_notification;
     /**
-     * Protects the contents of the sent message from forwarding and saving
+     * Protects the contents of the sent message from forwarding and saving.
      */
     protected ?bool $protect_content;
     /**
-     * If the message is a reply, ID of the original message
+     * If the message is a reply, ID of the original message.
      */
     protected ?int $reply_to_message_id;
     /**
      * Pass True if the message should be sent even if the specified replied-
-     * to message is not found
+     * to message is not found.
      */
     protected ?bool $allow_sending_without_reply;
     /**
@@ -88,9 +88,10 @@ class SendLocation extends Request
      * @param int|string $chatId
      * @return SendLocation
      */
-    public function setChatId(int|string $chatId): SendLocation
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -98,9 +99,10 @@ class SendLocation extends Request
      * @param int $messageThreadId
      * @return SendLocation
      */
-    public function setMessageThreadId(int $messageThreadId): SendLocation
+    public function setMessageThreadId(int $messageThreadId): self
     {
         $this->message_thread_id = $messageThreadId;
+
         return $this;
     }
 
@@ -108,9 +110,10 @@ class SendLocation extends Request
      * @param float $latitude
      * @return SendLocation
      */
-    public function setLatitude(float $latitude): SendLocation
+    public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
+
         return $this;
     }
 
@@ -118,9 +121,10 @@ class SendLocation extends Request
      * @param float $longitude
      * @return SendLocation
      */
-    public function setLongitude(float $longitude): SendLocation
+    public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
+
         return $this;
     }
 
@@ -128,9 +132,10 @@ class SendLocation extends Request
      * @param float $horizontalAccuracy
      * @return SendLocation
      */
-    public function setHorizontalAccuracy(float $horizontalAccuracy): SendLocation
+    public function setHorizontalAccuracy(float $horizontalAccuracy): self
     {
         $this->horizontal_accuracy = $horizontalAccuracy;
+
         return $this;
     }
 
@@ -138,9 +143,10 @@ class SendLocation extends Request
      * @param int $livePeriod
      * @return SendLocation
      */
-    public function setLivePeriod(int $livePeriod): SendLocation
+    public function setLivePeriod(int $livePeriod): self
     {
         $this->live_period = $livePeriod;
+
         return $this;
     }
 
@@ -148,9 +154,10 @@ class SendLocation extends Request
      * @param int $heading
      * @return SendLocation
      */
-    public function setHeading(int $heading): SendLocation
+    public function setHeading(int $heading): self
     {
         $this->heading = $heading;
+
         return $this;
     }
 
@@ -158,9 +165,10 @@ class SendLocation extends Request
      * @param int $proximityAlertRadius
      * @return SendLocation
      */
-    public function setProximityAlertRadius(int $proximityAlertRadius): SendLocation
+    public function setProximityAlertRadius(int $proximityAlertRadius): self
     {
         $this->proximity_alert_radius = $proximityAlertRadius;
+
         return $this;
     }
 
@@ -168,9 +176,10 @@ class SendLocation extends Request
      * @param bool $disableNotification
      * @return SendLocation
      */
-    public function setDisableNotification(bool $disableNotification): SendLocation
+    public function setDisableNotification(bool $disableNotification): self
     {
         $this->disable_notification = $disableNotification;
+
         return $this;
     }
 
@@ -178,9 +187,10 @@ class SendLocation extends Request
      * @param bool $protectContent
      * @return SendLocation
      */
-    public function setProtectContent(bool $protectContent): SendLocation
+    public function setProtectContent(bool $protectContent): self
     {
         $this->protect_content = $protectContent;
+
         return $this;
     }
 
@@ -188,9 +198,10 @@ class SendLocation extends Request
      * @param int $replyToMessageId
      * @return SendLocation
      */
-    public function setReplyToMessageId(int $replyToMessageId): SendLocation
+    public function setReplyToMessageId(int $replyToMessageId): self
     {
         $this->reply_to_message_id = $replyToMessageId;
+
         return $this;
     }
 
@@ -198,9 +209,10 @@ class SendLocation extends Request
      * @param bool $allowSendingWithoutReply
      * @return SendLocation
      */
-    public function setAllowSendingWithoutReply(bool $allowSendingWithoutReply): SendLocation
+    public function setAllowSendingWithoutReply(bool $allowSendingWithoutReply): self
     {
         $this->allow_sending_without_reply = $allowSendingWithoutReply;
+
         return $this;
     }
 
@@ -208,11 +220,13 @@ class SendLocation extends Request
      * @param null|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $replyMarkup
      * @return SendLocation
      */
-    public function setReplyMarkup(null|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $replyMarkup): SendLocation
+    public function setReplyMarkup(null|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $replyMarkup): self
     {
         $this->reply_markup = $replyMarkup;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

@@ -11,7 +11,6 @@ x_shift	Float number	Shift by X-axis measured in widths of the mask scaled to th
 y_shift	Float number	Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position.
 scale	Float number	Mask scaling coefficient. For example, 2.0 means double size.
  */
-
 class MaskPosition extends Type
 {
     protected string $point;

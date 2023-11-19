@@ -22,7 +22,6 @@ my_chat_member	ChatMemberUpdated	Optional. The bot's chat member status was upda
 chat_member	ChatMemberUpdated	Optional. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify "chat_member" in the list of allowed_updates to receive these updates.
 chat_join_request	ChatJoinRequest	Optional. A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the chat to receive these updates.
  */
-
 class Update extends Type
 {
     protected const TYPE_MAP = [
@@ -177,5 +176,4 @@ class Update extends Type
     {
         return $this->chat_join_request;
     }
-
 }

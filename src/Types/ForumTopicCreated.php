@@ -10,7 +10,6 @@ name	String	Name of the topic
 icon_color	Integer	Color of the topic icon in RGB format
 icon_custom_emoji_id	String	Optional. Unique identifier of the custom emoji shown as the topic icon
  */
-
 class ForumTopicCreated extends Type
 {
     protected string $name;
@@ -26,7 +25,7 @@ class ForumTopicCreated extends Type
     }
 
     /**
-     * Color of the topic icon in RGB format
+     * Color of the topic icon in RGB format.
      * @return int
      */
     public function getIconColor(): int
@@ -35,7 +34,7 @@ class ForumTopicCreated extends Type
     }
 
     /**
-     * Optional. Unique identifier of the custom emoji shown as the topic icon
+     * Optional. Unique identifier of the custom emoji shown as the topic icon.
      * @return string
      */
     public function getIconCustomEmojiId(): string

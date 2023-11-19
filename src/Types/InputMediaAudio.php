@@ -13,7 +13,6 @@ duration	Integer	Optional. Duration of the audio in seconds
 performer	String	Optional. Performer of the audio
 title	String	Optional. Title of the audio
  */
-
 class InputMediaAudio extends InputMedia
 {
     protected string $type = 'audio';
@@ -86,9 +85,10 @@ class InputMediaAudio extends InputMedia
      * @param string|InputFile|null $thumbnail
      * @return InputMediaAudio
      */
-    public function setThumbnail(string|InputFile|null $thumbnail): InputMediaAudio
+    public function setThumbnail(string|InputFile|null $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -96,9 +96,10 @@ class InputMediaAudio extends InputMedia
      * @param string|null $caption
      * @return InputMediaAudio
      */
-    public function setCaption(?string $caption): InputMediaAudio
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -106,9 +107,10 @@ class InputMediaAudio extends InputMedia
      * @param string|null $parse_mode
      * @return InputMediaAudio
      */
-    public function setParseMode(?string $parse_mode): InputMediaAudio
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -116,9 +118,10 @@ class InputMediaAudio extends InputMedia
      * @param MessageEntity[] $caption_entities
      * @return InputMediaAudio
      */
-    public function setCaptionEntities(?array $caption_entities): InputMediaAudio
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -126,9 +129,10 @@ class InputMediaAudio extends InputMedia
      * @param int|null $duration
      * @return InputMediaAudio
      */
-    public function setDuration(?int $duration): InputMediaAudio
+    public function setDuration(?int $duration): self
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -136,9 +140,10 @@ class InputMediaAudio extends InputMedia
      * @param string|null $performer
      * @return InputMediaAudio
      */
-    public function setPerformer(?string $performer): InputMediaAudio
+    public function setPerformer(?string $performer): self
     {
         $this->performer = $performer;
+
         return $this;
     }
 
@@ -146,10 +151,10 @@ class InputMediaAudio extends InputMedia
      * @param string|null $title
      * @return InputMediaAudio
      */
-    public function setTitle(?string $title): InputMediaAudio
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
-
 }

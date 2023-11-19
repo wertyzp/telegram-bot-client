@@ -19,5 +19,4 @@ class ChatMemberBanned extends ChatMember
     {
         return $this->until_date;
     }
-
 }

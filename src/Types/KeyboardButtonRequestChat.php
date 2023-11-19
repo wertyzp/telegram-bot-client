@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
 
-use Werty\Http\Clients\TelegramBot\Requests\ChatAdministratorRights;
-use Werty\Mapping\EmptyObject;
-
 /**
 Field	Type	Description
 request_id	Integer	Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message
@@ -18,8 +15,7 @@ user_administrator_rights	ChatAdministratorRights	Optional. A JSON-serialized ob
 bot_administrator_rights	ChatAdministratorRights	Optional. A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
 bot_is_member	Boolean	Optional. Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
  */
-
-class KeyboardButtonRequestChat extends EmptyObject
+class KeyboardButtonRequestChat extends Type
 {
     protected const TYPE_MAP = [
         'user_administrator_rights' => ChatAdministratorRights::class,
@@ -98,5 +94,4 @@ class KeyboardButtonRequestChat extends EmptyObject
     {
         return $this->bot_is_member;
     }
-
 }

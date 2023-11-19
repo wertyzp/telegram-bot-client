@@ -11,20 +11,21 @@ class GetChatMenuButton extends Request
 {
     /**
      * Unique identifier for the target private chat. If not specified, defau
-     * lt bot's menu button will be returned
+     * lt bot's menu button will be returned.
      */
     protected ?int $chat_id;
-
 
     /**
      * @param int $chatId
      * @return GetChatMenuButton
      */
-    public function setChatId(int $chatId): GetChatMenuButton
+    public function setChatId(int $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
+
     /**
      * @return int
      */

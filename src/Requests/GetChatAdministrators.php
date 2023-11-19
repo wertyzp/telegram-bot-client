@@ -10,7 +10,7 @@ class GetChatAdministrators extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup or channel (in the format @channelusername)
+     * roup or channel (in the format @channelusername).
      */
     protected int|string $chat_id;
 
@@ -25,11 +25,13 @@ class GetChatAdministrators extends Request
      * @param int|string $chatId
      * @return GetChatAdministrators
      */
-    public function setChatId(int|string $chatId): GetChatAdministrators
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

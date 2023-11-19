@@ -8,7 +8,6 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 Field	Type	Description
 users	Array of User	New members that were invited to the video chat
  */
-
 class VideoChatParticipantsInvited extends Type
 {
     protected array $users;
@@ -20,5 +19,4 @@ class VideoChatParticipantsInvited extends Type
     {
         return $this->users;
     }
-
 }

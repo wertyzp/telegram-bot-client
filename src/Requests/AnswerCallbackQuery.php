@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
-use Werty\Mapping\EmptyObject;
-
 class AnswerCallbackQuery extends Request
 {
     /**
@@ -36,9 +34,10 @@ class AnswerCallbackQuery extends Request
      * @param string $callback_query_id
      * @return AnswerCallbackQuery
      */
-    public function setCallbackQueryId(string $callback_query_id): AnswerCallbackQuery
+    public function setCallbackQueryId(string $callback_query_id): self
     {
         $this->callback_query_id = $callback_query_id;
+
         return $this;
     }
 
@@ -46,9 +45,10 @@ class AnswerCallbackQuery extends Request
      * @param string $text
      * @return AnswerCallbackQuery
      */
-    public function setText(string $text): AnswerCallbackQuery
+    public function setText(string $text): self
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -56,9 +56,10 @@ class AnswerCallbackQuery extends Request
      * @param bool $show_alert
      * @return AnswerCallbackQuery
      */
-    public function setShowAlert(bool $show_alert): AnswerCallbackQuery
+    public function setShowAlert(bool $show_alert): self
     {
         $this->show_alert = $show_alert;
+
         return $this;
     }
 
@@ -66,9 +67,10 @@ class AnswerCallbackQuery extends Request
      * @param string $url
      * @return AnswerCallbackQuery
      */
-    public function setUrl(string $url): AnswerCallbackQuery
+    public function setUrl(string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -76,10 +78,10 @@ class AnswerCallbackQuery extends Request
      * @param int $cache_time
      * @return AnswerCallbackQuery
      */
-    public function setCacheTime(int $cache_time): AnswerCallbackQuery
+    public function setCacheTime(int $cache_time): self
     {
         $this->cache_time = $cache_time;
+
         return $this;
     }
-
 }

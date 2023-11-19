@@ -29,7 +29,7 @@ class SendPhoto extends Request
 {
     protected const SERIALIZE_JSON = [
         'reply_markup',
-        'caption_entities'
+        'caption_entities',
     ];
 
     protected int|string $chat_id;
@@ -45,7 +45,6 @@ class SendPhoto extends Request
     protected ?bool $allow_sending_without_reply = null;
     protected null|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup = null;
 
-
     public static function create(int|string $chatId, InputFile|string $photo): static
     {
         return (new static([
@@ -57,9 +56,10 @@ class SendPhoto extends Request
      * @param int|string $chat_id
      * @return SendPhoto
      */
-    public function setChatId(int|string $chat_id): SendPhoto
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -67,9 +67,10 @@ class SendPhoto extends Request
      * @param int|null $message_thread_id
      * @return SendPhoto
      */
-    public function setMessageThreadId(?int $message_thread_id): SendPhoto
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -77,9 +78,10 @@ class SendPhoto extends Request
      * @param string|InputFile $photo
      * @return SendPhoto
      */
-    public function setPhoto(string|InputFile $photo): SendPhoto
+    public function setPhoto(string|InputFile $photo): self
     {
         $this->photo = $photo;
+
         return $this;
     }
 
@@ -87,9 +89,10 @@ class SendPhoto extends Request
      * @param string|null $caption
      * @return SendPhoto
      */
-    public function setCaption(?string $caption): SendPhoto
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -97,9 +100,10 @@ class SendPhoto extends Request
      * @param string|null $parse_mode
      * @return SendPhoto
      */
-    public function setParseMode(?string $parse_mode): SendPhoto
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -107,9 +111,10 @@ class SendPhoto extends Request
      * @param array|null $caption_entities
      * @return SendPhoto
      */
-    public function setCaptionEntities(?array $caption_entities): SendPhoto
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -117,9 +122,10 @@ class SendPhoto extends Request
      * @param bool|null $has_spoiler
      * @return SendPhoto
      */
-    public function setHasSpoiler(?bool $has_spoiler): SendPhoto
+    public function setHasSpoiler(?bool $has_spoiler): self
     {
         $this->has_spoiler = $has_spoiler;
+
         return $this;
     }
 
@@ -127,9 +133,10 @@ class SendPhoto extends Request
      * @param bool|null $disable_notification
      * @return SendPhoto
      */
-    public function setDisableNotification(?bool $disable_notification): SendPhoto
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -137,9 +144,10 @@ class SendPhoto extends Request
      * @param bool|null $protect_content
      * @return SendPhoto
      */
-    public function setProtectContent(?bool $protect_content): SendPhoto
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -147,9 +155,10 @@ class SendPhoto extends Request
      * @param int|null $reply_to_message_id
      * @return SendPhoto
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendPhoto
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -157,9 +166,10 @@ class SendPhoto extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendPhoto
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendPhoto
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -167,10 +177,10 @@ class SendPhoto extends Request
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendPhoto
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendPhoto
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

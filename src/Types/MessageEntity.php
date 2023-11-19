@@ -19,7 +19,6 @@ class MessageEntity extends Type
     language	String	Optional. For “pre” only, the programming language of the entity text
     custom_emoji_id	String	Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker
      */
-
     protected string $type;
     protected int $offset;
     protected int $length;
@@ -36,6 +35,7 @@ class MessageEntity extends Type
             'length' => $length,
         ]);
     }
+
     /**
      * @return string
      */
@@ -101,9 +101,10 @@ class MessageEntity extends Type
      * @param string $type
      * @return MessageEntity
      */
-    public function setType(string $type): MessageEntity
+    public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -111,9 +112,10 @@ class MessageEntity extends Type
      * @param int $offset
      * @return MessageEntity
      */
-    public function setOffset(int $offset): MessageEntity
+    public function setOffset(int $offset): self
     {
         $this->offset = $offset;
+
         return $this;
     }
 
@@ -121,9 +123,10 @@ class MessageEntity extends Type
      * @param int $length
      * @return MessageEntity
      */
-    public function setLength(int $length): MessageEntity
+    public function setLength(int $length): self
     {
         $this->length = $length;
+
         return $this;
     }
 
@@ -131,9 +134,10 @@ class MessageEntity extends Type
      * @param string|null $url
      * @return MessageEntity
      */
-    public function setUrl(?string $url): MessageEntity
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -141,9 +145,10 @@ class MessageEntity extends Type
      * @param User|null $user
      * @return MessageEntity
      */
-    public function setUser(?User $user): MessageEntity
+    public function setUser(?User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -151,9 +156,10 @@ class MessageEntity extends Type
      * @param string|null $language
      * @return MessageEntity
      */
-    public function setLanguage(?string $language): MessageEntity
+    public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
         return $this;
     }
 
@@ -161,11 +167,10 @@ class MessageEntity extends Type
      * @param string|null $custom_emoji_id
      * @return MessageEntity
      */
-    public function setCustomEmojiId(?string $custom_emoji_id): MessageEntity
+    public function setCustomEmojiId(?string $custom_emoji_id): self
     {
         $this->custom_emoji_id = $custom_emoji_id;
+
         return $this;
     }
-
 }
-

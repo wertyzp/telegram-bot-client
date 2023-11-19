@@ -13,16 +13,16 @@ use Werty\Http\Clients\TelegramBot\Types\ChatPermissions;
 class SetChatPermissions extends Request
 {
     protected const SERIALIZE_JSON = [
-        'permissions'
+        'permissions',
     ];
 
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
     /**
-     * A JSON-serialized object for new default chat permissions
+     * A JSON-serialized object for new default chat permissions.
      */
     protected ChatPermissions $permissions;
     /**
@@ -55,9 +55,10 @@ class SetChatPermissions extends Request
      * @param int|string $chat_id
      * @return SetChatPermissions
      */
-    public function setChatId(int|string $chat_id): SetChatPermissions
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -73,9 +74,10 @@ class SetChatPermissions extends Request
      * @param ChatPermissions $permissions
      * @return SetChatPermissions
      */
-    public function setPermissions(ChatPermissions $permissions): SetChatPermissions
+    public function setPermissions(ChatPermissions $permissions): self
     {
         $this->permissions = $permissions;
+
         return $this;
     }
 
@@ -91,10 +93,10 @@ class SetChatPermissions extends Request
      * @param bool|null $use_independent_chat_permissions
      * @return SetChatPermissions
      */
-    public function setUseIndependentChatPermissions(?bool $use_independent_chat_permissions): SetChatPermissions
+    public function setUseIndependentChatPermissions(?bool $use_independent_chat_permissions): self
     {
         $this->use_independent_chat_permissions = $use_independent_chat_permissions;
+
         return $this;
     }
-
 }

@@ -12,7 +12,7 @@ class ExportChatInviteLink extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
 
@@ -27,11 +27,13 @@ class ExportChatInviteLink extends Request
      * @param int|string $chatId
      * @return ExportChatInviteLink
      */
-    public function setChatId(int|string $chatId): ExportChatInviteLink
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

@@ -19,5 +19,4 @@ class VideoChatEnded extends Type
     {
         return $this->duration;
     }
-
 }

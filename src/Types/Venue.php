@@ -37,7 +37,7 @@ class Venue extends Type
     }
 
     /**
-     * Name of the venue
+     * Name of the venue.
      * @return string
      */
     public function getTitle(): string
@@ -46,7 +46,7 @@ class Venue extends Type
     }
 
     /**
-     * Address of the venue
+     * Address of the venue.
      * @return string
      */
     public function getAddress(): string
@@ -55,7 +55,7 @@ class Venue extends Type
     }
 
     /**
-     * Foursquare identifier of the venue
+     * Foursquare identifier of the venue.
      * @return string|null
      */
     public function getFoursquareId(): ?string
@@ -64,7 +64,7 @@ class Venue extends Type
     }
 
     /**
-     * Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     * Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.).
      * @return string|null
      */
     public function getFoursquareType(): ?string
@@ -73,7 +73,7 @@ class Venue extends Type
     }
 
     /**
-     * Google Places identifier of the venue
+     * Google Places identifier of the venue.
      * @return string|null
      */
     public function getGooglePlaceId(): ?string
@@ -82,12 +82,11 @@ class Venue extends Type
     }
 
     /**
-     * Google Places type of the venue. (See supported types.)
+     * Google Places type of the venue. (See supported types.).
      * @return string|null
      */
     public function getGooglePlaceType(): ?string
     {
         return $this->google_place_type;
     }
-
 }

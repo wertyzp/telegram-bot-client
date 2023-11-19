@@ -27,10 +27,10 @@ class GetMyDefaultAdministratorRights extends Request
      * @param bool|null $for_channels
      * @return GetMyDefaultAdministratorRights
      */
-    public function setForChannels(?bool $for_channels): GetMyDefaultAdministratorRights
+    public function setForChannels(?bool $for_channels): self
     {
         $this->for_channels = $for_channels;
+
         return $this;
     }
-
 }

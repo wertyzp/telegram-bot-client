@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Werty\Http\Clients\TelegramBot\Client;
-use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
-use Werty\Http\Clients\TelegramBot\Exceptions\TelegramBotException;
 
 chdir(dirname(dirname(__DIR__)));
 
@@ -29,4 +27,3 @@ $data = $sendMediaGroup->toPostData();
 
 $result = $client->sendMediaGroup($sendMediaGroup);
 print_r($result);
-

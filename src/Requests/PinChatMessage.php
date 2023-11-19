@@ -13,11 +13,11 @@ class PinChatMessage extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * Identifier of a message to pin
+     * Identifier of a message to pin.
      */
     protected int $message_id;
     /**
@@ -47,9 +47,10 @@ class PinChatMessage extends Request
      * @param int|string $chat_id
      * @return PinChatMessage
      */
-    public function setChatId(int|string $chat_id): PinChatMessage
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -65,9 +66,10 @@ class PinChatMessage extends Request
      * @param int $message_id
      * @return PinChatMessage
      */
-    public function setMessageId(int $message_id): PinChatMessage
+    public function setMessageId(int $message_id): self
     {
         $this->message_id = $message_id;
+
         return $this;
     }
 
@@ -83,10 +85,10 @@ class PinChatMessage extends Request
      * @param bool|null $disable_notification
      * @return PinChatMessage
      */
-    public function setDisableNotification(?bool $disable_notification): PinChatMessage
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
-
 }

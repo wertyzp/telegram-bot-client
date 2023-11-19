@@ -11,7 +11,6 @@ phone_number	String	Optional. User's phone number
 email	String	Optional. User email
 shipping_address	ShippingAddress	Optional. User shipping address
  */
-
 class OrderInfo extends Type
 {
     protected const TYPE_MAP = [
@@ -54,5 +53,4 @@ class OrderInfo extends Type
     {
         return $this->shipping_address;
     }
-
 }

@@ -12,7 +12,6 @@ allow_bot_chats	Boolean	Optional. True, if private chats with bots can be chosen
 allow_group_chats	Boolean	Optional. True, if group and supergroup chats can be chosen
 allow_channel_chats	Boolean	Optional. True, if channel chats can be chosen
  */
-
 class SwitchInlineQueryChosenChat extends Type
 {
     protected ?string $query = null;
@@ -60,5 +59,4 @@ class SwitchInlineQueryChosenChat extends Type
     {
         return $this->allow_channel_chats;
     }
-
 }

@@ -9,7 +9,7 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 class GetMyDescription extends Request
 {
     /**
-     * A two-letter ISO 639-1 language code or an empty string
+     * A two-letter ISO 639-1 language code or an empty string.
      */
     protected ?string $language_code = null;
 
@@ -25,10 +25,10 @@ class GetMyDescription extends Request
      * @param string|null $language_code
      * @return GetMyDescription
      */
-    public function setLanguageCode(?string $language_code): GetMyDescription
+    public function setLanguageCode(?string $language_code): self
     {
         $this->language_code = $language_code;
+
         return $this;
     }
-
 }

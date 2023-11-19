@@ -10,7 +10,6 @@ chat_id	Integer or String	Yes	Unique identifier for the target chat or username 
 user_id	Integer	Yes	Unique identifier of the target user
 custom_title	String	Yes	New custom title for the administrator; 0-16 characters, emoji are not allowed
  */
-
 class SetChatAdministratorCustomTitle extends Request
 {
     protected int|string $chat_id;
@@ -29,6 +28,7 @@ class SetChatAdministratorCustomTitle extends Request
     public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -39,6 +39,7 @@ class SetChatAdministratorCustomTitle extends Request
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class SetChatAdministratorCustomTitle extends Request
     public function setCustomTitle(string $custom_title): self
     {
         $this->custom_title = $custom_title;
+
         return $this;
     }
 }

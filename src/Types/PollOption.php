@@ -9,7 +9,6 @@ Field	Type	Description
 text	String	Option text, 1-100 characters
 voter_count	Integer	Number of users that voted for this option
  */
-
 class PollOption extends Type
 {
     protected string $text;
@@ -24,7 +23,7 @@ class PollOption extends Type
     }
 
     /**
-     * Number of users that voted for this option
+     * Number of users that voted for this option.
      * @return int
      */
     public function getVoterCount(): int

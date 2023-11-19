@@ -64,9 +64,10 @@ class SendVenue extends Request
      * @param int|string $chat_id
      * @return SendVenue
      */
-    public function setChatId(int|string $chat_id): SendVenue
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -74,9 +75,10 @@ class SendVenue extends Request
      * @param int|null $message_thread_id
      * @return SendVenue
      */
-    public function setMessageThreadId(?int $message_thread_id): SendVenue
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -84,9 +86,10 @@ class SendVenue extends Request
      * @param float $latitude
      * @return SendVenue
      */
-    public function setLatitude(float $latitude): SendVenue
+    public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
+
         return $this;
     }
 
@@ -94,9 +97,10 @@ class SendVenue extends Request
      * @param float $longitude
      * @return SendVenue
      */
-    public function setLongitude(float $longitude): SendVenue
+    public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
+
         return $this;
     }
 
@@ -104,9 +108,10 @@ class SendVenue extends Request
      * @param string $title
      * @return SendVenue
      */
-    public function setTitle(string $title): SendVenue
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -114,9 +119,10 @@ class SendVenue extends Request
      * @param string $address
      * @return SendVenue
      */
-    public function setAddress(string $address): SendVenue
+    public function setAddress(string $address): self
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -124,9 +130,10 @@ class SendVenue extends Request
      * @param string|null $foursquare_id
      * @return SendVenue
      */
-    public function setFoursquareId(?string $foursquare_id): SendVenue
+    public function setFoursquareId(?string $foursquare_id): self
     {
         $this->foursquare_id = $foursquare_id;
+
         return $this;
     }
 
@@ -134,9 +141,10 @@ class SendVenue extends Request
      * @param string|null $foursquare_type
      * @return SendVenue
      */
-    public function setFoursquareType(?string $foursquare_type): SendVenue
+    public function setFoursquareType(?string $foursquare_type): self
     {
         $this->foursquare_type = $foursquare_type;
+
         return $this;
     }
 
@@ -144,9 +152,10 @@ class SendVenue extends Request
      * @param string|null $google_place_id
      * @return SendVenue
      */
-    public function setGooglePlaceId(?string $google_place_id): SendVenue
+    public function setGooglePlaceId(?string $google_place_id): self
     {
         $this->google_place_id = $google_place_id;
+
         return $this;
     }
 
@@ -154,9 +163,10 @@ class SendVenue extends Request
      * @param string|null $google_place_type
      * @return SendVenue
      */
-    public function setGooglePlaceType(?string $google_place_type): SendVenue
+    public function setGooglePlaceType(?string $google_place_type): self
     {
         $this->google_place_type = $google_place_type;
+
         return $this;
     }
 
@@ -164,9 +174,10 @@ class SendVenue extends Request
      * @param bool|null $disable_notification
      * @return SendVenue
      */
-    public function setDisableNotification(?bool $disable_notification): SendVenue
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -174,9 +185,10 @@ class SendVenue extends Request
      * @param bool|null $protect_content
      * @return SendVenue
      */
-    public function setProtectContent(?bool $protect_content): SendVenue
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -184,9 +196,10 @@ class SendVenue extends Request
      * @param int|null $reply_to_message_id
      * @return SendVenue
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendVenue
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -194,9 +207,10 @@ class SendVenue extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendVenue
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendVenue
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -204,10 +218,10 @@ class SendVenue extends Request
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendVenue
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendVenue
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

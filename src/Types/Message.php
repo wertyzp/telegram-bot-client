@@ -79,7 +79,6 @@ video_chat_participants_invited	VideoChatParticipantsInvited	Optional. Service m
 web_app_data	WebAppData	Optional. Service message: data sent by a Web App
 reply_markup	InlineKeyboardMarkup	Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
  */
-
 class Message extends Type
 {
     protected const TYPE_MAP = [
@@ -87,7 +86,7 @@ class Message extends Type
         'chat' => Chat::class,
         'forward_from' => User::class,
         'forward_from_chat' => Chat::class,
-        'reply_to_message' => Message::class,
+        'reply_to_message' => self::class,
         'via_bot' => User::class,
         'entities' => [MessageEntity::class],
         'caption_entities' => [MessageEntity::class],
@@ -108,7 +107,7 @@ class Message extends Type
         'new_chat_members' => [User::class],
         'left_chat_member' => User::class,
         'message_auto_delete_timer_changed' => MessageAutoDeleteTimerChanged::class,
-        'pinned_message' => Message::class,
+        'pinned_message' => self::class,
         'invoice' => Invoice::class,
         'successful_payment' => SuccessfulPayment::class,
         'passport_data' => PassportData::class,
@@ -277,7 +276,7 @@ class Message extends Type
     /**
      * @return Message|null
      */
-    public function getReplyToMessage(): ?Message
+    public function getReplyToMessage(): ?self
     {
         return $this->reply_to_message;
     }
@@ -549,7 +548,7 @@ class Message extends Type
     /**
      * @return Message|null
      */
-    public function getPinnedMessage(): ?Message
+    public function getPinnedMessage(): ?self
     {
         return $this->pinned_message;
     }
@@ -714,7 +713,6 @@ class Message extends Type
         return $this->reply_markup;
     }
 
-
     public function hasLink(): bool
     {
         if (empty($this->entities)) {
@@ -725,7 +723,7 @@ class Message extends Type
                 return true;
             }
         }
+
         return false;
     }
-
 }

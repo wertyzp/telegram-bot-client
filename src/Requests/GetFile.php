@@ -24,6 +24,7 @@ class GetFile extends Request
     public function setFileId(string $file_id): self
     {
         $this->file_id = $file_id;
+
         return $this;
     }
 }

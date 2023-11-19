@@ -13,7 +13,7 @@ class UnpinAllChatMessages extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
 
@@ -28,11 +28,13 @@ class UnpinAllChatMessages extends Request
      * @param int|string $chatId
      * @return UnpinAllChatMessages
      */
-    public function setChatId(int|string $chatId): UnpinAllChatMessages
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

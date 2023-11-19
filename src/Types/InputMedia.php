@@ -9,7 +9,6 @@ Field	Type	Description
 type	String	Type of the result, must be photo
 media	String	File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
  */
-
 abstract class InputMedia extends Type
 {
     protected string $type;
@@ -18,7 +17,7 @@ abstract class InputMedia extends Type
     public static function create(string $media): static
     {
         return new static([
-            'media' => $media
+            'media' => $media,
         ]);
     }
 
@@ -38,6 +37,7 @@ abstract class InputMedia extends Type
     public function setMedia(string $media): static
     {
         $this->media = $media;
+
         return $this;
     }
 
@@ -54,8 +54,9 @@ abstract class InputMedia extends Type
             throw new \Exception("File {$this->media} doesn't exist");
         }
 
-        $fileKey = 'item'.crc32($file);
+        $fileKey = 'item' . crc32($file);
         $data['media'] = "attach://$fileKey";
+
         return $data;
     }
 }

@@ -21,9 +21,10 @@ class BotCommandScopeChatAdministrators extends BotCommandScope
      * @param int|string $chat_id
      * @return BotCommandScopeChat
      */
-    public function setChatId(int|string $chat_id): BotCommandScopeChatAdministrators
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 }

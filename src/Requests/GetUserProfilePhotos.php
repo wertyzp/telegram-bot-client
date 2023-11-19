@@ -10,7 +10,6 @@ user_id	Integer	Yes	Unique identifier of the target user
 offset	Integer	Optional	Sequential number of the first photo to be returned. By default, all photos are returned.
 limit	Integer	Optional	Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
  */
-
 class GetUserProfilePhotos extends Request
 {
     protected int $user_id;
@@ -29,6 +28,7 @@ class GetUserProfilePhotos extends Request
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
         return $this;
     }
 
@@ -39,6 +39,7 @@ class GetUserProfilePhotos extends Request
     public function setOffset(?int $offset): self
     {
         $this->offset = $offset;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class GetUserProfilePhotos extends Request
     public function setLimit(?int $limit): self
     {
         $this->limit = $limit;
+
         return $this;
     }
 }

@@ -14,7 +14,6 @@ order_info	OrderInfo	Optional. Order information provided by the user
 telegram_payment_charge_id	String	Telegram payment identifier
 provider_payment_charge_id	String	Provider payment identifier
  */
-
 class SuccessfulPayment extends Type
 {
     protected const TYPE_MAP = [
@@ -84,5 +83,4 @@ class SuccessfulPayment extends Type
     {
         return $this->provider_payment_charge_id;
     }
-
 }

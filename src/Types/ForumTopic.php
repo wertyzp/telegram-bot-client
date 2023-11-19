@@ -11,7 +11,6 @@ name	String	Name of the topic
 icon_color	Integer	Color of the topic icon in RGB format
 icon_custom_emoji_id	String	Optional. Unique identifier of the custom emoji shown as the topic icon
  */
-
 class ForumTopic extends Type
 {
     protected int $message_thread_id;

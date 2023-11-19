@@ -9,7 +9,6 @@ Field	Type	Description
 data	Array of EncryptedPassportElement	Array with information about documents and other Telegram Passport elements that was shared with the bot
 credentials	EncryptedCredentials	Encrypted credentials required to decrypt the data
  */
-
 class PassportData extends Type
 {
     protected const TYPE_MAP = [

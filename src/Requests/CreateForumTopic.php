@@ -12,17 +12,17 @@ class CreateForumTopic extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
     /**
-     * Topic name, 1-128 characters
+     * Topic name, 1-128 characters.
      */
     protected string $name;
     /**
      * Color of the topic icon in RGB format. Currently, must be one of 73220
      * 96 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8E
-     * EE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
+     * EE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F).
      */
     protected ?int $icon_color = null;
     /**
@@ -43,9 +43,10 @@ class CreateForumTopic extends Request
      * @param int|string $chatId
      * @return CreateForumTopic
      */
-    public function setChatId(int|string $chatId): CreateForumTopic
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -53,9 +54,10 @@ class CreateForumTopic extends Request
      * @param string $name
      * @return CreateForumTopic
      */
-    public function setName(string $name): CreateForumTopic
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -63,9 +65,10 @@ class CreateForumTopic extends Request
      * @param int $iconColor
      * @return CreateForumTopic
      */
-    public function setIconColor(int $iconColor): CreateForumTopic
+    public function setIconColor(int $iconColor): self
     {
         $this->icon_color = $iconColor;
+
         return $this;
     }
 
@@ -73,11 +76,13 @@ class CreateForumTopic extends Request
      * @param string $iconCustomEmojiId
      * @return CreateForumTopic
      */
-    public function setIconCustomEmojiId(string $iconCustomEmojiId): CreateForumTopic
+    public function setIconCustomEmojiId(string $iconCustomEmojiId): self
     {
         $this->icon_custom_emoji_id = $iconCustomEmojiId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

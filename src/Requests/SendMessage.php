@@ -24,7 +24,6 @@ reply_to_message_id	Integer	Optional	If the message is a reply, ID of the origin
 allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-
 class SendMessage extends Request
 {
     protected const TYPE_MAP = [
@@ -63,9 +62,10 @@ class SendMessage extends Request
      * @param int|string $chat_id
      * @return SendMessage
      */
-    public function setChatId(int|string $chat_id): SendMessage
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -73,9 +73,10 @@ class SendMessage extends Request
      * @param MessageEntity[] $entities
      * @return SendMessage
      */
-    public function setEntities(array $entities): SendMessage
+    public function setEntities(array $entities): self
     {
         $this->entities = $entities;
+
         return $this;
     }
 
@@ -83,9 +84,10 @@ class SendMessage extends Request
      * @param int $message_thread_id
      * @return SendMessage
      */
-    public function setMessageThreadId(int $message_thread_id): SendMessage
+    public function setMessageThreadId(int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -93,9 +95,10 @@ class SendMessage extends Request
      * @param string $text
      * @return SendMessage
      */
-    public function setText(string $text): SendMessage
+    public function setText(string $text): self
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -103,9 +106,10 @@ class SendMessage extends Request
      * @param string $parse_mode
      * @return SendMessage
      */
-    public function setParseMode(string $parse_mode): SendMessage
+    public function setParseMode(string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -113,9 +117,10 @@ class SendMessage extends Request
      * @param bool $disable_web_page_preview
      * @return SendMessage
      */
-    public function setDisableWebPagePreview(bool $disable_web_page_preview): SendMessage
+    public function setDisableWebPagePreview(bool $disable_web_page_preview): self
     {
         $this->disable_web_page_preview = $disable_web_page_preview;
+
         return $this;
     }
 
@@ -123,9 +128,10 @@ class SendMessage extends Request
      * @param bool $disable_notification
      * @return SendMessage
      */
-    public function setDisableNotification(bool $disable_notification): SendMessage
+    public function setDisableNotification(bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -133,9 +139,10 @@ class SendMessage extends Request
      * @param bool $protect_content
      * @return SendMessage
      */
-    public function setProtectContent(bool $protect_content): SendMessage
+    public function setProtectContent(bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -143,9 +150,10 @@ class SendMessage extends Request
      * @param bool $allow_sending_without_reply
      * @return SendMessage
      */
-    public function setAllowSendingWithoutReply(bool $allow_sending_without_reply): SendMessage
+    public function setAllowSendingWithoutReply(bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -153,9 +161,10 @@ class SendMessage extends Request
      * @param int $reply_to_message_id
      * @return SendMessage
      */
-    public function setReplyToMessageId(int $reply_to_message_id): SendMessage
+    public function setReplyToMessageId(int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -163,10 +172,10 @@ class SendMessage extends Request
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove $reply_markup
      * @return SendMessage
      */
-    public function setReplyMarkup(ForceReply|InlineKeyboardMarkup|ReplyKeyboardRemove|ReplyKeyboardMarkup $reply_markup): SendMessage
+    public function setReplyMarkup(ForceReply|InlineKeyboardMarkup|ReplyKeyboardRemove|ReplyKeyboardMarkup $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

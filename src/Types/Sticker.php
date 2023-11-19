@@ -22,7 +22,6 @@ custom_emoji_id	String	Optional. For custom emoji stickers, unique identifier of
 needs_repainting	True	Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
 file_size	Integer	Optional. File size in bytes
  */
-
 class Sticker extends Type
 {
     protected const TYPE_MAP = [
@@ -166,6 +165,4 @@ class Sticker extends Type
     {
         return $this->fileSize;
     }
-
-
 }

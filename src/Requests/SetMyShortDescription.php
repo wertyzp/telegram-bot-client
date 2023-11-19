@@ -33,9 +33,10 @@ class SetMyShortDescription extends Request
      * @param string|null $short_description
      * @return SetMyShortDescription
      */
-    public function setShortDescription(?string $short_description): SetMyShortDescription
+    public function setShortDescription(?string $short_description): self
     {
         $this->short_description = $short_description;
+
         return $this;
     }
 
@@ -51,11 +52,10 @@ class SetMyShortDescription extends Request
      * @param string|null $language_code
      * @return SetMyShortDescription
      */
-    public function setLanguageCode(?string $language_code): SetMyShortDescription
+    public function setLanguageCode(?string $language_code): self
     {
         $this->language_code = $language_code;
+
         return $this;
     }
-
-
 }

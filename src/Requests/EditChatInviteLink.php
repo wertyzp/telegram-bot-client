@@ -12,29 +12,29 @@ class EditChatInviteLink extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * The invite link to edit
+     * The invite link to edit.
      */
     protected string $invite_link;
     /**
-     * Invite link name; 0-32 characters
+     * Invite link name; 0-32 characters.
      */
     protected ?string $name;
     /**
-     * Point in time (Unix timestamp) when the link will expire
+     * Point in time (Unix timestamp) when the link will expire.
      */
     protected ?int $expire_date = null;
     /**
      * The maximum number of users that can be members of the chat simultaneo
-     * usly after joining the chat via this invite link; 1-99999
+     * usly after joining the chat via this invite link; 1-99999.
      */
     protected ?int $member_limit = null;
     /**
      * True, if users joining the chat via the link need to be approved by ch
-     * at administrators. If True, member_limit can't be specified
+     * at administrators. If True, member_limit can't be specified.
      */
     protected ?bool $creates_join_request = null;
 
@@ -50,9 +50,10 @@ class EditChatInviteLink extends Request
      * @param int|string $chatId
      * @return EditChatInviteLink
      */
-    public function setChatId(int|string $chatId): EditChatInviteLink
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -60,9 +61,10 @@ class EditChatInviteLink extends Request
      * @param string $inviteLink
      * @return EditChatInviteLink
      */
-    public function setInviteLink(string $inviteLink): EditChatInviteLink
+    public function setInviteLink(string $inviteLink): self
     {
         $this->invite_link = $inviteLink;
+
         return $this;
     }
 
@@ -70,9 +72,10 @@ class EditChatInviteLink extends Request
      * @param string $name
      * @return EditChatInviteLink
      */
-    public function setName(string $name): EditChatInviteLink
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -80,9 +83,10 @@ class EditChatInviteLink extends Request
      * @param int $expireDate
      * @return EditChatInviteLink
      */
-    public function setExpireDate(int $expireDate): EditChatInviteLink
+    public function setExpireDate(int $expireDate): self
     {
         $this->expire_date = $expireDate;
+
         return $this;
     }
 
@@ -90,9 +94,10 @@ class EditChatInviteLink extends Request
      * @param int $memberLimit
      * @return EditChatInviteLink
      */
-    public function setMemberLimit(int $memberLimit): EditChatInviteLink
+    public function setMemberLimit(int $memberLimit): self
     {
         $this->member_limit = $memberLimit;
+
         return $this;
     }
 
@@ -100,11 +105,13 @@ class EditChatInviteLink extends Request
      * @param bool $createsJoinRequest
      * @return EditChatInviteLink
      */
-    public function setCreatesJoinRequest(bool $createsJoinRequest): EditChatInviteLink
+    public function setCreatesJoinRequest(bool $createsJoinRequest): self
     {
         $this->creates_join_request = $createsJoinRequest;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

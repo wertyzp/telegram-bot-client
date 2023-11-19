@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
 
-$url = "https://core.telegram.org/bots/api";
+$url = 'https://core.telegram.org/bots/api';
 
 $dom = new \DOMDocument();
 
@@ -25,14 +25,16 @@ $methodsFound = false;
 
 $methods = [];
 
-class Parameter {
+class Parameter
+{
     public string $name;
     public string $type;
     public string $description;
     public string $required;
 }
 
-class Method {
+class Method
+{
     public string $name;
     public string $description;
     public string $returnType;
@@ -103,7 +105,7 @@ foreach ($items as $item) {
 
         if ($item->tagName === 'p' && count($methodData) === 1) {
             $methodData[] = $item->textContent;
-            $returnsAnchor = $xpath->query("a", $item);
+            $returnsAnchor = $xpath->query('a', $item);
             if ($returnsAnchor->length > 0) {
                 $returns[reset($methodData)] = $returnsAnchor->item(0)->textContent;
                 echo "  Returns: {$returnsAnchor->item(0)->textContent}" . PHP_EOL;
@@ -112,15 +114,15 @@ foreach ($items as $item) {
         }
 
         if ($item->tagName === 'table' && count($methodData) === 2) {
-            $trs = $xpath->query("tbody/tr", $item);
+            $trs = $xpath->query('tbody/tr', $item);
 
             $parameters = [];
             foreach ($trs as $tr) {
                 $parameter = [];
-                $parameter[] = $xpath->query("td[1]", $tr)->item(0)->textContent;
-                $parameter[] = $xpath->query("td[2]", $tr)->item(0)->textContent;
-                $parameter[] = $xpath->query("td[3]", $tr)->item(0)->textContent;
-                $parameter[] = $xpath->query("td[4]", $tr)->item(0)->textContent;
+                $parameter[] = $xpath->query('td[1]', $tr)->item(0)->textContent;
+                $parameter[] = $xpath->query('td[2]', $tr)->item(0)->textContent;
+                $parameter[] = $xpath->query('td[3]', $tr)->item(0)->textContent;
+                $parameter[] = $xpath->query('td[4]', $tr)->item(0)->textContent;
                 echo "  Parameter: {$parameter[0]} type: {$parameter[1]} required: {$parameter[2]}" . PHP_EOL;
                 $parameters[] = $parameter;
             }
@@ -130,20 +132,20 @@ foreach ($items as $item) {
     }
 }
 
-    $typeMap = [
-        'String' => 'string',
-        'Integer' => 'int',
-        'Float' => 'float',
-        'Float number' => 'float',
-        'Boolean' => 'bool',
-        'True' => 'bool',
-        'Array' => 'array',
-    ];
+$typeMap = [
+    'String' => 'string',
+    'Integer' => 'int',
+    'Float' => 'float',
+    'Float number' => 'float',
+    'Boolean' => 'bool',
+    'True' => 'bool',
+    'Array' => 'array',
+];
 
 foreach ($methods as $method) {
     $className = ucfirst($method->name);
     $params = [];
-    $createMethodStr = "    public static function create(";
+    $createMethodStr = '    public static function create(';
     $createMethodParams = [];
     $allParams = [];
     $uses = [];
@@ -151,11 +153,10 @@ foreach ($methods as $method) {
         $type = $parameter->type;
         $descArray = str_split($parameter->description, 70);
         $commentArray = [];
-        $commentArray[] = "/**";
+        $commentArray[] = '/**';
         foreach ($descArray as $desc) {
             $commentArray[] = " * $desc";
         }
-
 
         $types = [];
         if (str_contains($type, ' or ')) {
@@ -170,7 +171,6 @@ foreach ($methods as $method) {
                 $noAndTypes = explode(' and ', $unknownType);
             }
 
-
             $noAndCommaTypes = [];
             foreach ($noAndTypes as $noAndType) {
                 if (str_contains($noAndType, ', ')) {
@@ -184,7 +184,7 @@ foreach ($methods as $method) {
             $types = $noAndCommaTypes;
 
             $mappedType = $typeMap[$type] ?? $type;
-            $commentArray[] = " * @var $mappedType".str_repeat('[]', $arrCount);
+            $commentArray[] = " * @var $mappedType" . str_repeat('[]', $arrCount);
             $types = ['Array'];
         } else {
             $types = [$type];
@@ -203,7 +203,7 @@ foreach ($methods as $method) {
 
         foreach ($mappedTypes as $mappedType) {
             if (!in_array($mappedType, ['string', 'int', 'float', 'bool', 'array'])) {
-                if (file_exists(__DIR__.'/types/'.$mappedType.'.php')) {
+                if (file_exists(__DIR__ . '/types/' . $mappedType . '.php')) {
                     $uses[] = "use Werty\\Http\\Clients\\TelegramBot\\$mappedType;";
                 }
             }
@@ -227,7 +227,7 @@ foreach ($methods as $method) {
 
         $mappedTypesStr = implode('|', $mappedTypes);
         if (count($mappedTypes) < 2) {
-            $mappedTypesStr = $prefix.$mappedTypesStr;
+            $mappedTypesStr = $prefix . $mappedTypesStr;
         }
 
         foreach ($commentArray as $key => $comment) {
@@ -240,8 +240,8 @@ foreach ($methods as $method) {
         }
         $allParams[$parameter->name] = [$mappedTypesStr, $camelCaseParamName];
 
-        $params[] = implode(PHP_EOL, $commentArray).PHP_EOL;
-        $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name$suffix;".PHP_EOL;
+        $params[] = implode(PHP_EOL, $commentArray) . PHP_EOL;
+        $params[] = "    protected $prefix$mappedTypesStr \$$parameter->name$suffix;" . PHP_EOL;
     }
 
     if (!empty($createMethodParams)) {
@@ -250,25 +250,24 @@ foreach ($methods as $method) {
             $createMethodParamsWithTypes[] = "$type \$$camelCaseParamName";
         }
         $createMethodStr .= implode(', ', $createMethodParamsWithTypes) . '): self' . PHP_EOL;
-        $createMethodStr .= "    {" . PHP_EOL;
+        $createMethodStr .= '    {' . PHP_EOL;
 
-        $createMethodStr .= "        return new self([" . PHP_EOL;
+        $createMethodStr .= '        return new self([' . PHP_EOL;
         foreach ($createMethodParams as $paramName => [, $camelCaseParamName]) {
             $createMethodStr .= "            '$paramName' => \$$camelCaseParamName," . PHP_EOL;
         }
-        $createMethodStr .= "        ]);" . PHP_EOL;
-        $createMethodStr .= "    }" . PHP_EOL;
+        $createMethodStr .= '        ]);' . PHP_EOL;
+        $createMethodStr .= '    }' . PHP_EOL;
     } else {
         $createMethodStr = '';
     }
     $paramsStr = implode('', $params);
 
-
     $setters = [];
     $getters = [];
     foreach ($allParams as $propName => [$mappedType, $camelCaseParamName]) {
-        $setterName = 'set'.ucfirst($camelCaseParamName);
-        $getterName = 'get'.ucfirst($camelCaseParamName);
+        $setterName = 'set' . ucfirst($camelCaseParamName);
+        $getterName = 'get' . ucfirst($camelCaseParamName);
         $setters[] = <<<EOT
         /**
          * @param $mappedType \$$camelCaseParamName
@@ -293,13 +292,13 @@ foreach ($methods as $method) {
 
     }
     $usesStr = implode(PHP_EOL, $uses);
-    $settersStr = implode(PHP_EOL.PHP_EOL, $setters);
-    $gettersStr = implode(PHP_EOL.PHP_EOL, $getters);
+    $settersStr = implode(PHP_EOL . PHP_EOL, $setters);
+    $gettersStr = implode(PHP_EOL . PHP_EOL, $getters);
 
     $descriptionParts = str_split($method->description, 70);
-    $description = implode(PHP_EOL.' * ', $descriptionParts);
+    $description = implode(PHP_EOL . ' * ', $descriptionParts);
 
-    $class =<<<EOT
+    $class = <<<EOT
     <?php
 
     namespace Werty\Http\Clients\TelegramBot\Requests;
@@ -316,23 +315,22 @@ foreach ($methods as $method) {
     }
     EOT;
 
-    if (!file_exists(__DIR__.'/../src/Requests')) {
-        mkdir(__DIR__.'/../src/Requests');
+    if (!file_exists(__DIR__ . '/../src/Requests')) {
+        mkdir(__DIR__ . '/../src/Requests');
     }
 
-    if (!file_exists(__DIR__.'/../src/Requests/'.$className.'.php')) {
-        echo "Creating $className".PHP_EOL;
-        file_put_contents(__DIR__.'/../src/Requests/'.$className.'.php', $class);
+    if (!file_exists(__DIR__ . '/../src/Requests/' . $className . '.php')) {
+        echo "Creating $className" . PHP_EOL;
+        file_put_contents(__DIR__ . '/../src/Requests/' . $className . '.php', $class);
     } else {
-        echo "Skipping $className".PHP_EOL;
+        echo "Skipping $className" . PHP_EOL;
     }
-
 
 }
 
-$file = __DIR__.'/../src/NewClient.php';
+$file = __DIR__ . '/../src/NewClient.php';
 
-$head =<<<EOT
+$head = <<<EOT
 <?php
 
 namespace Werty\Http\Clients\TelegramBot;
@@ -344,10 +342,9 @@ print_r($returns);
 
 $bodyParts = [];
 
-require_once __DIR__.'/../src/Client.php';
+require_once __DIR__ . '/../src/Client.php';
 
 $rc = new ReflectionClass(\Werty\Http\Clients\TelegramBot\Client::class);
-
 
 foreach ($methods as $method) {
     if ($rc->hasMethod($method->name)) {
@@ -360,10 +357,10 @@ foreach ($methods as $method) {
         $mapType = 'ModelBase::T_BOOLEAN';
     } elseif (isset($returns[$method->name])) {
         $returnType = $returns[$method->name];
-        $path = dirname(__DIR__).'/src/Types/'.$returnType.'.php';
+        $path = dirname(__DIR__) . '/src/Types/' . $returnType . '.php';
         if (file_exists($path)) {
             $mapType = "Types\\$returnType::class";
-            $returnType = "Types\\".$returnType;
+            $returnType = 'Types\\' . $returnType;
         } else {
             $returnType = 'mixed';
             $mapType = 'CHANGEME::class';
@@ -372,7 +369,7 @@ foreach ($methods as $method) {
         $returnType = 'mixed';
         $mapType = 'CHANGEME::class';
     }
-    $part =<<<EOT
+    $part = <<<EOT
         public function $method->name(Requests\\$className \$request): $returnType
         {
             return \$this->send('$method->name', \$request->toArray(), $mapType);
@@ -382,13 +379,13 @@ foreach ($methods as $method) {
     $bodyParts[] = $part;
 }
 
-$foot = <<<EOT
+$foot = <<<'EOT'
 }
 EOT;
 
-file_put_contents($file, $head.PHP_EOL.implode(PHP_EOL.PHP_EOL, $bodyParts).PHP_EOL.$foot);
+file_put_contents($file, $head . PHP_EOL . implode(PHP_EOL . PHP_EOL, $bodyParts) . PHP_EOL . $foot);
 
-foreach($methods as $method) {
+foreach ($methods as $method) {
     $expectedSerialize = [];
     foreach ($method->parameters as $param) {
         if (str_contains($param->description, 'JSON-serialized')) {
@@ -397,7 +394,7 @@ foreach($methods as $method) {
     }
 
     $className = ucfirst($method->name);
-    $requestClass = 'Werty\Http\Clients\TelegramBot\Requests\\'.$className;
+    $requestClass = 'Werty\Http\Clients\TelegramBot\Requests\\' . $className;
 
     if (class_exists($requestClass)) {
         $rc = new \ReflectionClass($requestClass);
@@ -409,8 +406,8 @@ foreach($methods as $method) {
 
         $diff = array_diff($expectedSerialize, $serialize);
         if (!empty($diff)) {
-            echo "Missing $className".PHP_EOL;
-            $items = '    \''.implode("',\n    '", $expectedSerialize).'\'';
+            echo "Missing $className" . PHP_EOL;
+            $items = '    \'' . implode("',\n    '", $expectedSerialize) . '\'';
             echo <<<EOT
             protected const SERIALIZE_JSON = [
             $items

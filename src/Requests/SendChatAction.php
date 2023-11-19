@@ -12,7 +12,6 @@ chat_id	Integer or String	Yes	Unique identifier for the target chat or username 
 message_thread_id	Integer	Optional	Unique identifier for the target message thread; supergroups only
 action	String	Yes	Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
  */
-
 class SendChatAction extends Type
 {
     public const ACTION_TYPING = 'typing';
@@ -40,9 +39,10 @@ class SendChatAction extends Type
      * @param int|string $chat_id
      * @return SendChatAction
      */
-    public function setChatId(int|string $chat_id): SendChatAction
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -50,9 +50,10 @@ class SendChatAction extends Type
      * @param int|null $message_thread_id
      * @return SendChatAction
      */
-    public function setMessageThreadId(?int $message_thread_id): SendChatAction
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -60,10 +61,10 @@ class SendChatAction extends Type
      * @param string $action
      * @return SendChatAction
      */
-    public function setAction(string $action): SendChatAction
+    public function setAction(string $action): self
     {
         $this->action = $action;
+
         return $this;
     }
-
 }

@@ -24,7 +24,6 @@ can_delete_stories	Boolean	Optional. True, if the administrator can delete stori
 can_manage_topics	Boolean	Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
 custom_title	String	Optional. Custom title for this user
  */
-
 class ChatMemberAdministrator extends ChatMember
 {
     protected bool $can_be_edited;
@@ -180,5 +179,4 @@ class ChatMemberAdministrator extends ChatMember
     {
         return $this->custom_title;
     }
-
 }

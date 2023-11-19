@@ -30,9 +30,10 @@ class SetMyName extends Request
      * @param string|null $name
      * @return SetMyName
      */
-    public function setName(?string $name): SetMyName
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -48,10 +49,10 @@ class SetMyName extends Request
      * @param string|null $language_code
      * @return SetMyName
      */
-    public function setLanguageCode(?string $language_code): SetMyName
+    public function setLanguageCode(?string $language_code): self
     {
         $this->language_code = $language_code;
+
         return $this;
     }
-
 }

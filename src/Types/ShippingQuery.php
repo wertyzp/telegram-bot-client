@@ -11,7 +11,6 @@ from	User	User who sent the query
 invoice_payload	String	Bot specified invoice payload
 shipping_address	ShippingAddress	User specified shipping address
  */
-
 class ShippingQuery extends Type
 {
     protected const TYPE_MAP = [
@@ -55,7 +54,4 @@ class ShippingQuery extends Type
     {
         return $this->shipping_address;
     }
-
-
-
 }

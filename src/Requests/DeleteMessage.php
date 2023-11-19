@@ -9,7 +9,6 @@ Parameter	Type	Required	Description
 chat_id	Integer or String	Yes	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 message_id	Integer	Yes	Identifier of the message to delete
  */
-
 class DeleteMessage extends Request
 {
     protected int|string $chat_id;

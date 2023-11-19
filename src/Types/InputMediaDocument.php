@@ -65,9 +65,10 @@ class InputMediaDocument extends InputMedia
      * @param string|InputFile|null $thumbnail
      * @return InputMediaDocument
      */
-    public function setThumbnail(string|InputFile|null $thumbnail): InputMediaDocument
+    public function setThumbnail(string|InputFile|null $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -75,9 +76,10 @@ class InputMediaDocument extends InputMedia
      * @param string|null $caption
      * @return InputMediaDocument
      */
-    public function setCaption(?string $caption): InputMediaDocument
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -85,9 +87,10 @@ class InputMediaDocument extends InputMedia
      * @param string|null $parse_mode
      * @return InputMediaDocument
      */
-    public function setParseMode(?string $parse_mode): InputMediaDocument
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -95,9 +98,10 @@ class InputMediaDocument extends InputMedia
      * @param MessageEntity[] $caption_entities
      * @return InputMediaDocument
      */
-    public function setCaptionEntities(?array $caption_entities): InputMediaDocument
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -105,10 +109,10 @@ class InputMediaDocument extends InputMedia
      * @param bool|null $disable_content_type_detection
      * @return InputMediaDocument
      */
-    public function setDisableContentTypeDetection(?bool $disable_content_type_detection): InputMediaDocument
+    public function setDisableContentTypeDetection(?bool $disable_content_type_detection): self
     {
         $this->disable_content_type_detection = $disable_content_type_detection;
+
         return $this;
     }
-
 }

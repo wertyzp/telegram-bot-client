@@ -10,7 +10,6 @@ use Werty\Http\Clients\TelegramBot\Types\InputFile;
 use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
-use Werty\Mapping\EmptyObject;
 
 /**
 Parameter	Type	Required	Description
@@ -26,7 +25,6 @@ reply_to_message_id	Integer	Optional	If the message is a reply, ID of the origin
 allow_sending_without_reply	Boolean	Optional	Pass True if the message should be sent even if the specified replied-to message is not found
 reply_markup	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply	Optional	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
  */
-
 class SendVideoNote extends Request
 {
     protected const SERIALIZE_JSON = [
@@ -62,9 +60,10 @@ class SendVideoNote extends Request
      * @param int|string $chat_id
      * @return SendVideoNote
      */
-    public function setChatId(int|string $chat_id): SendVideoNote
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -72,9 +71,10 @@ class SendVideoNote extends Request
      * @param int|null $message_thread_id
      * @return SendVideoNote
      */
-    public function setMessageThreadId(?int $message_thread_id): SendVideoNote
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -82,9 +82,10 @@ class SendVideoNote extends Request
      * @param string|InputFile $video_note
      * @return SendVideoNote
      */
-    public function setVideoNote(string|InputFile $video_note): SendVideoNote
+    public function setVideoNote(string|InputFile $video_note): self
     {
         $this->video_note = $video_note;
+
         return $this;
     }
 
@@ -92,9 +93,10 @@ class SendVideoNote extends Request
      * @param int|null $duration
      * @return SendVideoNote
      */
-    public function setDuration(?int $duration): SendVideoNote
+    public function setDuration(?int $duration): self
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -102,9 +104,10 @@ class SendVideoNote extends Request
      * @param int|null $length
      * @return SendVideoNote
      */
-    public function setLength(?int $length): SendVideoNote
+    public function setLength(?int $length): self
     {
         $this->length = $length;
+
         return $this;
     }
 
@@ -112,9 +115,10 @@ class SendVideoNote extends Request
      * @param string|InputFile $thumbnail
      * @return SendVideoNote
      */
-    public function setThumbnail(string|InputFile $thumbnail): SendVideoNote
+    public function setThumbnail(string|InputFile $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -122,9 +126,10 @@ class SendVideoNote extends Request
      * @param bool|null $disable_notification
      * @return SendVideoNote
      */
-    public function setDisableNotification(?bool $disable_notification): SendVideoNote
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -132,9 +137,10 @@ class SendVideoNote extends Request
      * @param bool|null $protect_content
      * @return SendVideoNote
      */
-    public function setProtectContent(?bool $protect_content): SendVideoNote
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -142,9 +148,10 @@ class SendVideoNote extends Request
      * @param int|null $reply_to_message_id
      * @return SendVideoNote
      */
-    public function setReplyToMessageId(?int $reply_to_message_id): SendVideoNote
+    public function setReplyToMessageId(?int $reply_to_message_id): self
     {
         $this->reply_to_message_id = $reply_to_message_id;
+
         return $this;
     }
 
@@ -152,9 +159,10 @@ class SendVideoNote extends Request
      * @param bool|null $allow_sending_without_reply
      * @return SendVideoNote
      */
-    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): SendVideoNote
+    public function setAllowSendingWithoutReply(?bool $allow_sending_without_reply): self
     {
         $this->allow_sending_without_reply = $allow_sending_without_reply;
+
         return $this;
     }
 
@@ -162,10 +170,10 @@ class SendVideoNote extends Request
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $reply_markup
      * @return SendVideoNote
      */
-    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): SendVideoNote
+    public function setReplyMarkup(ReplyKeyboardMarkup|ForceReply|ReplyKeyboardRemove|InlineKeyboardMarkup|null $reply_markup): self
     {
         $this->reply_markup = $reply_markup;
+
         return $this;
     }
-
 }

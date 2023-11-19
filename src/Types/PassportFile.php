@@ -11,7 +11,6 @@ file_unique_id	String	Unique identifier for this file, which is supposed to be t
 file_size	Integer	File size in bytes
 file_date	Integer	Unix time when the file was uploaded
  */
-
 class PassportFile extends Type
 {
     protected string $file_id;
@@ -50,5 +49,4 @@ class PassportFile extends Type
     {
         return $this->file_date;
     }
-
 }

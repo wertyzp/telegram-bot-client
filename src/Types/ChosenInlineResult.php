@@ -12,7 +12,6 @@ location	Location	Optional. Sender location, only for bots that require user loc
 inline_message_id	String	Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
 query	String	The query that was used to obtain the result
  */
-
 class ChosenInlineResult extends Type
 {
     protected const TYPE_MAP = [
@@ -65,6 +64,4 @@ class ChosenInlineResult extends Type
     {
         return $this->query;
     }
-
-
 }

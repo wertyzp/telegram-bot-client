@@ -13,11 +13,11 @@ class SetChatStickerSet extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target superg
-     * roup (in the format @supergroupusername)
+     * roup (in the format @supergroupusername).
      */
     protected int|string $chat_id;
     /**
-     * Name of the sticker set to be set as the group sticker set
+     * Name of the sticker set to be set as the group sticker set.
      */
     protected string $sticker_set_name;
 
@@ -33,9 +33,10 @@ class SetChatStickerSet extends Request
      * @param int|string $chatId
      * @return SetChatStickerSet
      */
-    public function setChatId(int|string $chatId): SetChatStickerSet
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -43,11 +44,13 @@ class SetChatStickerSet extends Request
      * @param string $stickerSetName
      * @return SetChatStickerSet
      */
-    public function setStickerSetName(string $stickerSetName): SetChatStickerSet
+    public function setStickerSetName(string $stickerSetName): self
     {
         $this->sticker_set_name = $stickerSetName;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

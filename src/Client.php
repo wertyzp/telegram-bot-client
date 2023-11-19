@@ -6,17 +6,11 @@ namespace Werty\Http\Clients\TelegramBot;
 
 use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
-use Werty\Http\Clients\TelegramBot\Requests\Chat;
-use Werty\Http\Clients\TelegramBot\Requests\ChatMember;
 use Werty\Http\Clients\TelegramBot\Requests\File;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
-use Werty\Http\Clients\TelegramBot\Requests\InputMedia;
 use Werty\Http\Clients\TelegramBot\Requests\LeaveChat;
-use Werty\Http\Clients\TelegramBot\Requests\Request;
 use Werty\Http\Clients\TelegramBot\Requests\SendAudio;
-use Werty\Http\Clients\TelegramBot\Requests\SendMediaGroup;
 use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
-use Werty\Http\Clients\TelegramBot\Requests\SendVideo;
 use Werty\Http\Clients\TelegramBot\Requests\SetWebhook;
 use Werty\Http\Clients\TelegramBot\Types\BotDescription;
 use Werty\Http\Clients\TelegramBot\Types\Message;
@@ -31,19 +25,20 @@ class Client
 
     public function __construct($token)
     {
-        $this->baseUrl = "https://api.telegram.org";
+        $this->baseUrl = 'https://api.telegram.org';
         $this->url = "$this->baseUrl/bot$token";
         $this->fileUrl = "$this->baseUrl/file/bot$token";
     }
 
     public function getMe(): Types\User
     {
-        return $this->send("getMe", [], Types\User::class);
+        return $this->send('getMe', [], Types\User::class);
     }
 
     public function downloadFile(Types\File $file): string|false
     {
         $path = $file->getFilePath();
+
         return file_get_contents("$this->fileUrl/{$path}");
     }
 
@@ -54,7 +49,7 @@ class Client
 
     public function getWebhookInfo(): Types\WebhookInfo
     {
-        return $this->send("getWebhookInfo", [], Types\WebhookInfo::class);
+        return $this->send('getWebhookInfo', [], Types\WebhookInfo::class);
     }
 
     public function deleteMessage(Requests\DeleteMessage $deleteMessage): bool
@@ -64,7 +59,7 @@ class Client
 
     public function setWebhook(SetWebhook $request): bool
     {
-        return $this->send("setWebhook", $request->toPostData(), ModelBase::T_BOOLEAN);
+        return $this->send('setWebhook', $request->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function deleteWebhook($dropPendingUpdates = true)
@@ -73,7 +68,6 @@ class Client
     }
 
     /**
-     *
      * Use this method to send audio files, if you want Telegram clients to display them
      * in the music player. Your audio must be in the .MP3 or .M4A format.
      * On success, the sent Message is returned.
@@ -84,7 +78,6 @@ class Client
      * @throws Exception
      * @throws HttpException
      */
-
     public function sendAudio(Requests\SendAudio $audio): Message
     {
         return $this->send('sendAudio', $audio->toPostData(), Message::class);
@@ -200,6 +193,7 @@ class Client
     {
         return $this->send('sendPoll', $poll->toPostData(), Message::class);
     }
+
     /**
      * @param string $url
      * @param array $data
@@ -228,6 +222,7 @@ class Client
 
         try {
             $decoded = json_decode($result, false, 512, JSON_THROW_ON_ERROR);
+
             return new Response($decoded);
         } catch (\JsonException $e) {
             $message = "Server responded with unexpected code: {$code}";
@@ -237,7 +232,7 @@ class Client
 
     public function answerCallbackQuery(AnswerCallbackQuery $request): bool
     {
-        return $this->send("answerCallbackQuery", $request->toPostData(), ModelBase::T_BOOLEAN);
+        return $this->send('answerCallbackQuery', $request->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function editMessageText(Requests\EditMessageText $message): Message
@@ -504,6 +499,7 @@ class Client
     {
         return $this->send('getMyDefaultAdministratorRights', $request->toPostData(), Types\ChatAdministratorRights::class);
     }
+
     /**
      * @param string $path
      * @param array $data

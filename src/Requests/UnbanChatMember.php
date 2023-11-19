@@ -10,7 +10,6 @@ chat_id	Integer or String	Yes	Unique identifier for the target group or username
 user_id	Integer	Yes	Unique identifier of the target user
 only_if_banned	Boolean	Optional	Do nothing if the user is not banned
  */
-
 class UnbanChatMember extends Request
 {
     protected int|string $chat_id;
@@ -29,6 +28,7 @@ class UnbanChatMember extends Request
     public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -39,6 +39,7 @@ class UnbanChatMember extends Request
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class UnbanChatMember extends Request
     public function setOnlyIfBanned(?bool $only_if_banned): self
     {
         $this->only_if_banned = $only_if_banned;
+
         return $this;
     }
 }

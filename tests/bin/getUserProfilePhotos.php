@@ -25,4 +25,3 @@ try {
 } catch (TelegramBotException $e) {
     echo "$e";
 }
-

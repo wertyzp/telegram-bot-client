@@ -11,11 +11,11 @@ class ApproveChatJoinRequest extends Request
 {
     /**
      * Unique identifier for the target chat or username of the target channe
-     * l (in the format @channelusername)
+     * l (in the format @channelusername).
      */
     protected int|string $chat_id;
     /**
-     * Unique identifier of the target user
+     * Unique identifier of the target user.
      */
     protected int $user_id;
 
@@ -31,9 +31,10 @@ class ApproveChatJoinRequest extends Request
      * @param int|string $chatId
      * @return ApproveChatJoinRequest
      */
-    public function setChatId(int|string $chatId): ApproveChatJoinRequest
+    public function setChatId(int|string $chatId): self
     {
         $this->chat_id = $chatId;
+
         return $this;
     }
 
@@ -41,11 +42,13 @@ class ApproveChatJoinRequest extends Request
      * @param int $userId
      * @return ApproveChatJoinRequest
      */
-    public function setUserId(int $userId): ApproveChatJoinRequest
+    public function setUserId(int $userId): self
     {
         $this->user_id = $userId;
+
         return $this;
     }
+
     /**
      * @return int|string
      */

@@ -14,7 +14,6 @@ height	Integer	Optional. Animation height
 duration	Integer	Optional. Animation duration in seconds
 has_spoiler	Boolean	Optional. Pass True if the animation needs to be covered with a spoiler animation
  */
-
 class InputMediaAnimation extends InputMedia
 {
     protected const TYPE_MAP = [
@@ -100,9 +99,10 @@ class InputMediaAnimation extends InputMedia
      * @param string|InputFile|null $thumbnail
      * @return InputMediaAnimation
      */
-    public function setThumbnail(string|InputFile|null $thumbnail): InputMediaAnimation
+    public function setThumbnail(string|InputFile|null $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 
@@ -110,9 +110,10 @@ class InputMediaAnimation extends InputMedia
      * @param string|null $caption
      * @return InputMediaAnimation
      */
-    public function setCaption(?string $caption): InputMediaAnimation
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
+
         return $this;
     }
 
@@ -120,9 +121,10 @@ class InputMediaAnimation extends InputMedia
      * @param string|null $parse_mode
      * @return InputMediaAnimation
      */
-    public function setParseMode(?string $parse_mode): InputMediaAnimation
+    public function setParseMode(?string $parse_mode): self
     {
         $this->parse_mode = $parse_mode;
+
         return $this;
     }
 
@@ -130,9 +132,10 @@ class InputMediaAnimation extends InputMedia
      * @param MessageEntity[] $caption_entities
      * @return InputMediaAnimation
      */
-    public function setCaptionEntities(?array $caption_entities): InputMediaAnimation
+    public function setCaptionEntities(?array $caption_entities): self
     {
         $this->caption_entities = $caption_entities;
+
         return $this;
     }
 
@@ -140,9 +143,10 @@ class InputMediaAnimation extends InputMedia
      * @param int|null $width
      * @return InputMediaAnimation
      */
-    public function setWidth(?int $width): InputMediaAnimation
+    public function setWidth(?int $width): self
     {
         $this->width = $width;
+
         return $this;
     }
 
@@ -150,9 +154,10 @@ class InputMediaAnimation extends InputMedia
      * @param int|null $height
      * @return InputMediaAnimation
      */
-    public function setHeight(?int $height): InputMediaAnimation
+    public function setHeight(?int $height): self
     {
         $this->height = $height;
+
         return $this;
     }
 
@@ -160,9 +165,10 @@ class InputMediaAnimation extends InputMedia
      * @param int|null $duration
      * @return InputMediaAnimation
      */
-    public function setDuration(?int $duration): InputMediaAnimation
+    public function setDuration(?int $duration): self
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -170,10 +176,10 @@ class InputMediaAnimation extends InputMedia
      * @param bool|null $has_spoiler
      * @return InputMediaAnimation
      */
-    public function setHasSpoiler(?bool $has_spoiler): InputMediaAnimation
+    public function setHasSpoiler(?bool $has_spoiler): self
     {
         $this->has_spoiler = $has_spoiler;
+
         return $this;
     }
-
 }

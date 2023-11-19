@@ -11,7 +11,9 @@ class HttpException extends \Exception
 {
     private string|Response $response;
     private array $request;
-    #[Pure] public function __construct(string $message = "", int $code = 0, array $request = [], string|Response $response)
+
+    #[Pure]
+    public function __construct(string $message, int $code, array $request, string|Response $response)
     {
         parent::__construct($message, $code);
 
@@ -28,5 +30,4 @@ class HttpException extends \Exception
     {
         return $this->response;
     }
-
 }

@@ -14,7 +14,6 @@ invoice_payload	String	Bot specified invoice payload
 shipping_option_id	String	Optional. Identifier of the shipping option chosen by the user
 order_info	OrderInfo	Optional. Order information provided by the user
  */
-
 class PreCheckoutQuery extends Type
 {
     protected const TYPE_MAP = [

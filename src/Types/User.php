@@ -18,7 +18,6 @@ can_join_groups	Boolean	Optional. True, if the bot can be invited to groups. Ret
 can_read_all_group_messages	Boolean	Optional. True, if privacy mode is disabled for the bot. Returned only in getMe.
 supports_inline_queries	Boolean	Optional. True, if the bot supports inline queries. Returned only in getMe.
  */
-
 class User extends Type
 {
     protected int $id;
@@ -120,5 +119,4 @@ class User extends Type
     {
         return $this->supports_inline_queries;
     }
-
 }

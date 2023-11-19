@@ -15,7 +15,6 @@ selective	Boolean	Optional. Use this parameter if you want to show the keyboard 
 
 Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
  */
-
 class ReplyKeyboardMarkup extends Type
 {
     protected const TYPE_MAP = [
@@ -77,5 +76,69 @@ class ReplyKeyboardMarkup extends Type
         return $this->selective;
     }
 
+    /**
+     * @param KeyboardButton[][] $keyboard
+     * @return ReplyKeyboardMarkup
+     */
+    public function setKeyboard(array $keyboard): self
+    {
+        $this->keyboard = $keyboard;
 
+        return $this;
+    }
+
+    /**
+     * @param bool|null $is_persistent
+     * @return ReplyKeyboardMarkup
+     */
+    public function setIsPersistent(?bool $is_persistent): self
+    {
+        $this->is_persistent = $is_persistent;
+
+        return $this;
+    }
+
+    /**
+     * @param bool|null $resize_keyboard
+     * @return ReplyKeyboardMarkup
+     */
+    public function setResizeKeyboard(?bool $resize_keyboard): self
+    {
+        $this->resize_keyboard = $resize_keyboard;
+
+        return $this;
+    }
+
+    /**
+     * @param bool|null $one_time_keyboard
+     * @return ReplyKeyboardMarkup
+     */
+    public function setOneTimeKeyboard(?bool $one_time_keyboard): self
+    {
+        $this->one_time_keyboard = $one_time_keyboard;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $input_field_placeholder
+     * @return ReplyKeyboardMarkup
+     */
+    public function setInputFieldPlaceholder(?string $input_field_placeholder): self
+    {
+        $this->input_field_placeholder = $input_field_placeholder;
+
+        return $this;
+    }
+
+    /**
+     * @param bool|null $selective
+     * @return ReplyKeyboardMarkup
+     */
+    public function setSelective(?bool $selective): self
+    {
+        $this->selective = $selective;
+
+        return $this;
+    }
 }

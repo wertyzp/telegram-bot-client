@@ -13,7 +13,6 @@ disable_notification	Boolean	Optional	Sends the message silently. Users will rec
 protect_content	Boolean	Optional	Protects the contents of the forwarded message from forwarding and saving
 message_id	Integer	Yes	Message identifier in the chat specified in from_chat_id
  */
-
 class ForwardMessage extends Request
 {
     protected int|string $chat_id;
@@ -36,9 +35,10 @@ class ForwardMessage extends Request
      * @param int|string $chat_id
      * @return ForwardMessage
      */
-    public function setChatId(int|string $chat_id): ForwardMessage
+    public function setChatId(int|string $chat_id): self
     {
         $this->chat_id = $chat_id;
+
         return $this;
     }
 
@@ -46,9 +46,10 @@ class ForwardMessage extends Request
      * @param int|null $message_thread_id
      * @return ForwardMessage
      */
-    public function setMessageThreadId(?int $message_thread_id): ForwardMessage
+    public function setMessageThreadId(?int $message_thread_id): self
     {
         $this->message_thread_id = $message_thread_id;
+
         return $this;
     }
 
@@ -56,9 +57,10 @@ class ForwardMessage extends Request
      * @param int|string $from_chat_id
      * @return ForwardMessage
      */
-    public function setFromChatId(int|string $from_chat_id): ForwardMessage
+    public function setFromChatId(int|string $from_chat_id): self
     {
         $this->from_chat_id = $from_chat_id;
+
         return $this;
     }
 
@@ -66,9 +68,10 @@ class ForwardMessage extends Request
      * @param bool|null $disable_notification
      * @return ForwardMessage
      */
-    public function setDisableNotification(?bool $disable_notification): ForwardMessage
+    public function setDisableNotification(?bool $disable_notification): self
     {
         $this->disable_notification = $disable_notification;
+
         return $this;
     }
 
@@ -76,9 +79,10 @@ class ForwardMessage extends Request
      * @param bool|null $protect_content
      * @return ForwardMessage
      */
-    public function setProtectContent(?bool $protect_content): ForwardMessage
+    public function setProtectContent(?bool $protect_content): self
     {
         $this->protect_content = $protect_content;
+
         return $this;
     }
 
@@ -86,10 +90,10 @@ class ForwardMessage extends Request
      * @param int $message_id
      * @return ForwardMessage
      */
-    public function setMessageId(int $message_id): ForwardMessage
+    public function setMessageId(int $message_id): self
     {
         $this->message_id = $message_id;
+
         return $this;
     }
-
 }

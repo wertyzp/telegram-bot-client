@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot\Types;
 
-use Werty\Mapping\EmptyObject;
-
 /**
 Field	Type	Description
 id	String	Unique identifier for this query
@@ -16,7 +14,6 @@ chat_instance	String	Global identifier, uniquely corresponding to the chat to wh
 data	String	Optional. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
 game_short_name	String	Optional. Short name of a Game to be returned, serves as the unique identifier for the game
  */
-
 class CallbackQuery extends Type
 {
     protected const TYPE_MAP = [
@@ -87,5 +84,4 @@ class CallbackQuery extends Type
     {
         return $this->game_short_name;
     }
-
 }

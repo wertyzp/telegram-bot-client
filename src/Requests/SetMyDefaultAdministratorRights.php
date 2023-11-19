@@ -12,9 +12,8 @@ use Werty\Http\Clients\TelegramBot\Types\ChatAdministratorRights;
  */
 class SetMyDefaultAdministratorRights extends Request
 {
-
     protected const SERIALIZE_JSON = [
-        'rights'
+        'rights',
     ];
 
     /**
@@ -29,14 +28,14 @@ class SetMyDefaultAdministratorRights extends Request
      */
     protected ?bool $for_channels;
 
-
     /**
      * @param ChatAdministratorRights $rights
      * @return SetMyDefaultAdministratorRights
      */
-    public function setRights(ChatAdministratorRights $rights): SetMyDefaultAdministratorRights
+    public function setRights(ChatAdministratorRights $rights): self
     {
         $this->rights = $rights;
+
         return $this;
     }
 
@@ -44,11 +43,13 @@ class SetMyDefaultAdministratorRights extends Request
      * @param bool $forChannels
      * @return SetMyDefaultAdministratorRights
      */
-    public function setForChannels(bool $forChannels): SetMyDefaultAdministratorRights
+    public function setForChannels(bool $forChannels): self
     {
         $this->for_channels = $forChannels;
+
         return $this;
     }
+
     /**
      * @return ChatAdministratorRights
      */
