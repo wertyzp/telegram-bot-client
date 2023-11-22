@@ -2,6 +2,8 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\BotCommandScope;
+
 /**
  * Use this method to get the current list of the bot's commands for the
  * given scope and user language. Returns an Array of BotCommand objects.

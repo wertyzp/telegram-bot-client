@@ -2,6 +2,8 @@
 
 namespace Werty\Http\Clients\TelegramBot\Requests;
 
+use Werty\Http\Clients\TelegramBot\Types\BotCommandScope;
+
 /**
  * Use this method to change the list of the bot's commands. See this man
  * ual for more details about bot commands. Returns True on success.
