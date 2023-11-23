@@ -31,7 +31,7 @@ $replyMarkup->setInlineKeyboard($inlineKeyboard);
 
 $message->setReplyMarkup($replyMarkup);
 try {
-    $response = $client->sendMessage($message);
+    $response = $client->sendRequest($message);
 } catch (HttpException $e) {
     var_dump($e->getResponse());
 

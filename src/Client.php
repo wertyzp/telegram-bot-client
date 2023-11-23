@@ -6,7 +6,6 @@ namespace Werty\Http\Clients\TelegramBot;
 
 use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
-use Werty\Http\Clients\TelegramBot\Requests\File;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
 use Werty\Http\Clients\TelegramBot\Requests\LeaveChat;
 use Werty\Http\Clients\TelegramBot\Requests\SendAudio;
@@ -15,13 +14,94 @@ use Werty\Http\Clients\TelegramBot\Requests\SetWebhook;
 use Werty\Http\Clients\TelegramBot\Types\BotDescription;
 use Werty\Http\Clients\TelegramBot\Types\Message;
 use Werty\Http\Clients\TelegramBot\Types\UserProfilePhotos;
-use Werty\Http\Json\Exception;
 
 class Client
 {
     private string $url;
     private string $fileUrl;
     private string $baseUrl;
+
+    protected array $requestMap = [
+        Requests\LeaveChat::class => ['leaveChat', ModelBase::T_BOOLEAN],
+        Requests\DeleteMessage::class => ['deleteMessage', ModelBase::T_BOOLEAN],
+        Requests\SetWebhook::class => ['setWebhook', ModelBase::T_BOOLEAN],
+        Requests\SendAudio::class => ['sendAudio', Types\Message::class],
+        Requests\SendVideo::class => ['sendVideo', Types\Message::class],
+        Requests\GetChat::class => ['getChat', Types\Chat::class],
+        Requests\GetChatMember::class => ['getChatMember', Types\ChatMember::class],
+        Requests\SendVideoNote::class => ['sendVideoNote', Types\Message::class],
+        Requests\SendDice::class => ['sendDice', Types\Message::class],
+        Requests\SendChatAction::class => ['sendChatAction', ModelBase::T_BOOLEAN],
+        Requests\GetUserProfilePhotos::class => ['getUserProfilePhotos', Types\UserProfilePhotos::class],
+        Requests\GetFile::class => ['getFile', Types\File::class],
+        Requests\BanChatMember::class => ['banChatMember', ModelBase::T_BOOLEAN],
+        Requests\UnbanChatMember::class => ['unbanChatMember', ModelBase::T_BOOLEAN],
+        Requests\RestrictChatMember::class => ['restrictChatMember', ModelBase::T_BOOLEAN],
+        Requests\PromoteChatMember::class => ['promoteChatMember', ModelBase::T_BOOLEAN],
+        Requests\BanChatSenderChat::class => ['banChatSenderChat', ModelBase::T_BOOLEAN],
+        Requests\SetChatAdministratorCustomTitle::class => ['setChatAdministratorCustomTitle', ModelBase::T_BOOLEAN],
+        Requests\SendDocument::class => ['sendDocument', Types\Message::class],
+        Requests\SendAnimation::class => ['sendAnimation', Types\Message::class],
+        Requests\SendVoice::class => ['sendVoice', Types\Message::class],
+        Requests\SendMediaGroup::class => ['sendMediaGroup', [Types\Message::class]],
+        Requests\SendVenue::class => ['sendVenue', Types\Message::class],
+        Requests\SendContact::class => ['sendContact', Types\Message::class],
+        Requests\SendPoll::class => ['sendPoll', Types\Message::class],
+        Requests\AnswerCallbackQuery::class => ['answerCallbackQuery', ModelBase::T_BOOLEAN],
+        Requests\EditMessageText::class => ['editMessageText', Types\Message::class],
+        Requests\SendMessage::class => ['sendMessage', Types\Message::class],
+        Requests\ForwardMessage::class => ['forwardMessage', Types\Message::class],
+        Requests\CopyMessage::class => ['copyMessage', Types\Message::class],
+        Requests\SendPhoto::class => ['sendPhoto', Types\Message::class],
+        Requests\LogOut::class => ['logOut', ModelBase::T_BOOLEAN],
+        Requests\Close::class => ['close', ModelBase::T_BOOLEAN],
+        Requests\SendLocation::class => ['sendLocation', Types\Message::class],
+        Requests\UnbanChatSenderChat::class => ['unbanChatSenderChat', ModelBase::T_BOOLEAN],
+        Requests\SetChatPermissions::class => ['setChatPermissions', ModelBase::T_BOOLEAN],
+        Requests\ExportChatInviteLink::class => ['exportChatInviteLink', ModelBase::T_STRING],
+        Requests\CreateChatInviteLink::class => ['createChatInviteLink', Types\ChatInviteLink::class],
+        Requests\EditChatInviteLink::class => ['editChatInviteLink', Types\ChatInviteLink::class],
+        Requests\RevokeChatInviteLink::class => ['revokeChatInviteLink', Types\ChatInviteLink::class],
+        Requests\ApproveChatJoinRequest::class => ['approveChatJoinRequest', ModelBase::T_BOOLEAN],
+        Requests\DeclineChatJoinRequest::class => ['declineChatJoinRequest', ModelBase::T_BOOLEAN],
+        Requests\SetChatPhoto::class => ['setChatPhoto', ModelBase::T_BOOLEAN],
+        Requests\DeleteChatPhoto::class => ['deleteChatPhoto', ModelBase::T_BOOLEAN],
+        Requests\SetChatTitle::class => ['setChatTitle', ModelBase::T_BOOLEAN],
+        Requests\SetChatDescription::class => ['setChatDescription', ModelBase::T_BOOLEAN],
+        Requests\PinChatMessage::class => ['pinChatMessage', ModelBase::T_BOOLEAN],
+        Requests\UnpinChatMessage::class => ['unpinChatMessage', ModelBase::T_BOOLEAN],
+        Requests\UnpinAllChatMessages::class => ['unpinAllChatMessages', ModelBase::T_BOOLEAN],
+        Requests\GetChatAdministrators::class => ['getChatAdministrators', Types\ChatMember::class],
+        Requests\GetChatMemberCount::class => ['getChatMemberCount', ModelBase::T_INTEGER],
+        Requests\SetChatStickerSet::class => ['setChatStickerSet', ModelBase::T_BOOLEAN],
+        Requests\DeleteChatStickerSet::class => ['deleteChatStickerSet', ModelBase::T_BOOLEAN],
+        Requests\GetForumTopicIconStickers::class => ['getForumTopicIconStickers', Types\Sticker::class],
+        Requests\CreateForumTopic::class => ['createForumTopic', Types\ForumTopic::class],
+        Requests\EditForumTopic::class => ['editForumTopic', ModelBase::T_BOOLEAN],
+        Requests\CloseForumTopic::class => ['closeForumTopic', ModelBase::T_BOOLEAN],
+        Requests\ReopenForumTopic::class => ['reopenForumTopic', ModelBase::T_BOOLEAN],
+        Requests\DeleteForumTopic::class => ['deleteForumTopic', ModelBase::T_BOOLEAN],
+        Requests\UnpinAllForumTopicMessages::class => ['unpinAllForumTopicMessages', ModelBase::T_BOOLEAN],
+        Requests\EditGeneralForumTopic::class => ['editGeneralForumTopic', ModelBase::T_BOOLEAN],
+        Requests\CloseGeneralForumTopic::class => ['closeGeneralForumTopic', ModelBase::T_BOOLEAN],
+        Requests\ReopenGeneralForumTopic::class => ['reopenGeneralForumTopic', ModelBase::T_BOOLEAN],
+        Requests\HideGeneralForumTopic::class => ['hideGeneralForumTopic', ModelBase::T_BOOLEAN],
+        Requests\UnhideGeneralForumTopic::class => ['unhideGeneralForumTopic', ModelBase::T_BOOLEAN],
+        Requests\UnpinAllGeneralForumTopicMessages::class => ['unpinAllGeneralForumTopicMessages', ModelBase::T_BOOLEAN],
+        Requests\SetMyCommands::class => ['setMyCommands', ModelBase::T_BOOLEAN],
+        Requests\DeleteMyCommands::class => ['deleteMyCommands', ModelBase::T_BOOLEAN],
+        Requests\GetMyCommands::class => ['getMyCommands', [Types\BotCommand::class]],
+        Requests\SetMyName::class => ['setMyName', ModelBase::T_BOOLEAN],
+        Requests\GetMyName::class => ['getMyName', Types\BotName::class],
+        Requests\SetMyDescription::class => ['setMyDescription', ModelBase::T_BOOLEAN],
+        Requests\GetMyDescription::class => ['getMyDescription', Types\BotDescription::class],
+        Requests\SetMyShortDescription::class => ['setMyShortDescription', ModelBase::T_BOOLEAN],
+        Requests\GetMyShortDescription::class => ['getMyShortDescription', Types\BotShortDescription::class],
+        Requests\SetChatMenuButton::class => ['setChatMenuButton', ModelBase::T_BOOLEAN],
+        Requests\GetChatMenuButton::class => ['getChatMenuButton', Types\MenuButton::class],
+        Requests\SetMyDefaultAdministratorRights::class => ['setMyDefaultAdministratorRights', ModelBase::T_BOOLEAN],
+        Requests\GetMyDefaultAdministratorRights::class => ['getMyDefaultAdministratorRights', Types\ChatAdministratorRights::class],
+    ];
 
     public function __construct($token)
     {
@@ -500,12 +580,22 @@ class Client
         return $this->send('getMyDefaultAdministratorRights', $request->toPostData(), Types\ChatAdministratorRights::class);
     }
 
+    public function sendRequest(Requests\Request $request): mixed
+    {
+        $class = $request::class;
+        if (!isset($this->requestMap[$class])) {
+            throw new \InvalidArgumentException("Request $class is not supported");
+        }
+        [$path, $responseType] = $this->requestMap[$class];
+
+        return $this->send($path, $request->toPostData(), $responseType);
+    }
+
     /**
      * @param string $path
      * @param array $data
      * @param mixed $responseType
      * @return mixed
-     * @throws Exception
      * @throws HttpException
      */
     protected function send(string $path, array $data = [], mixed $responseType = null): mixed
