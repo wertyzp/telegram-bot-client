@@ -101,6 +101,7 @@ class Client
         Requests\GetChatMenuButton::class => ['getChatMenuButton', Types\MenuButton::class],
         Requests\SetMyDefaultAdministratorRights::class => ['setMyDefaultAdministratorRights', ModelBase::T_BOOLEAN],
         Requests\GetMyDefaultAdministratorRights::class => ['getMyDefaultAdministratorRights', Types\ChatAdministratorRights::class],
+        Requests\EditMessageReplyMarkup::class => ['editMessageReplyMarkup', ModelBase::T_BOOLEAN],
     ];
 
     public function __construct($token)
@@ -578,6 +579,11 @@ class Client
     public function getMyDefaultAdministratorRights(Requests\GetMyDefaultAdministratorRights $request): Types\ChatAdministratorRights
     {
         return $this->send('getMyDefaultAdministratorRights', $request->toPostData(), Types\ChatAdministratorRights::class);
+    }
+
+    public function editMessageReplyMarkup(Requests\EditMessageReplyMarkup $request): bool
+    {
+        return $this->send('editMessageReplyMarkup', $request->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function sendRequest(Requests\Request $request): mixed
