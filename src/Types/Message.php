@@ -677,7 +677,7 @@ class Message extends Type
         return false;
     }
 
-    public function getForwardOrigin(): ?MessageOrigin
+    public function getForwardOrigin(): MessageOriginUser|MessageOriginChannel|MessageOrigin|MessageOriginHiddenUser|MessageOriginChat|null
     {
         return $this->forward_origin;
     }
