@@ -8,6 +8,7 @@ use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
 use Werty\Http\Clients\TelegramBot\Requests\LeaveChat;
+use Werty\Http\Clients\TelegramBot\Requests\Request;
 use Werty\Http\Clients\TelegramBot\Requests\SendAudio;
 use Werty\Http\Clients\TelegramBot\Requests\SendPhoto;
 use Werty\Http\Clients\TelegramBot\Requests\SetWebhook;
@@ -102,6 +103,10 @@ class Client
         Requests\SetMyDefaultAdministratorRights::class => ['setMyDefaultAdministratorRights', ModelBase::T_BOOLEAN],
         Requests\GetMyDefaultAdministratorRights::class => ['getMyDefaultAdministratorRights', Types\ChatAdministratorRights::class],
         Requests\EditMessageReplyMarkup::class => ['editMessageReplyMarkup', ModelBase::T_BOOLEAN],
+        Requests\SendInvoice::class => ['sendInvoice', Types\Message::class],
+        Requests\AnswerPreCheckoutQuery::class => ['answerPreCheckoutQuery', ModelBase::T_BOOLEAN],
+        Requests\AnswerShippingQuery::class => ['answerShippingQuery', ModelBase::T_BOOLEAN],
+        Requests\CreateInvoiceLink::class => ['createInvoiceLink', ModelBase::T_STRING],
     ];
 
     public function __construct($token)
@@ -192,6 +197,26 @@ class Client
     public function sendChatAction(Requests\SendChatAction $chatAction): bool
     {
         return $this->send('sendChatAction', $chatAction->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function sendInvoice(Requests\SendInvoice $invoice): Types\Message
+    {
+        return $this->send('sendInvoice', $invoice->toPostData(), Types\Message::class);
+    }
+
+    public function answerPreCheckoutQuery(Requests\AnswerPreCheckoutQuery $answerPreCheckoutQuery): bool
+    {
+        return $this->send('answerPreCheckoutQuery', $answerPreCheckoutQuery->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function answerShippingQuery(Requests\AnswerShippingQuery $answerShippingQuery): bool
+    {
+        return $this->send('answerShippingQuery', $answerShippingQuery->toPostData(), ModelBase::T_BOOLEAN);
+    }
+
+    public function createInvoiceLink(Requests\CreateInvoiceLink $createInvoiceLink): string
+    {
+        return $this->send('createInvoiceLink', $createInvoiceLink->toPostData(), ModelBase::T_STRING);
     }
 
     /**
