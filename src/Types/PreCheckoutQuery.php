@@ -29,4 +29,38 @@ class PreCheckoutQuery extends Type
     protected ?string $shipping_option_id = null;
     protected ?OrderInfo $order_info = null;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getFrom(): User
+    {
+        return $this->from;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function getTotalAmount(): int
+    {
+        return $this->total_amount;
+    }
+
+    public function getInvoicePayload(): string
+    {
+        return $this->invoice_payload;
+    }
+
+    public function getShippingOptionId(): ?string
+    {
+        return $this->shipping_option_id;
+    }
+
+    public function getOrderInfo(): ?OrderInfo
+    {
+        return $this->order_info;
+    }
 }
