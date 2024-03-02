@@ -12,12 +12,7 @@ from	User	Optional. Sender of the message; empty for messages sent to channels. 
 sender_chat	Chat	Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
 date	Integer	Date the message was sent in Unix time
 chat	Chat	Conversation the message belongs to
-forward_from	User	Optional. For forwarded messages, sender of the original message
-forward_from_chat	Chat	Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
-forward_from_message_id	Integer	Optional. For messages forwarded from channels, identifier of the original message in the channel
-forward_signature	String	Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
-forward_sender_name	String	Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
-forward_date	Integer	Optional. For forwarded messages, date the original message was sent in Unix time
+forward_origin 	MessageOrigin 	Optional. Information about the original message for forwarded messages
 is_topic_message	True	Optional. True, if the message is sent to a forum topic
 is_automatic_forward	True	Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
 reply_to_message	Message	Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -84,8 +79,7 @@ class Message extends Type
     protected const TYPE_MAP = [
         'from' => User::class,
         'chat' => Chat::class,
-        'forward_from' => User::class,
-        'forward_from_chat' => Chat::class,
+        'forward_origin' => MessageOrigin::class,
         'reply_to_message' => self::class,
         'via_bot' => User::class,
         'entities' => [MessageEntity::class],
@@ -131,12 +125,7 @@ class Message extends Type
     protected ?User $from = null;
     protected int $date;
     protected ?Chat $chat = null;
-    protected ?User $forward_from = null;
-    protected ?Chat $forward_from_chat = null;
-    protected ?int $forward_from_message_id = null;
-    protected ?string $forward_signature = null;
-    protected ?string $forward_sender_name = null;
-    protected ?int $forward_date = null;
+    protected MessageOrigin|MessageOriginChat|MessageOriginChannel|MessageOriginUser|MessageOriginHiddenUser|null $forward_origin = null;
     protected ?Message $reply_to_message = null;
     protected ?User $via_bot = null;
     protected ?int $edit_date = null;
@@ -193,6 +182,15 @@ class Message extends Type
     protected ?WebAppData $web_app_data = null;
     protected ?InlineKeyboardMarkup $reply_markup = null;
 
+    public function __construct($dataObject = [])
+    {
+        parent::__construct($dataObject);
+
+        if (!empty($dataObject['forward_origin'])) {
+            $this->forward_origin = MessageOrigin::create($dataObject['forward_origin']);
+        }
+    }
+
     /**
      * @return int
      */
@@ -223,54 +221,6 @@ class Message extends Type
     public function getChat(): ?Chat
     {
         return $this->chat;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getForwardFrom(): ?User
-    {
-        return $this->forward_from;
-    }
-
-    /**
-     * @return Chat|null
-     */
-    public function getForwardFromChat(): ?Chat
-    {
-        return $this->forward_from_chat;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getForwardFromMessageId(): ?int
-    {
-        return $this->forward_from_message_id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getForwardSignature(): ?string
-    {
-        return $this->forward_signature;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getForwardSenderName(): ?string
-    {
-        return $this->forward_sender_name;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getForwardDate(): ?int
-    {
-        return $this->forward_date;
     }
 
     /**
@@ -726,4 +676,10 @@ class Message extends Type
 
         return false;
     }
+
+    public function getForwardOrigin(): ?MessageOrigin
+    {
+        return $this->forward_origin;
+    }
+
 }
