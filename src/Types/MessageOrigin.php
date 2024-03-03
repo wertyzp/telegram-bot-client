@@ -8,7 +8,7 @@ class MessageOrigin extends Type
 {
     protected string $type;
 
-    public static function create(array $data): static
+    public static function create(array|object $data): static
     {
         $type = $data['type'];
         $class = match ($type) {
