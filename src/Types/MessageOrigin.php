@@ -10,6 +10,7 @@ class MessageOrigin extends Type
 
     public static function create(array|object $data): static
     {
+        settype($data, 'array');
         $type = $data['type'];
         $class = match ($type) {
             'user' => MessageOriginUser::class,
