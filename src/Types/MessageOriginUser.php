@@ -6,16 +6,20 @@ namespace Werty\Http\Clients\TelegramBot\Types;
 
 /**
  * Field    Type    Description
- * type    String    Type of the message origin, always “hidden_user”
+ * type    String    Type of the message origin, always “user”
  * date    Integer    Date the message was sent originally in Unix time
- * sender_user_name    String    Name of the user that sent the message originally
+ * sender_user    User    User that sent the message originally
  */
 
 class MessageOriginUser extends MessageOrigin
 {
-    protected string $type = 'hidden_user';
+    protected string $type = 'user';
     protected int $date;
-    protected string $sender_user_name;
+    protected User $sender_user;
+
+    protected const TYPE_MAP = [
+        'sender_user' => User::class,
+    ];
 
     public function getType(): string
     {
@@ -27,8 +31,9 @@ class MessageOriginUser extends MessageOrigin
         return $this->date;
     }
 
-    public function getSenderUserName(): string
+    public function getSenderUser(): User
     {
-        return $this->sender_user_name;
+        return $this->sender_user;
     }
+
 }
