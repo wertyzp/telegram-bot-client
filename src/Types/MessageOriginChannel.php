@@ -12,7 +12,7 @@ namespace Werty\Http\Clients\TelegramBot\Types;
  * message_id    Integer    Unique message identifier inside the chat
  * author_signature    String    Optional. Signature of the original post author
  */
-class MessageOriginChannel extends Type
+class MessageOriginChannel extends MessageOrigin
 {
     protected string $type = 'channel';
     protected int $date;

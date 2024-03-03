@@ -11,7 +11,7 @@ namespace Werty\Http\Clients\TelegramBot\Types;
  * sender_user_name    String    Name of the user that sent the message originally
  */
 
-class MessageOriginHiddenUser extends Type
+class MessageOriginHiddenUser extends MessageOrigin
 {
     protected string $type = 'hidden_user';
     protected int $date;
