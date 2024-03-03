@@ -185,7 +185,7 @@ class Message extends Type
     public function __construct($dataObject = [])
     {
         parent::__construct($dataObject);
-
+        settype($dataObject, 'array');
         if (!empty($dataObject['forward_origin'])) {
             $this->forward_origin = MessageOrigin::create($dataObject['forward_origin']);
         }
