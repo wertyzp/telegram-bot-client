@@ -30,6 +30,12 @@ class KeyboardButton extends Type
     protected ?KeyboardButtonPollType $request_poll = null;
     protected ?WebAppInfo $web_app = null;
 
+    public static function create(string $text): self
+    {
+        return new self([
+            'text' => $text,
+        ]);
+    }
     /**
      * @return string
      */
