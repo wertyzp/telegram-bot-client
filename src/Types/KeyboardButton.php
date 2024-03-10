@@ -91,4 +91,40 @@ class KeyboardButton extends Type
     {
         return $this->web_app;
     }
+
+    public function setText(string $text): void
+    {
+        $this->text = $text;
+    }
+
+    public function setRequestUser(?KeyboardButtonRequestUser $request_user): void
+    {
+        $this->request_user = $request_user;
+    }
+
+    public function setRequestChat(?KeyboardButtonRequestChat $request_chat): void
+    {
+        $this->request_chat = $request_chat;
+    }
+
+    public function setRequestContact(?bool $request_contact): void
+    {
+        $this->request_contact = $request_contact;
+    }
+
+    public function setRequestLocation(?bool $request_location): void
+    {
+        $this->request_location = $request_location;
+    }
+
+    public function setRequestPoll(?KeyboardButtonPollType $request_poll): void
+    {
+        $this->request_poll = $request_poll;
+    }
+
+    public function setWebApp(?WebAppInfo $web_app): void
+    {
+        $this->web_app = $web_app;
+    }
+
 }

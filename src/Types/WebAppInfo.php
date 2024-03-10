@@ -12,4 +12,16 @@ class WebAppInfo extends Type
     {
         return $this->url;
     }
+
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
+    public static function create(string $url): self
+    {
+        return new static([
+            'url' => $url,
+        ]);
+    }
 }
