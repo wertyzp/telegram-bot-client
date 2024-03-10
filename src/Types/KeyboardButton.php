@@ -92,39 +92,46 @@ class KeyboardButton extends Type
         return $this->web_app;
     }
 
-    public function setText(string $text): void
+    public function setText(string $text): KeyboardButton
     {
         $this->text = $text;
+        return $this;
     }
 
-    public function setRequestUser(?KeyboardButtonRequestUser $request_user): void
+    public function setRequestUser(?KeyboardButtonRequestUser $request_user): KeyboardButton
     {
         $this->request_user = $request_user;
+        return $this;
     }
 
-    public function setRequestChat(?KeyboardButtonRequestChat $request_chat): void
+    public function setRequestChat(?KeyboardButtonRequestChat $request_chat): KeyboardButton
     {
         $this->request_chat = $request_chat;
+        return $this;
     }
 
-    public function setRequestContact(?bool $request_contact): void
+    public function setRequestContact(?bool $request_contact): KeyboardButton
     {
         $this->request_contact = $request_contact;
+        return $this;
     }
 
-    public function setRequestLocation(?bool $request_location): void
+    public function setRequestLocation(?bool $request_location): KeyboardButton
     {
         $this->request_location = $request_location;
+        return $this;
     }
 
-    public function setRequestPoll(?KeyboardButtonPollType $request_poll): void
+    public function setRequestPoll(?KeyboardButtonPollType $request_poll): KeyboardButton
     {
         $this->request_poll = $request_poll;
+        return $this;
     }
 
-    public function setWebApp(?WebAppInfo $web_app): void
+    public function setWebApp(?WebAppInfo $web_app): KeyboardButton
     {
         $this->web_app = $web_app;
+        return $this;
     }
 
 }
