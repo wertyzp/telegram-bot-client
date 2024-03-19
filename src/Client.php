@@ -230,9 +230,9 @@ class Client
         return $this->send('getUserProfilePhotos', $userProfilePhotos->toPostData(), UserProfilePhotos::class);
     }
 
-    public function getFile(Requests\GetFile $file): File
+    public function getFile(Requests\GetFile $file): Types\File
     {
-        return $this->send('getFile', $file->toPostData(), File::class);
+        return $this->send('getFile', $file->toPostData(), Types\File::class);
     }
 
     public function banChatMember(Requests\BanChatMember $banChatMember): bool
