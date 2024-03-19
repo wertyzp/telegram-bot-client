@@ -82,6 +82,7 @@ abstract class ModelBase
         }
 
         // we've got an array, expected to create an array
+        settype($value, self::T_ARRAY);
         $typeKey = self::T_INTEGER;
         $type = $map;
         for ($level = 0; is_array($type); $level++) {
