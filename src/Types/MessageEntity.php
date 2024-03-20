@@ -42,6 +42,10 @@ class MessageEntity extends Type
     protected ?string $language = null;
     protected ?string $custom_emoji_id = null;
 
+    protected const TYPE_MAP = [
+        'user' => User::class,
+    ];
+
     public static function create(string $type, int $offset, int $length): static
     {
         return new static([
