@@ -8,7 +8,21 @@ class MessageEntity extends Type
 {
     public const TYPE_TEXT_LINK = 'text_link';
     public const TYPE_URL = 'url';
-
+    public const TYPE_TEXT_MENTION = 'text_mention';
+    public const TYPE_CUSTOM_EMOJI = 'custom_emoji';
+    public const TYPE_BOT_COMMAND = 'bot_command';
+    public const TYPE_HASHTAG = 'hashtag';
+    public const TYPE_CASHTAG = 'cashtag';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_PHONE_NUMBER = 'phone_number';
+    public const TYPE_BOLD = 'bold';
+    public const TYPE_ITALIC = 'italic';
+    public const TYPE_UNDERLINE = 'underline';
+    public const TYPE_STRIKETHROUGH = 'strikethrough';
+    public const TYPE_SPOILER = 'spoiler';
+    public const TYPE_CODE = 'code';
+    public const TYPE_PRE = 'pre';
+    
     /**
     Field	Type	Description
     type	String	Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers)
