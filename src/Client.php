@@ -45,6 +45,8 @@ class Client
         Requests\SendAnimation::class => ['sendAnimation', Types\Message::class],
         Requests\SendVoice::class => ['sendVoice', Types\Message::class],
         Requests\SendMediaGroup::class => ['sendMediaGroup', [Types\Message::class]],
+        Requests\EditMessageMedia::class => ['editMessageMedia', [Types\Message::class]],
+        Requests\EditMessageCaption::class => ['editMessageCaption', Types\Message::class],
         Requests\SendVenue::class => ['sendVenue', Types\Message::class],
         Requests\SendContact::class => ['sendContact', Types\Message::class],
         Requests\SendPoll::class => ['sendPoll', Types\Message::class],
@@ -283,6 +285,16 @@ class Client
     public function sendMediaGroup(Requests\SendMediaGroup $mediaGroup): array
     {
         return $this->send('sendMediaGroup', $mediaGroup->toPostData(), [Message::class]);
+    }
+
+    public function editMessageMedia(Requests\EditMessageMedia $editMessageMedia): Types\Message
+    {
+        return $this->send('editMessageMedia', $editMessageMedia->toPostData(), [Message::class]);
+    }
+    
+    public function editMessageCaption(Requests\EditMessageCaption $editMessageCaption): Message
+    {
+        return $this->send('editMessageCaption', $editMessageCaption->toPostData(), Message::class);
     }
 
     public function sendVenue(Requests\SendVenue $venue): Message
