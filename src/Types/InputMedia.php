@@ -50,13 +50,15 @@ abstract class InputMedia extends Type
             return $data;
         }
 
-        if (!file_exists($file)) {
-            throw new \Exception("File {$this->media} doesn't exist");
+        if (file_exists($file)) {
+            $fileKey = 'item' . crc32($file);
+            $data['media'] = "attach://$fileKey";
+
+            return $data;
         }
 
-        $fileKey = 'item' . crc32($file);
-        $data['media'] = "attach://$fileKey";
-
+        // case when media is a file_id
+        $data['media'] = $file;
         return $data;
     }
 }

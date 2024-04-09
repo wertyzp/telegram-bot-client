@@ -291,7 +291,7 @@ class Client
     {
         return $this->send('editMessageMedia', $editMessageMedia->toPostData(), [Message::class]);
     }
-    
+
     public function editMessageCaption(Requests\EditMessageCaption $editMessageCaption): Message
     {
         return $this->send('editMessageCaption', $editMessageCaption->toPostData(), Message::class);
