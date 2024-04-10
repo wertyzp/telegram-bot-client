@@ -21,7 +21,7 @@ class SetMessageReaction extends Type
     ];
 
     protected const TYPE_MAP = [
-        'reaction' => ReactionType::class,
+        'reaction' => [ReactionType::class],
     ];
 
     protected int|string $chatId;
