@@ -17,6 +17,11 @@ class EditMessageMedia extends Request
     media	InputMedia	Yes	A JSON-serialized object for a new media content of the message
     reply_markup	InlineKeyboardMarkup	Optional	A JSON-serialized object for a new inline keyboard.
      */
+    protected const SERIALIZE_JSON = [
+        'media',
+        'reply_markup',
+    ];
+
     protected const TYPE_MAP = [
         'media' => InputMedia::class,
         'reply_markup' => InlineKeyboardMarkup::class,
