@@ -45,7 +45,7 @@ class Client
         Requests\SendAnimation::class => ['sendAnimation', Types\Message::class],
         Requests\SendVoice::class => ['sendVoice', Types\Message::class],
         Requests\SendMediaGroup::class => ['sendMediaGroup', [Types\Message::class]],
-        Requests\EditMessageMedia::class => ['editMessageMedia', [Types\Message::class]],
+        Requests\EditMessageMedia::class => ['editMessageMedia', Types\Message::class],
         Requests\EditMessageCaption::class => ['editMessageCaption', Types\Message::class],
         Requests\SendVenue::class => ['sendVenue', Types\Message::class],
         Requests\SendContact::class => ['sendContact', Types\Message::class],
@@ -290,7 +290,7 @@ class Client
 
     public function editMessageMedia(Requests\EditMessageMedia $editMessageMedia): Types\Message
     {
-        return $this->send('editMessageMedia', $editMessageMedia->toPostData(), [Message::class]);
+        return $this->send('editMessageMedia', $editMessageMedia->toPostData(), Message::class);
     }
 
     public function setMessageReaction(Requests\SetMessageReaction $setMessageReaction): bool
