@@ -109,6 +109,7 @@ class Client
         Requests\AnswerPreCheckoutQuery::class => ['answerPreCheckoutQuery', ModelBase::T_BOOLEAN],
         Requests\AnswerShippingQuery::class => ['answerShippingQuery', ModelBase::T_BOOLEAN],
         Requests\CreateInvoiceLink::class => ['createInvoiceLink', ModelBase::T_STRING],
+        Requests\SetMessageReaction::class => ['setMessageReaction', ModelBase::T_BOOLEAN],
     ];
 
     public function __construct($token)
@@ -290,6 +291,11 @@ class Client
     public function editMessageMedia(Requests\EditMessageMedia $editMessageMedia): Types\Message
     {
         return $this->send('editMessageMedia', $editMessageMedia->toPostData(), [Message::class]);
+    }
+
+    public function setMessageReaction(Requests\SetMessageReaction $setMessageReaction): bool
+    {
+        return $this->send('setMessageReaction', $setMessageReaction->toPostData(), ModelBase::T_BOOLEAN);
     }
 
     public function editMessageCaption(Requests\EditMessageCaption $editMessageCaption): Message
