@@ -13,7 +13,7 @@ use Werty\Http\Clients\TelegramBot\Types\Type;
 class ReactionType extends Type
 {
     public string $type = 'emoji';
-    public string $reaction;
+    public string $emoji;
 
     public const THUMBS_UP = '👍';
     public const THUMBS_DOWN = '👎';
@@ -94,7 +94,7 @@ class ReactionType extends Type
     public static function create(string $reaction): self
     {
         return new static([
-            'reaction' => $reaction,
+            'emoji' => $reaction,
         ]);
     }
 }
