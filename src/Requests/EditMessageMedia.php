@@ -108,4 +108,20 @@ class EditMessageMedia extends Request
 
         return $this;
     }
+
+    public function toPostData(): array
+    {
+        $data = parent::toPostData();
+        $file = $this->media->getMedia();
+        $parts = parse_url($file);
+
+        if ($parts['scheme'] === 'attach') {
+            $file = $this->media->getMedia();
+            $mimeType = mime_content_type($file);
+            $fileKey = $parts['path'];
+            $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
+        }
+
+        return $data;
+    }
 }
