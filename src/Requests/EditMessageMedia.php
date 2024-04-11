@@ -113,12 +113,11 @@ class EditMessageMedia extends Request
     {
         $data = parent::toPostData();
         $file = $this->media->getMedia();
-        $parts = parse_url($file);
 
-        if ($parts['scheme'] === 'attach') {
+        if ($this->media->willAttach()) {
             $file = $this->media->getMedia();
+            $fileKey = $this->media->getFileKey();
             $mimeType = mime_content_type($file);
-            $fileKey = $parts['path'];
             $data[$fileKey] = new \CURLFile($file, $mimeType, basename($file));
         }
 

@@ -41,6 +41,19 @@ abstract class InputMedia extends Type
         return $this;
     }
 
+    public function willAttach(): bool
+    {
+        if (!$this->isUrl($this->media) && file_exists($this->media)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getFileKey(): string
+    {
+        return 'item' . crc32($this->media);
+    }
+
     public function toPostData(): array
     {
         $data = parent::toPostData();
@@ -51,7 +64,7 @@ abstract class InputMedia extends Type
         }
 
         if (file_exists($file)) {
-            $fileKey = 'item' . crc32($file);
+            $fileKey = $this->getFileKey();
             $data['media'] = "attach://$fileKey";
 
             return $data;
