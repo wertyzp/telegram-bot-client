@@ -340,7 +340,7 @@ class Client
 
         if ($errno) {
             $message = curl_error($ch);
-            throw new CurlException($message, $errno, var_export($opts, true));
+            throw new CurlException($message, $errno, $opts);
         }
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
