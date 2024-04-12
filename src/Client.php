@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Werty\Http\Clients\TelegramBot;
 
+use Werty\Http\Clients\TelegramBot\Exceptions\CurlException;
 use Werty\Http\Clients\TelegramBot\Exceptions\HttpException;
 use Werty\Http\Clients\TelegramBot\Requests\AnswerCallbackQuery;
 use Werty\Http\Clients\TelegramBot\Requests\ForwardMessage;
@@ -339,7 +340,7 @@ class Client
 
         if ($errno) {
             $message = curl_error($ch);
-            throw new Exception($message, $errno, var_export($opts, true), $result);
+            throw new CurlException($message, $errno, var_export($opts, true));
         }
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

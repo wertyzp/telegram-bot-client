@@ -112,7 +112,6 @@ class EditMessageMedia extends Request
     public function toPostData(): array
     {
         $data = parent::toPostData();
-        $file = $this->media->getMedia();
 
         if ($this->media->willAttach()) {
             $file = $this->media->getMedia();
