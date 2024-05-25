@@ -36,6 +36,7 @@ class SendMessage extends Request
     protected const SERIALIZE_JSON = [
         'entities',
         'reply_markup',
+        'link_preview_options',
     ];
 
     protected int|string $chat_id;
