@@ -6,6 +6,7 @@ namespace Werty\Http\Clients\TelegramBot\Requests;
 
 use Werty\Http\Clients\TelegramBot\Types\ForceReply;
 use Werty\Http\Clients\TelegramBot\Types\InlineKeyboardMarkup;
+use Werty\Http\Clients\TelegramBot\Types\LinkPreviewOptions;
 use Werty\Http\Clients\TelegramBot\Types\MessageEntity;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardMarkup;
 use Werty\Http\Clients\TelegramBot\Types\ReplyKeyboardRemove;
@@ -17,6 +18,7 @@ message_thread_id	Integer	Optional	Unique identifier for the target message thre
 text	String	Yes	Text of the message to be sent, 1-4096 characters after entities parsing
 parse_mode	String	Optional	Mode for parsing entities in the message text. See formatting options for more details.
 entities	Array of MessageEntity	Optional	A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+link_preview_options 	LinkPreviewOptions 	Optional 	Link preview generation options for the message
 disable_web_page_preview	Boolean	Optional	Disables link previews for links in this message
 disable_notification	Boolean	Optional	Sends the message silently. Users will receive a notification with no sound.
 protect_content	Boolean	Optional	Protects the contents of the sent message from forwarding and saving
@@ -28,6 +30,7 @@ class SendMessage extends Request
 {
     protected const TYPE_MAP = [
         'entities' => [MessageEntity::class],
+        'link_preview_options' => LinkPreviewOptions::class,
     ];
 
     protected const SERIALIZE_JSON = [
@@ -40,6 +43,7 @@ class SendMessage extends Request
      * @var MessageEntity[]
      */
     protected ?array $entities = null;
+    protected ?LinkPreviewOptions $link_preview_options = null;
     protected ?int $message_thread_id = null;
     protected string $text;
     protected ?string $parse_mode = null;
@@ -66,6 +70,12 @@ class SendMessage extends Request
     {
         $this->chat_id = $chat_id;
 
+        return $this;
+    }
+
+    public function setLinkPreviewOptions(?LinkPreviewOptions $link_preview_options): SendMessage
+    {
+        $this->link_preview_options = $link_preview_options;
         return $this;
     }
 
