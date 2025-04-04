@@ -24,8 +24,8 @@ class EditMessageCaption extends Request
         'caption_entities',
     ];
 
-    protected string|int|null $chatId = null;
-    protected ?int $messageId = null;
+    protected string|int|null $chat_id = null;
+    protected ?int $message_id = null;
     protected ?string $inline_message_id = null;
     protected ?string $caption = null;
     protected ?string $parse_mode = null;
@@ -43,13 +43,13 @@ class EditMessageCaption extends Request
 
     public function setChatId(int|string|null $chatId): EditMessageCaption
     {
-        $this->chatId = $chatId;
+        $this->chat_id = $chatId;
         return $this;
     }
 
     public function setMessageId(?int $messageId): EditMessageCaption
     {
-        $this->messageId = $messageId;
+        $this->message_id = $messageId;
         return $this;
     }
 
