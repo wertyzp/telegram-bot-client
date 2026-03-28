@@ -27,6 +27,10 @@ class SetWebhook extends Request
     protected ?bool $drop_pending_updates = null;
     protected ?string $secret_token = null;
 
+    protected const SERIALIZE_JSON = [
+        'allowed_updates',
+    ];
+
     /**
      * @param string $url
      * @return SetWebhook
