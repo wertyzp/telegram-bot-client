@@ -99,6 +99,7 @@ class Message extends Type
         'poll' => Poll::class,
         'dice' => Dice::class,
         'new_chat_members' => [User::class],
+        'new_chat_member' => User::class,
         'left_chat_member' => User::class,
         'message_auto_delete_timer_changed' => MessageAutoDeleteTimerChanged::class,
         'pinned_message' => self::class,
